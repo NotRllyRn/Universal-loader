@@ -1,4 +1,8 @@
---loadstring(game:HttpGet("https://pastebin.com/raw/htFdqEZg"))()
+--[[
+    
+    loadURL("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UnivalLoader.lua")
+
+]]
 
 mathseed = os.time()
 math.randomseed(mathseed)
@@ -53,7 +57,7 @@ end
 function OnOff(val)
 	val = val or false
     assert(type(val) == "boolean","no")
-    local globalName = loadstring(game:HttpGet("https://pastebin.com/raw/YeFhjYBZ"))(val)
+    local globalName = loadURL("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOff.lua",{val})
     return globalName
 end
 
@@ -91,12 +95,12 @@ end
 
 function antiLAG()
 	pcall(function()
-    	loadstring(game:HttpGet("https://pastebin.com/raw/HT8M89TM"))()
+    	loadURL("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/AntiLag.lua")
 	end)
 end
 
 function serverHop()
-    loadstring(game:HttpGet("https://pastebin.com/raw/eJ54K5zB"))()
+    loadURL("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/ServerHop.lua")
 end
 
 function fireTouch(root,target)
