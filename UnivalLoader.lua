@@ -1,5 +1,7 @@
 --loadstring(game:HttpGet("https://pastebin.com/raw/htFdqEZg"))()
 
+print("thats super cool")
+
 mathseed = os.time()
 math.randomseed(mathseed)
 
