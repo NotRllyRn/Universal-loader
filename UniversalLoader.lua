@@ -4,7 +4,7 @@
 
 ]]
 
-mathseed = tonumber(tostring(os.time()):reverse():sub(1,6))
+mathseed = tick()
 math.randomseed(mathseed)
 
 renderS = game:GetService("RunService").RenderStepped
