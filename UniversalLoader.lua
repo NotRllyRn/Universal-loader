@@ -1,6 +1,6 @@
 --[[
     
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UnivalLoader.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UniversalLoader.lua"))()
 
 ]]
 
