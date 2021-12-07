@@ -1,6 +1,6 @@
 --[[
     
-    loadURL("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UnivalLoader.lua")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UnivalLoader.lua"))()
 
 ]]
 
@@ -57,7 +57,7 @@ end
 function OnOff(val)
 	val = val or false
     assert(type(val) == "boolean","no")
-    local globalName = loadURL("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOff.lua",{val})
+    local globalName = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOff.lua"))(val)
     return globalName
 end
 
@@ -95,12 +95,12 @@ end
 
 function antiLAG()
 	pcall(function()
-    	loadURL("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/AntiLag.lua")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/AntiLag.lua"))()
 	end)
 end
 
 function serverHop()
-    loadURL("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/ServerHop.lua")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/ServerHop.lua"))()
 end
 
 function fireTouch(root,target)
