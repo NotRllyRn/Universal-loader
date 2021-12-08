@@ -10,14 +10,6 @@ local success,error1 = pcall(function()
     math.randomseed(mathseed)
 
     renderS = game:GetService("RunService").RenderStepped
- 
-    function wait(n)
-        local n = n or 0
-        assert(type(n) == "number","no")
-        for _ 1,(n*60) do
-            renderS:Wait()
-        end
-    end
 
     repeat wait() until game:IsLoaded() 
     virtualUser = game:GetService("VirtualUser")
