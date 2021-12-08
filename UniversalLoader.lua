@@ -3,10 +3,10 @@
     loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UniversalLoader.lua"))()
 
 ]]
-print(1)
-print(2)
+print('nice')
+
 local success,error1 = pcall(function()
-    print(3)
+
     mathseed = tick()
     math.randomseed(mathseed)
 
@@ -217,8 +217,4 @@ local success,error1 = pcall(function()
     end)
 end)
 
-print(success)
-
-if not success then
-    warn(error1)
-end
+print('finshed')
