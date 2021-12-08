@@ -18,13 +18,6 @@ local success,error1 = pcall(function()
 
     workspace = game:GetService("Workspace")
 
-    function ifBreak(checking,val)
-        assert(type(val) == type(checking),"no")
-        if (checking == val) then
-            return break
-        end
-    end
-
     function loopThrough(...)
         local arg = {...}
 
