@@ -25,6 +25,8 @@ end
 function loopThrough(...)
     local arg = {...}
 
+    print("before")
+
     assert(type(arg[1]) == "table","no")
     assert(type(arg[2]) == "function","no")
     print("past")
