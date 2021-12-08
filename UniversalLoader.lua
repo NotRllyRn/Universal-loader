@@ -217,6 +217,6 @@ local succ,err = pcall(function()
     nil = b
 end)
 
-if not succ then
-    return warn(err)
-end
+local err = err or "none"
+
+return succ,err
