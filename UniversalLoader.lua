@@ -4,17 +4,11 @@
 
 ]]
 
+print(1)
 mathseed = tick()
 math.randomseed(mathseed)
 
 renderS = game:GetService("RunService").RenderStepped
-repeat renderS:Wait() until game:IsLoaded() 
-
-virtualUser = game:GetService("VirtualUser")
-tweenService = game:GetService("TweenService")
-userInput = game:GetService("UserInputService")
-
-workspace = game:GetService("Workspace")
 
 function wait(n)  
     local n = n or 0
@@ -23,8 +17,14 @@ function wait(n)
         renderS:Wait()
     end
 end
+print(2)
+repeat wait() until game:IsLoaded() 
 
-print(1)
+virtualUser = game:GetService("VirtualUser")
+tweenService = game:GetService("TweenService")
+userInput = game:GetService("UserInputService")
+
+workspace = game:GetService("Workspace")
 
 function ifBreak(checking,val)
     assert(type(val) == type(checking),"no")
@@ -32,8 +32,6 @@ function ifBreak(checking,val)
         return break
     end
 end
-
-print(2)
 
 function loopThrough(...)
     local arg = {...}
