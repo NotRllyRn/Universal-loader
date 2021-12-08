@@ -214,4 +214,8 @@ local success,error1 = pcall(function()
     end)
 end)
 
-return success,error1
+print(success)
+
+if not success then
+    warn(error1)
+end
