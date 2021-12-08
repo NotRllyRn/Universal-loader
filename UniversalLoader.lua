@@ -25,6 +25,7 @@ function wait(n)
 end
 
 function ifBreak(checking,val)
+    assert(type(val) == type(checking),"no")
     if (checking == val) then
         return break
     end
