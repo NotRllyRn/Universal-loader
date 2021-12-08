@@ -17,6 +17,12 @@ userInput = game:GetService("UserInputService")
 workspace = game:GetService("Workspace")
 
 function frameWait(val)
+    local val = val or 1
+    assert(type(val) == "number","no")
+
+    if val == 0 then
+        val = 1
+    end
     for  _ = 1,val do
         renderS:Wait()
     end
