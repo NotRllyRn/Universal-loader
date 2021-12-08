@@ -11,16 +11,6 @@ local succ,err = pcall(function()
 
     renderS = game:GetService("RunService").RenderStepped
 
-    function wait(n)
-        if not n then
-            renderS:Wait()
-        else
-            assert(type(n) == "number","no")
-            for _ = 1,(n*60) do
-                renderS:Wait()
-            end
-        end
-    end
     repeat wait() until game:IsLoaded() 
     virtualUser = game:GetService("VirtualUser")
     tweenService = game:GetService("TweenService")
@@ -232,7 +222,3 @@ local succ,err = pcall(function()
         loading = false
     end)
 end)
-
-local err = err or "none"
-
-return succ,err
