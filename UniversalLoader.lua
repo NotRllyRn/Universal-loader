@@ -114,7 +114,7 @@ end
 
 function fireTouch(root,target)
 	if root and target then
-		firetouchinterest(root,target,0) renderS:Wait() firetouchinterest(root,target,1)
+		firetouchinterest(root,target,0) wait() firetouchinterest(root,target,1)
 	end
 end
 
@@ -165,7 +165,7 @@ localPlayer = players.LocalPlayer
 if localPlayer:HasAppearanceLoaded() then
     character = localPlayer.Character
 else
-    repeat renderS:Wait() until localPlayer:HasAppearanceLoaded()
+    repeat wait() until localPlayer:HasAppearanceLoaded()
     character = localPlayer.Character
 end
 
@@ -207,7 +207,7 @@ function onCharacterLoaded(loadWait,functioN)
     cWrap(function()
         localPlayer.CharacterAdded:Connect(function()
             if loadWait then
-                while loading do renderS:Wait() end
+                while loading do wait() end
             end
 
             functioN()
