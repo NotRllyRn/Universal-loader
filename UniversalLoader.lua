@@ -3,9 +3,10 @@
     loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UniversalLoader.lua"))()
 
 ]]
-
+print(1)
+print(2)
 local success,error1 = pcall(function()
-
+    print(3)
     mathseed = tick()
     math.randomseed(mathseed)
 
@@ -152,7 +153,9 @@ local success,error1 = pcall(function()
     if localPlayer:HasAppearanceLoaded() then
         character = localPlayer.Character
     else
+        print(1)
         repeat wait() until localPlayer:HasAppearanceLoaded()
+        print(2)
         character = localPlayer.Character
     end
 
