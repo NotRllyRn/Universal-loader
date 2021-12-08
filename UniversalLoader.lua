@@ -24,6 +24,12 @@ function wait(n)
     end
 end
 
+function ifBreak(checking,val)
+    if (checking == val) then
+        return break
+    end
+end
+
 function loopThrough(...)
     local arg = {...}
 
