@@ -3,6 +3,7 @@
     loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UniversalLoader.lua"))()
 
 ]]
+
 local succ,err = pcall(function()
 
     mathseed = tick()
