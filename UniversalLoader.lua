@@ -218,5 +218,5 @@ local succ,err = pcall(function()
 end)
 
 if not succ then
-    return error(err,0)
+    return warn(err)
 end
