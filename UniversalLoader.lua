@@ -65,7 +65,7 @@ function castRay(...)
     local arg = {...}
 
     if arg[1] and arg[2] then
-        assert(type(arg[1]) == "userdata","no")
+        assert(type(arg[1]) == "vector","no")
 
         local castprams = RaycastParams.new()
 
