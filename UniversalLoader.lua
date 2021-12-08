@@ -24,12 +24,16 @@ function wait(n)
     end
 end
 
+print(1)
+
 function ifBreak(checking,val)
     assert(type(val) == type(checking),"no")
     if (checking == val) then
         return break
     end
 end
+
+print(2)
 
 function loopThrough(...)
     local arg = {...}
