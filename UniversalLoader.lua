@@ -182,15 +182,16 @@ local succ,err = pcall(function()
     local idleConnection
 
     function antiAFK(val)
-        if val then
+        if val and not idleConnection then
             idleConnection = localPlayer.Idled:Connect(function()
                 virtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
                 wait(1)
                 virtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
             end)
-        elseif not val then
+        elseif not val and idleConnection then
             pcall(function()
                 idleConnection:Disconnect()
+                idleConnection = nil
             end)
         end
     end
