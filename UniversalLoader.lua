@@ -3,15 +3,16 @@
     loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UniversalLoader.lua"))()
 
 ]]
+print("nice")
+
 local success,error1 = pcall(function()
-    print(1)
+
     mathseed = tick()
     math.randomseed(mathseed)
 
     renderS = game:GetService("RunService").RenderStepped
-    print(2)
+ 
     repeat wait() until game:IsLoaded() 
-
     virtualUser = game:GetService("VirtualUser")
     tweenService = game:GetService("TweenService")
     userInput = game:GetService("UserInputService")
@@ -213,9 +214,3 @@ local success,error1 = pcall(function()
         loading = false
     end)
 end)
-
-if not success then
-    print(error1)
-end
-
-return success,error1
