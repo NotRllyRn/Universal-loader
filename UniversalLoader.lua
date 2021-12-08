@@ -3,7 +3,6 @@
     loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UniversalLoader.lua"))()
 
 ]]
-print("nice")
 
 local success,error1 = pcall(function()
 
@@ -214,3 +213,5 @@ local success,error1 = pcall(function()
         loading = false
     end)
 end)
+
+return success,error1
