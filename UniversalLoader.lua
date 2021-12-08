@@ -11,19 +11,23 @@ local succ,err = pcall(function()
 
     renderS = game:GetService("RunService").RenderStepped
 
+    function wait(n)
+        if not n then
+            renderS:Wait()
+        else
+            assert(type(n) == "number","no")
+            for _ = 1,(n*60) do
+                renderS:Wait()
+            end
+        end
+    end
+
     repeat wait() until game:IsLoaded() 
     virtualUser = game:GetService("VirtualUser")
     tweenService = game:GetService("TweenService")
     userInput = game:GetService("UserInputService")
 
     workspace = game:GetService("Workspace")
-
-    function ifBreak(check,val)
-        assert(type(check) == type(val),"no")
-        if (check == val) then
-            return break
-        end
-    end
 
     function loopThrough(...)
         local arg = {...}
