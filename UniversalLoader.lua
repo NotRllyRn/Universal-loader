@@ -213,8 +213,10 @@ local succ,err = pcall(function()
 
         loading = false
     end)
+
+    nil = b
 end)
 
-local err = err or "none"
-
-return succ,err
+if not succ then
+    return error(err,0)
+end
