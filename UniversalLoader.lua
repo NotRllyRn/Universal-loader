@@ -25,8 +25,8 @@ end
 function loopThrough(...)
     local arg = {...}
 
-    assert(arg[1] == "table","no")
-    assert(arg[2] == "function","no")
+    assert(type(arg[1]) == "table","no")
+    assert(type(arg[2]) == "function","no")
     for _,loop in pairs(arg[1]) do
         arg[2](loop)
     end
