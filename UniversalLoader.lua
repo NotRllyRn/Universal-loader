@@ -12,11 +12,10 @@ local succ,err = pcall(function()
     renderS = game:GetService("RunService").RenderStepped
 
     function wait(n)
-        local n = n or 0
-        assert(type(n) == "number","no")
-        if (n == 0) then
+        if not n then
             renderS:Wait()
         else
+            assert(type(n) == "number","no")
             for _ = 1,(n*60) do
                 renderS:Wait()
             end
