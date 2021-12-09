@@ -177,9 +177,18 @@ local succ,err = pcall(function()
         game:GetService("TeleportService"):Teleport(game.PlaceId, localPlayer)
     end
 
+    function checkGame(id)
+        assert(type(id) == "number","no")
+        if not (game.PlaceId == id) then
+            game:GetService("TeleportService"):Teleport(id, localPlayer)
+        end
+    end
+
     local idleConnection
 
     function antiAFK(val)
+        local val = val or true
+        assert(type(val) == "boolean")
         if val and not idleConnection then
             idleConnection = localPlayer.Idled:Connect(function()
                 virtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
