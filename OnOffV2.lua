@@ -21,6 +21,7 @@ local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn
 
 local create = {
     ["toggle"] = function(name,func,wind,gName)
+        func(gName)
         wind:CreateToggle(name,function(val)
             _G[gName] = val
         end)
