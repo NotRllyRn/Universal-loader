@@ -14,6 +14,8 @@ end
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GuiLib.lua"))()
 
+local globalNames = {}
+
 do
     local window = lib:CreateWindow("Strongest Punch Simulator")
 
@@ -22,10 +24,11 @@ do
     end)
     for _,v in pairs(arg) do
         setName = setname()
+        globalNames[arg[1]] = setName
         window:CreateToggle(arg[1],function(val)
             _G[setName] = val
         end)
     end
 end
 
-return globalName
+return globalNames

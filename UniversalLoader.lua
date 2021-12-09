@@ -62,8 +62,8 @@ local succ,err = pcall(function()
     end
 
     function OnOff(...)
-        local globalName = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOff.lua"))(...)
-        return globalName
+        local list = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOff.lua"))(...)
+        return list
     end
 
     function castRay(...)
