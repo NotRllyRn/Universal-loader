@@ -7,7 +7,7 @@ assert(type(title) == "string","no")
 local function setname()
     local v = randomNameNumber(10,20)
     if ((_G[v] == false) or (_G[v] == true)) then
-        v = setname
+        v = setname()
 
         _G[v] = false
         return v
@@ -26,7 +26,7 @@ do
         setclipboard("https://discord.gg/zpFpWqBqCn")
     end)
     for _,v in pairs(arg[2]) do
-        setName = setname()
+        local setName = setname()
         window:CreateToggle(v[1],function(val)
             print(setName.." = "..tostring(val))
             _G[setName] = val
