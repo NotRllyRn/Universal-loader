@@ -1,5 +1,5 @@
 local arg = ({...})
-
+print(arg[1],arg[2])
 local title = arg[1] or ""
 
 assert(type(title) == "string")
@@ -26,6 +26,7 @@ do
     end)
     for _,v in pairs(arg[2]) do
         setName = setname()
+        print(setName)
         window:CreateToggle(v[1],function(val)
             _G[setName] = val
             if val then
