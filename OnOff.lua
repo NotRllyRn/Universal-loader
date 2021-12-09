@@ -53,6 +53,7 @@ TextLabel.BackgroundTransparency = 1.000
 TextLabel.BorderSizePixel = 0
 TextLabel.Size = UDim2.new(0.799999952, 0, 0.142857149, 0)
 TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = title
 TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel.TextScaled = true
 TextLabel.TextSize = 14.000
