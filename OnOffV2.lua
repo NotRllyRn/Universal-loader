@@ -28,7 +28,6 @@ do
     for _,v in pairs(arg[2]) do
         local setName = setname()
         window:CreateToggle(v[1],function(val)
-            print(setName.." = "..tostring(val))
             _G[setName] = val
             if val then
                 cWrap(function()
