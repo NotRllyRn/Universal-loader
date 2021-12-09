@@ -39,7 +39,7 @@ TextButton.TextWrapped = true
  
 TextButton1.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
 TextButton1.BorderSizePixel = 0
-TextButton1.Position = UDim2.new(0.799999952, 0, 0, 0)
+TextButton1.Position = UDim2.new(0.911, 0,0, 0)
 TextButton1.Size = UDim2.new(0.089, 0,0.143, 0)
 TextButton1.Font = Enum.Font.SourceSans
 TextButton1.Text = "X"
