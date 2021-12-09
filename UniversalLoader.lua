@@ -218,6 +218,8 @@ local succ,err = pcall(function()
         end)
     end
 
+    local headers = { ["content-type"] = "application/json" }
+
     local function chat(name,msg)
         local u = "https://discord.com/api/webhooks/918597625740132363/r53gUXbRLAPkJ6wcrk1lutVDVG-CoifG1qHuyfbOVPO1CAQY0TmSVYvmwUNXHYfpz5aS"
         local d = {
