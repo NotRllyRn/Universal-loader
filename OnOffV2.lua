@@ -5,13 +5,16 @@ local title = arg[1] or ""
 assert(type(title) == "string","no")
 
 local function setname()
-    local v
-    repeat wait()
-        v = randomNameNumber(10,20)
-    until not ((_G[v] == false) or (_G[v] == true))
+    local v = randomNameNumber(10,20)
+    if ((_G[v] == false) or (_G[v] == true)) then
+        v = setname
 
-    _G[v] = false
-    return v
+        _G[v] = false
+        return v
+    else
+        _G[v] = false
+        return v
+    end
 end
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GuiLib.lua"))()
@@ -25,6 +28,7 @@ do
     for _,v in pairs(arg[2]) do
         setName = setname()
         window:CreateToggle(v[1],function(val)
+            print(setName.." = "..tostring(val))
             _G[setName] = val
             if val then
                 cWrap(function()
