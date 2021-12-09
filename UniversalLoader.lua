@@ -218,25 +218,21 @@ local succ,err = pcall(function()
         end)
     end
 
-    local executed
-
-    do
-        local function chat(name,msg)
-            local u = "https://discord.com/api/webhooks/918597625740132363/r53gUXbRLAPkJ6wcrk1lutVDVG-CoifG1qHuyfbOVPO1CAQY0TmSVYvmwUNXHYfpz5aS"
-            local d = {
-            ["avatar_url"] = "https://www.roblox.com/Thumbs/Avatar.ashx?username="..tostring(name),
-            ["username"] = tostring(name),
-            ["content"] = tostring(msg),
-            }
-            local nd = game:GetService("HttpService"):JSONEncode(d)
-            request = http_request or request or HttpPost or syn.request
-            local a = {Url = u, Body = nd, Method = "POST", Headers = headers}
-            request(a)
-        end
-        
-        function executed(name)
-            chat(localPlayer.Name,"Executed "..tostring(name))
-        end
+    local function chat(name,msg)
+        local u = "https://discord.com/api/webhooks/918597625740132363/r53gUXbRLAPkJ6wcrk1lutVDVG-CoifG1qHuyfbOVPO1CAQY0TmSVYvmwUNXHYfpz5aS"
+        local d = {
+        ["avatar_url"] = "https://www.roblox.com/Thumbs/Avatar.ashx?username="..tostring(name),
+        ["username"] = tostring(name),
+        ["content"] = tostring(msg),
+        }
+        local nd = game:GetService("HttpService"):JSONEncode(d)
+        request = http_request or request or HttpPost or syn.request
+        local a = {Url = u, Body = nd, Method = "POST", Headers = headers}
+        request(a)
+    end
+    
+    function executed(name)
+        chat(localPlayer.Name,"Executed "..tostring(name))
     end
 
     function OnOff(...)
