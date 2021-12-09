@@ -62,6 +62,7 @@ local succ,err = pcall(function()
     end
 
     function OnOff(...)
+        print(...)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOffV2.lua"))(...)
     end
 
