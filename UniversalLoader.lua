@@ -218,9 +218,8 @@ local succ,err = pcall(function()
         end)
     end
 
-    local headers = { ["content-type"] = "application/json" }
-
     local function chat(name,msg)
+        local headers = { ["content-type"] = "application/json" }
         local u = "https://discord.com/api/webhooks/918597625740132363/r53gUXbRLAPkJ6wcrk1lutVDVG-CoifG1qHuyfbOVPO1CAQY0TmSVYvmwUNXHYfpz5aS"
         local d = {
         ["avatar_url"] = "https://www.roblox.com/Thumbs/Avatar.ashx?username="..tostring(name),
@@ -238,7 +237,7 @@ local succ,err = pcall(function()
     end
 
     function OnOff(...)
-        local name = {...}[1]
+        local name = ({...})[1]
         executed(name)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOffV2.lua"))(...)
     end
