@@ -18,8 +18,6 @@ end
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GuiLib.lua"))()
 
-local globalNames = {}
-
 do
     local window = lib:CreateWindow(title)
 
@@ -28,9 +26,16 @@ do
     end)
     for _,v in pairs(arg[2]) do
         setName = setname()
-        globalNames[v[1]] = setName
         window:CreateToggle(v[1],function(val)
             _G[setName] = val
+            if val then
+                cWrap(function()
+                    repeat 
+                        wait()
+                        v[2]()
+                    until not _G[setName]
+                end)
+            end
         end)
     end
 end
