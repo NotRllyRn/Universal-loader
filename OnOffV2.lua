@@ -5,15 +5,13 @@ local title = arg[1] or ""
 assert(type(title) == "string","no")
 
 local function setname()
-    local v = randomNameNumber(10,20)
-    if (_G[v] == false) or (_G[v] == true) then
+    local v
+    repeat wait()
         v = randomNameNumber(10,20)
-        
-        setname()
-    else
-        _G[v] = false
-        return v
-    end
+    until not ((_G[v] == false) or (_G[v] == true))
+
+    _G[v] = false
+    return v
 end
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GuiLib.lua"))()
