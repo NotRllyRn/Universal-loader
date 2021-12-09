@@ -1,3 +1,5 @@
+print("got to onofffunction")
+
 local arg = ({...})
 print(arg[1],arg[2])
 local title = arg[1] or ""
