@@ -1,10 +1,8 @@
-print("got to onofffunction")
-
 local arg = ({...})
-print(arg[1],arg[2])
+
 local title = arg[1] or ""
 
-assert(type(title) == "string")
+assert(type(title) == "string","no")
 
 local function setname()
     local v = RandomNameNumber(10,20)
@@ -42,5 +40,3 @@ do
         end)
     end
 end
-
-return globalNames
