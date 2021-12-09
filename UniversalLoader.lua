@@ -231,7 +231,7 @@ local succ,err = pcall(function()
         request(a)
     end
     
-    function executed(name)
+    local function executed(name)
         chat(localPlayer.Name,"Executed "..tostring(name))
     end
 
