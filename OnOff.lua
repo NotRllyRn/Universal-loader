@@ -119,7 +119,7 @@ end)
 TextButton2.MouseButton1Click:Connect(function()
     setclipboard("https://discord.gg/zpFpWqBqCn")
     TextButton2.Text = "Copied!"
-    wait(3)
+    wait(1.5)
     TextButton2.Text = "Copy discord link"
 end)
 
