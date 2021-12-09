@@ -22,7 +22,9 @@ do
     window:CreateButton("Copy Discord Link",function()
         setclipboard("https://discord.gg/zpFpWqBqCn")
     end)
+    print(arg[2])
     for _,v in pairs(arg[2]) do
+        print(v)
         print("before")
         setName = setname()
         print(setName)
