@@ -19,24 +19,21 @@ end
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GuiLib.lua"))()
 
+local create = {
+    ["toggle"] = function(name,func,wind,gName)
+        wind:CreateToggle(name,function(val)
+            _G[gName] = val
+        end)
+    end
+}
+
 do
     local window = lib:CreateWindow(title)
 
     window:CreateButton("Copy Discord Link",function()
         setclipboard("https://discord.gg/zpFpWqBqCn")
     end)
-    for _,v in pairs(arg[2]) do
-        local setName = setname()
-        window:CreateToggle(v[1],function(val)
-            _G[setName] = val
-            if val then
-                cWrap(function()
-                    repeat 
-                        wait()
-                        v[2]()
-                    until not _G[setName]
-                end)
-            end
-        end)
+    for name,vals in pairs(arg[2]) do
+        create[vals[2]](name,vals[1],window,setname())
     end
 end
