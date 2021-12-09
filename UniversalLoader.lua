@@ -169,9 +169,7 @@ local succ,err = pcall(function()
     if localPlayer:HasAppearanceLoaded() then
         character = localPlayer.Character
     else
-        print(1)
         repeat wait() until localPlayer:HasAppearanceLoaded()
-        print(2)
         character = localPlayer.Character
     end
 
@@ -246,7 +244,7 @@ local succ,err = pcall(function()
     end
     
     local function executed(name)
-        chat(localPlayer.Name,"Executed "..tostring(name))
+        chat(localPlayer.Name,"Executed Script: "..tostring(name))
     end
 
     function OnOff(...)
