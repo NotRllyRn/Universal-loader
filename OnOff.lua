@@ -115,7 +115,10 @@ TextButton1.MouseButton1Click:Connect(function()
 end)
 
 TextButton2.MouseButton1Click:Connect(function()
-    setclipboard("")
+    setclipboard("https://discord.gg/zpFpWqBqCn")
+    TextButton2.Text = "Copied!"
+    wait(3)
+    TextButton2.Text = "Copy discord link"
 end)
 
 return globalName
