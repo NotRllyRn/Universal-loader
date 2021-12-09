@@ -61,10 +61,8 @@ local succ,err = pcall(function()
         return table.concat(array)
     end
 
-    function OnOff(val)
-        val = val or false
-        assert(type(val) == "boolean","no")
-        local globalName = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOff.lua"))(val)
+    function OnOff(...)
+        local globalName = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOff.lua"))(...)
         return globalName
     end
 

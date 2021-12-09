@@ -20,7 +20,8 @@ Frame.BackgroundColor3 = Color3.fromRGB(68, 68, 68)
 Frame.BorderSizePixel = 0
 Frame.Position = UDim2.new(0.245924875, 0, 0.157055214, 0)
 Frame.Size = UDim2.new(0.160170108, 0, 0.187730059, 0)
- 
+Frame.Draggable = true
+
 TextButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 TextButton.BorderSizePixel = 0
 TextButton.Position = UDim2.new(0, 0, 0.142857149, 0)
@@ -39,7 +40,7 @@ TextButton.TextWrapped = true
 TextButton1.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
 TextButton1.BorderSizePixel = 0
 TextButton1.Position = UDim2.new(0.799999952, 0, 0, 0)
-TextButton1.Size = UDim2.new(0.199999988, 0, 0.142857149, 0)
+TextButton1.Size = UDim2.new(0.089, 0,0.143, 0)
 TextButton1.Font = Enum.Font.SourceSans
 TextButton1.Text = "X"
 TextButton1.TextColor3 = Color3.fromRGB(0, 0, 0)
