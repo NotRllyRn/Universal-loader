@@ -5,9 +5,9 @@ local title = arg[1] or ""
 assert(type(title) == "string","no")
 
 local function setname()
-    local v = RandomNameNumber(10,20)
+    local v = randomNameNumber(10,20)
     if (_G[v] == false) or (_G[v] == true) then
-        v = RandomNameNumber(10,20)
+        v = randomNameNumber(10,20)
         
         setname()
     else
@@ -25,6 +25,7 @@ do
         setclipboard("https://discord.gg/zpFpWqBqCn")
     end)
     for _,v in pairs(arg[2]) do
+        print("before")
         setName = setname()
         print(setName)
         window:CreateToggle(v[1],function(val)
