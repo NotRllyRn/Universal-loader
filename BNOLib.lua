@@ -1,3 +1,4 @@
+
 local ScreenGui = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
@@ -11,7 +12,6 @@ local Tab_2 = Instance.new("TextButton")
 local Seperator = Instance.new("Frame")
 local UICorner_3 = Instance.new("UICorner")
 local DiscordButton = Instance.new("ImageButton")
-local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 local DiscordLabel = Instance.new("TextButton")
 local Top = Instance.new("Frame")
 local Close = Instance.new("ImageButton")
@@ -19,29 +19,36 @@ local UICorner_4 = Instance.new("UICorner")
 local Page = Instance.new("ScrollingFrame")
 local Button = Instance.new("Frame")
 local UICorner_5 = Instance.new("UICorner")
+local UIStroke = Instance.new("UIStroke")
 local ButtonButton = Instance.new("TextButton")
 local ButtonLabel = Instance.new("TextLabel")
 local UIListLayout_2 = Instance.new("UIListLayout")
 local Toggle = Instance.new("Frame")
 local UICorner_6 = Instance.new("UICorner")
+local UIStroke_2 = Instance.new("UIStroke")
 local ToggleLabel = Instance.new("TextLabel")
 local ToggleButtonFrame = Instance.new("Frame")
 local UICorner_7 = Instance.new("UICorner")
+local UIStroke_3 = Instance.new("UIStroke")
 local ToggleButton = Instance.new("ImageButton")
 local Label = Instance.new("Frame")
 local UICorner_8 = Instance.new("UICorner")
+local UIStroke_4 = Instance.new("UIStroke")
 local Label_2 = Instance.new("TextLabel")
 local Seperator_2 = Instance.new("Frame")
 local UICorner_9 = Instance.new("UICorner")
 local Slider = Instance.new("Frame")
 local UICorner_10 = Instance.new("UICorner")
+local UIStroke_5 = Instance.new("UIStroke")
 local SliderLabel = Instance.new("TextLabel")
 local Bar = Instance.new("Frame")
 local UICorner_11 = Instance.new("UICorner")
+local UIStroke_6 = Instance.new("UIStroke")
 local Val = Instance.new("TextLabel")
 local Fill = Instance.new("Frame")
 local UICorner_12 = Instance.new("UICorner")
 local Logo = Instance.new("ImageLabel")
+local UIStroke_7 = Instance.new("UIStroke")
 
 --Properties:
 
@@ -136,12 +143,10 @@ DiscordButton.Name = "DiscordButton"
 DiscordButton.Parent = Side
 DiscordButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 DiscordButton.BackgroundTransparency = 1.000
-DiscordButton.Position = UDim2.new(0.736999989, 0, 0.921999991, 0)
-DiscordButton.Size = UDim2.new(0.224999994, 0, 0.050999999, 0)
+DiscordButton.Position = UDim2.new(0.736999989, 0, 0.921999931, 0)
+DiscordButton.Size = UDim2.new(0.154150546, 0, 0.050999999, 0)
 DiscordButton.Image = "rbxassetid://7072718185"
 DiscordButton.ImageColor3 = Color3.fromRGB(154, 154, 154)
-
-UIAspectRatioConstraint.Parent = DiscordButton
 
 DiscordLabel.Name = "DiscordLabel"
 DiscordLabel.Parent = Side
@@ -190,10 +195,14 @@ Button.Name = "Button"
 Button.Parent = Page
 Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Button.BackgroundTransparency = 1.000
-Button.Size = UDim2.new(1, 0, 0.106719375, 0)
+Button.Size = UDim2.new(0.999166846, 0, 0.104410961, 0)
+Button.SizeConstraint = Enum.SizeConstraint.RelativeXX
 
 UICorner_5.CornerRadius = UDim.new(0.200000003, 0)
 UICorner_5.Parent = Button
+
+UIStroke.Parent = Button
+UIStroke.Thickness = 2.000
 
 ButtonButton.Name = "ButtonButton"
 ButtonButton.Parent = Button
@@ -224,16 +233,20 @@ ButtonLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 UIListLayout_2.Parent = Page
 UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout_2.Padding = UDim.new(0.0299999993, 0)
+UIListLayout_2.Padding = UDim.new(0, 4)
 
 Toggle.Name = "Toggle"
 Toggle.Parent = Page
 Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Toggle.BackgroundTransparency = 1.000
 Toggle.Size = UDim2.new(1, 0, 0.106719375, 0)
+Toggle.SizeConstraint = Enum.SizeConstraint.RelativeXX
 
 UICorner_6.CornerRadius = UDim.new(0.200000003, 0)
 UICorner_6.Parent = Toggle
+
+UIStroke_2.Parent = Toggle
+UIStroke_2.Thickness = 2.000
 
 ToggleLabel.Name = "ToggleLabel"
 ToggleLabel.Parent = Toggle
@@ -259,6 +272,9 @@ ToggleButtonFrame.Size = UDim2.new(0.0719999969, 0, 0.740999997, 0)
 UICorner_7.CornerRadius = UDim.new(0.300000012, 0)
 UICorner_7.Parent = ToggleButtonFrame
 
+UIStroke_3.Parent = ToggleButtonFrame
+UIStroke_3.Thickness = 2.000
+
 ToggleButton.Name = "ToggleButton"
 ToggleButton.Parent = ToggleButtonFrame
 ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -273,9 +289,13 @@ Label.Parent = Page
 Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Label.BackgroundTransparency = 1.000
 Label.Size = UDim2.new(1, 0, 0.106719375, 0)
+Label.SizeConstraint = Enum.SizeConstraint.RelativeXX
 
 UICorner_8.CornerRadius = UDim.new(0.200000003, 0)
 UICorner_8.Parent = Label
+
+UIStroke_4.Parent = Label
+UIStroke_4.Thickness = 2.000
 
 Label_2.Name = "Label"
 Label_2.Parent = Label
@@ -297,6 +317,7 @@ Seperator_2.BackgroundColor3 = Color3.fromRGB(30, 34, 53)
 Seperator_2.BorderSizePixel = 0
 Seperator_2.Position = UDim2.new(0, 0, 0.410158128, 0)
 Seperator_2.Size = UDim2.new(1, 0, 0.0199999996, 0)
+Seperator_2.SizeConstraint = Enum.SizeConstraint.RelativeXX
 
 UICorner_9.CornerRadius = UDim.new(1, 0)
 UICorner_9.Parent = Seperator_2
@@ -306,9 +327,13 @@ Slider.Parent = Page
 Slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Slider.BackgroundTransparency = 1.000
 Slider.Size = UDim2.new(0.999166846, 0, 0.209161252, 0)
+Slider.SizeConstraint = Enum.SizeConstraint.RelativeXX
 
 UICorner_10.CornerRadius = UDim.new(0.200000003, 0)
 UICorner_10.Parent = Slider
+
+UIStroke_5.Parent = Slider
+UIStroke_5.Thickness = 2.000
 
 SliderLabel.Name = "SliderLabel"
 SliderLabel.Parent = Slider
@@ -334,6 +359,9 @@ Bar.Size = UDim2.new(0.95039165, 0, 0.291666657, 0)
 
 UICorner_11.CornerRadius = UDim.new(0.200000003, 0)
 UICorner_11.Parent = Bar
+
+UIStroke_6.Parent = Bar
+UIStroke_6.Thickness = 2.000
 
 Val.Name = "Val"
 Val.Parent = Bar
@@ -366,9 +394,13 @@ Logo.Size = UDim2.new(0.313889951, 0, 0.295903742, 0)
 Logo.Image = "rbxassetid://8223199719"
 Logo.ScaleType = Enum.ScaleType.Crop
 
+UIStroke_7.Parent = Main
+UIStroke_7.Color = Color3.fromRGB(115, 168, 190)
+UIStroke_7.Thickness = 2.000
+
 -- Scripts:
 
-local function SSYG_fake_script() -- Bar.LocalScript 
+local function CIPFGIC_fake_script() -- Bar.LocalScript 
 	local script = Instance.new('LocalScript', Bar)
 
 	local uis = game:GetService("UserInputService")
@@ -428,7 +460,8 @@ local function SSYG_fake_script() -- Bar.LocalScript
 	
 	uis.InputChanged:Connect(dothing)
 end
-coroutine.wrap(SSYG_fake_script)()
+coroutine.wrap(CIPFGIC_fake_script)()
+
 
 local Ui = {
     ["Info"] = {
