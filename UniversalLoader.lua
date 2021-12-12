@@ -241,7 +241,15 @@ local succ,err = pcall(function()
     end
 
     function BNOLib(...)
-        executed(({...})[1])
+        local exploit = "Free Shit"
+        if syn then
+            exploit = "SynapseX"
+        elseif krnl then
+            exploit = "krnl"
+        elseif PROTOSMASHER_LOADED then
+            exploit = "ProtoSmasher"
+        end
+        executed(({...})[1].." from ")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(({...})[2])
     end
 
