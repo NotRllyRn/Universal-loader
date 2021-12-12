@@ -87,7 +87,7 @@ local succ,err = pcall(function()
         coroutine.resume(coroutine.create(functioN))
     end
     
-    function globalLoop(gName,func,...)
+    function globalLoop(gName,func)
         if (not func) or (not gName) then return end
         assert(type(func) == "function")
         assert(type(gName) == "string")
@@ -95,7 +95,7 @@ local succ,err = pcall(function()
         cWrap(function()
             while true do
                 wait()
-                func(...)
+                func()
             end
         end)
     end
