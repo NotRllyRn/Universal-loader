@@ -255,6 +255,11 @@ local succ,err = pcall(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOffV2.lua"))(...)
     end
 
+    function BNOLib(...)
+        executed(({...})[1])
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(({...})[2])
+    end
+
     localPlayer.CharacterAdded:Connect(function(char)
         loading = true
 
