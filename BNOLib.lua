@@ -545,6 +545,9 @@ local function CreateWindow(Table)
             GuiParts[part["Info"]["ClassName"]](part,WindowParent,Main)
         end
 
+        if syn then
+            syn.protect_gui(ScreenGui)
+        end
         ScreenGui.Parent = game.CoreGui
     else
         warn("No Window to be created.")
