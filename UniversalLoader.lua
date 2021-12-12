@@ -249,7 +249,7 @@ local succ,err = pcall(function()
         elseif not (PROTOSMASHER_LOADED == nil) then
             exploit = "ProtoSmasher"
         end
-        executed(({...})[1].." from ")
+        executed(({...})[1].." from "..exploit)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(({...})[2])
     end
 
