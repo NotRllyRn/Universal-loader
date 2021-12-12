@@ -242,6 +242,7 @@ local succ,err = pcall(function()
 
     function BNOLib(...)
         local exploit = "Free Shit"
+        print(type(syn),type(krnl),type(PROTOSMASHER_LOADED))
         if not (syn == nil) then
             exploit = "SynapseX"
         elseif not (krnl == nil) then
