@@ -245,7 +245,7 @@ local succ,err = pcall(function()
         print(type(syn),type(krnl),type(PROTOSMASHER_LOADED))
         if not (syn == nil) then
             exploit = "SynapseX"
-        elseif not (krnl == nil) then
+        elseif not (Krnl == nil) then
             exploit = "krnl"
         elseif not (PROTOSMASHER_LOADED == nil) then
             exploit = "ProtoSmasher"
