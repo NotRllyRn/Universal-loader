@@ -6,6 +6,17 @@
 
 local succ,err = pcall(function()
 
+    do 
+        platForm
+        if not (syn == nil) then
+            platForm = "SynapseX"
+        elseif not (Krnl == nil) then
+            platForm = "Krnl"
+        elseif not (PROTOSMASHER_LOADED == nil)
+            platForm = "ProtoSmasher"
+        end
+    end
+
     mathseed = tick()
     math.randomseed(mathseed)
 
