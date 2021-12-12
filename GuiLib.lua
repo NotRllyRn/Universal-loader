@@ -13,7 +13,9 @@ function libary:CreateWindow(namee)
     local lr = Instance.new("Frame")
     local br = Instance.new("Frame")
 
-    syn.protect_gui(ScreenGui)
+    if syn.protect_gui() then
+        syn.protect_gui(ScreenGui)
+    end
 
     ScreenGui.Name = randomNameNumber(10,20)
 
