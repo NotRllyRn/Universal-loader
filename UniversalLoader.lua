@@ -94,8 +94,10 @@ local succ,err = pcall(function()
 
         cWrap(function()
             while true do
+                if _G[gName] then
+                    func()
+                end
                 wait()
-                func()
             end
         end)
     end
