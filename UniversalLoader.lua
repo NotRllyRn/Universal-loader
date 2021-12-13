@@ -264,27 +264,27 @@ local succ,err = pcall(function()
         request(a)
     end
     
-    local function executed(name)
-        chat(localPlayer.Name,"Executed Script: "..tostring(name))
-    end
-
-    function OnOff(...)
-        local name = ({...})[1]
-        executed(name)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/OnOffV2.lua"))(...)
+    local function executed(p)
+        chat(localPlayer.Name,p)
     end
 
     function BNOLib(...)
-        local exploit = "Free Shit"
-        if not (syn == nil) then
-            exploit = "SynapseX"
-        elseif not (Krnl == nil) then
-            exploit = "krnl"
-        elseif not (PROTOSMASHER_LOADED == nil) then
-            exploit = "ProtoSmasher"
-        end
-        executed(({...})[1].." from "..exploit)
+        executed("Executed Script: "..({...})[1].." from "..platForm)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(({...})[2])
+        local startTime = tick()
+
+        players.PlayerRemoving:Connect(function(pl)
+            if pl == localPlayer then
+                local timeTook = tick() - startTime
+                local minutes = (math.floor(timeTook) / 60) % 60
+                local seconds = math.floor(timeTook) % 60
+                local milliseconds = (timeTook % 1) * 1000
+                
+                local format = string.format("%d:%.02d.%.03d", minutes, seconds, milliseconds)
+
+                executed("Left, Ran "..({...})[1]..". Ran For: "..format)
+            end
+        end)
     end
 
     localPlayer.CharacterAdded:Connect(function(char)
