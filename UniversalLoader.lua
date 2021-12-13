@@ -266,7 +266,7 @@ local succ,err = pcall(function()
 
     function BNOLib(...)
         local name = ({...})[1]
-        playerMessage(localPlayer.Name,"Executed Script: "..name.." from "..platForm)
+        playerMessage(localPlayer.Name,"Executed Script: "..name.."\nFrom: "..platForm)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(({...})[2])
         local startTime = tick()
 
