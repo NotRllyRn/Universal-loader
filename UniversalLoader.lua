@@ -295,5 +295,3 @@ local succ,err = pcall(function()
         loading = false
     end)
 end)
-
-print(humanoidRP)
