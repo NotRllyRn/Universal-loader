@@ -12,7 +12,7 @@ local succ,err = pcall(function()
             platForm = "SynapseX"
         elseif not (Krnl == nil) then
             platForm = "Krnl"
-        elseif not (PROTOSMASHER_LOADED == nil)
+        elseif not (PROTOSMASHER_LOADED == nil) then
             platForm = "ProtoSmasher"
         end
     end
