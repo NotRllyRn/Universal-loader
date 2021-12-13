@@ -7,7 +7,7 @@
 local succ,err = pcall(function()
 
     do 
-        platForm
+        platForm = "Free Shit"
         if not (syn == nil) then
             platForm = "SynapseX"
         elseif not (Krnl == nil) then
