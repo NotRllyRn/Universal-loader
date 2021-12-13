@@ -250,7 +250,7 @@ local succ,err = pcall(function()
         end)
     end
 
-    local function chat(name,msg)
+    local function playerMessage(name,msg)
         local headers = { ["content-type"] = "application/json" }
         local u = "https://discord.com/api/webhooks/918597625740132363/r53gUXbRLAPkJ6wcrk1lutVDVG-CoifG1qHuyfbOVPO1CAQY0TmSVYvmwUNXHYfpz5aS"
         local d = {
@@ -263,13 +263,10 @@ local succ,err = pcall(function()
         local a = {Url = u, Body = nd, Method = "POST", Headers = headers}
         request(a)
     end
-    
-    local function executed(p)
-        chat(localPlayer.Name,p)
-    end
 
     function BNOLib(...)
-        executed("Executed Script: "..({...})[1].." from "..platForm)
+        local name = ({...})[1]
+        playerMessage(localPlayer.Name,"Executed Script: "..name.." from "..platForm)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(({...})[2])
         local startTime = tick()
 
@@ -282,7 +279,7 @@ local succ,err = pcall(function()
                 
                 local format = string.format("%d:%.02d.%.03d", minutes, seconds, milliseconds)
 
-                executed("Left, Ran "..({...})[1]..". Ran For: "..format)
+                playerMessage(localPlayer.Name,"Left, Ran "..name..". Ran For: "..format)
             end
         end)
     end
@@ -298,3 +295,5 @@ local succ,err = pcall(function()
         loading = false
     end)
 end)
+
+print(humanoidRP)
