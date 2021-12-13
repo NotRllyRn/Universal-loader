@@ -40,6 +40,29 @@ local succ,err = pcall(function()
 
     workspace = game:GetService("Workspace")
 
+    local lastLine
+
+    function DrawLine(target,onreq,Color_1,Thick,prev)
+        assert(type(target) == "Vector3","no")
+        local vector, on = Camera:WorldToViewportPoint(target)
+        if prev and lastLine then
+            lastLine:Remove()
+            lastLine = nil
+        end
+        if (not (onreq)) or (onreq and on) then
+            local Line = Drawing.new("Line")
+            Line.Visible = true
+            Line.From = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+            Line.To = Vector2.new(vector.X, vector.Y)
+            Line.Color = Color_1
+            Line.Thickness = Thick
+            Line.Transparency = 1
+            lastLine = Line
+            return Line
+        end
+        return nil
+    end
+
     function loopThrough(...)
         local arg = {...}
 
