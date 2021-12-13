@@ -279,7 +279,7 @@ local succ,err = pcall(function()
                 
                 local format = string.format("%d:%.02d.%.03d", minutes, seconds, milliseconds)
 
-                playerMessage(localPlayer.Name,"Left, Ran "..name..". Ran For: "..format)
+                playerMessage(localPlayer.Name,"Ran: "..name.."\nRan For: "..format)
             end
         end)
     end
