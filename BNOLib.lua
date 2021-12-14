@@ -4,15 +4,12 @@ local function CreateWindow(Table)
     local GuiParts
     GuiParts = {
         ["Tab"] = function(Tab1,Parent1,Main)
-            print(1)
             local TabInfo = Tab1["Info"]
             local Selected = TabInfo["Selected"]
 
             local Tab = Instance.new("TextButton")
             local Page = Instance.new("ScrollingFrame")
             local UIListLayout_2 = Instance.new("UIListLayout")
-
-            print(2)
 
             Tab.Name = randomNameNumber(10,20)
             Tab.Parent = Parent1
@@ -282,7 +279,9 @@ local function CreateWindow(Table)
                 for _ = 1,SliderInfo["Decimals"] do
                     table.insert(DecimalTable,0)
                 end
-                Decimals = table.concat(DecimalTable)
+                if #DecimalTable > 0 then
+                    Decimals = table.concat(DecimalTable)
+                end
             end
 
             local Slider = Instance.new("Frame")
@@ -358,7 +357,11 @@ local function CreateWindow(Table)
                 local function updateBar()
                     if Clicked and Entered then
                         local Val1 = math.clamp(((userInput:GetMouseLocation().X)-Bar.AbsolutePosition.X)/Bar.AbsoluteSize.X,0,1)
-                        SliderVal = math.floor((((Maxi-Mini)*Val1)+Mini)*((1)..tonumber(Decimals)))/((1)..tonumber(Decimals))
+                        if Decimal then
+                            SliderVal = math.floor((((Maxi-Mini)*Val1)+Mini)*((1)..tonumber(Decimals)))/((1)..tonumber(Decimals))
+                        else
+                            SliderVal = math.floor((((Maxi-Mini)*Val1)+Mini))
+                        end
                         Fill.Size = UDim2.new(Val1,0,1,0)
                         Val.Text = SliderVal
                         if not FireWhenEnd then
