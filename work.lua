@@ -1,3 +1,5 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UniversalLoader.lua"))()
+
 local Ui = {
     ["Info"] = {
         ["ClassName"] = "Window"
@@ -116,3 +118,5 @@ local Ui = {
         }
     }
 }
+
+BNOLib("Test",Ui)

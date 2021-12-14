@@ -4,12 +4,15 @@ local function CreateWindow(Table)
     local GuiParts
     GuiParts = {
         ["Tab"] = function(Tab1,Parent1,Main)
+            print(1)
             local TabInfo = Tab1["Info"]
             local Selected = TabInfo["Selected"]
 
             local Tab = Instance.new("TextButton")
             local Page = Instance.new("ScrollingFrame")
             local UIListLayout_2 = Instance.new("UIListLayout")
+
+            print(2)
 
             Tab.Name = randomNameNumber(10,20)
             Tab.Parent = Parent1
@@ -55,7 +58,7 @@ local function CreateWindow(Table)
 
             if TabChildren then
                 for index = 1,#TabChildren do
-                    GuiParts[TabChildren][index]["Info"]["ClassName"](part,Page,Main)
+                    GuiParts[TabChildren[index]["Info"]["ClassName"]](TabChildren[index],Page,Main)
                 end
             end
 
@@ -541,10 +544,8 @@ local function CreateWindow(Table)
         local WindowChildren = Table["Children"]
         local WindowParent = Holder
 
-        print(#WindowChildren)
-
         for index = 1,#WindowChildren do
-            GuiParts[WindowChildren[index]["Info"]["ClassName"]](part,WindowParent,Main)
+            GuiParts[WindowChildren[index]["Info"]["ClassName"]](WindowChildren[index],WindowParent,Main)
         end
 
         if syn then
@@ -555,6 +556,5 @@ local function CreateWindow(Table)
         warn("No Window to be created.")
     end
 end
-
 
 CreateWindow(({...})[1])
