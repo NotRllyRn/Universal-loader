@@ -54,8 +54,8 @@ local function CreateWindow(Table)
             local TabChildren = Tab1["Children"]
 
             if TabChildren then
-                for _,part in pairs(TabChildren) do
-                    GuiParts[part["Info"]["ClassName"]](part,Page,Main)
+                for index = 1,#TabChildren do
+                    GuiParts[TabChildren[index]["Info"]["ClassName"]](part,Page,Main)
                 end
             end
 
@@ -541,8 +541,8 @@ local function CreateWindow(Table)
         local WindowChildren = Table["Children"]
         local WindowParent = Holder
 
-        for _,part in pairs(WindowChildren) do
-            GuiParts[part["Info"]["ClassName"]](part,WindowParent,Main)
+        for index = 1,#WindowChildren do
+            GuiParts[WindowChildren[index]["Info"]["ClassName"]](part,WindowParent,Main)
         end
 
         if syn then
