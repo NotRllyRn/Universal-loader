@@ -137,9 +137,13 @@ local succ,err = pcall(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/ServerHop.lua"))()
     end
 
-    function fireTouch(root,target)
+    function fireTouch(root,target,waitVal)
         if root and target then
-            firetouchinterest(root,target,0) wait() firetouchinterest(root,target,1)
+            firetouchinterest(root,target,0)
+            if waitVal then
+                wait()
+            end
+            firetouchinterest(root,target,1)
         end
     end
 
