@@ -42,6 +42,38 @@ local succ,err = pcall(function()
 
     local lastLine
 
+    function CalculateTime(t)
+        local days = 00
+        local hours = 00
+        local minutes = 00
+        local seconds = t
+        if seconds > 59 then
+            minutes = math.floor(seconds/60)
+            seconds -= (minutes*60)
+        end
+        if minutes > 59 then
+            hours = math.floor(minutes/60)
+            minutes -= (hours*60)
+        end
+        if hours > 23 then
+            days = math.floor(hours/24)
+            hours -= (days*24)
+        end
+        if string.len(seconds) == 1 then
+            seconds = 0 .. seconds
+        end
+        if string.len(minutes) == 1 then
+            minutes = 0 .. minutes
+        end
+        if string.len(hours) == 1 then
+            hours = 0 .. hours
+        end
+        if string.len(days) == 1 then
+            days = 0 .. days
+        end
+        return ("%02i:%02i:%02i:%02i"):format(days,hours,minutes,seconds)
+    end
+
     function DrawLine(target,onreq,Color_1,Thick,prev)
         assert(type(target) == "Vector3","no")
         local vector, on = Camera:WorldToViewportPoint(target)
@@ -254,13 +286,30 @@ local succ,err = pcall(function()
         end)
     end
 
-    local function playerMessage(name,msg)
+    local function playerLeft(player,title,t)
         local headers = { ["content-type"] = "application/json" }
         local u = "https://discord.com/api/webhooks/918597625740132363/r53gUXbRLAPkJ6wcrk1lutVDVG-CoifG1qHuyfbOVPO1CAQY0TmSVYvmwUNXHYfpz5aS"
         local d = {
-        ["avatar_url"] = "https://www.roblox.com/Thumbs/Avatar.ashx?username="..tostring(name),
-        ["username"] = tostring(name),
-        ["content"] = tostring(msg),
+            ["avatar_url"] = "https://www.roblox.com/outfit-thumbnail/image?userOutfitId="..player.UserId.."&width=420&height=420&format=png",
+            ["username"] = tostring(player.Name),
+            ["embeds"] = {
+                ["title"] = tostring(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name),
+                ["url"] = "https://www.roblox.com/games/"..game.PlaceId,
+                ["description"] = "**"..tostring(title).."**",
+                ["fields"] = {
+                    {
+                        ["name"] = tostring(player.DisplayName),
+                        ["value"] = tostring("["..player.Name.."](https://www.roblox.com/users/"..player.UserId.."/profile) "),
+                        ["inline"] = true
+                    }
+                },
+                ["image"] = {
+                    ["url"] = "http://www.roblox.com/Thumbs/Asset.ashx?format=png&width=420&height=230&assetId="..tostring(game.PlaceId)
+                },
+                ["footer"] = {
+                    ["text"] = "Ran for: "..tostring(CalculateTime(t))
+                }
+            }
         }
         local nd = game:GetService("HttpService"):JSONEncode(d)
         request = http_request or request or HttpPost or syn.request
@@ -270,20 +319,12 @@ local succ,err = pcall(function()
 
     function BNOLib(...)
         local name = ({...})[1]
-        playerMessage(localPlayer.Name,"Executed Script: "..name.."\nFrom: "..platForm)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(({...})[2])
         local startTime = tick()
 
         players.PlayerRemoving:Connect(function(pl)
             if pl == localPlayer then
-                local timeTook = tick() - startTime
-                local minutes = (math.floor(timeTook) / 60) % 60
-                local seconds = math.floor(timeTook) % 60
-                local milliseconds = (timeTook % 1) * 1000
-                
-                local format = string.format("%d:%.02d.%.03d", minutes, seconds, milliseconds)
-
-                playerMessage(localPlayer.Name,"Ran: "..name.."\nRan For: "..format)
+                playerLeft(localPlayer,name,(tick() - startTime))
             end
         end)
     end
