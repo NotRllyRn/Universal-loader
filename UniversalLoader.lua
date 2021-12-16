@@ -319,8 +319,8 @@ local succ,err = pcall(function()
         request(a)
     end
 
-    function BNOLib(...)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(({...})[1])
+    function BNOLib(ui)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(ui)
         local startTime = tick()
 
         players.PlayerRemoving:Connect(function(pl)
