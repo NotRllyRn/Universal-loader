@@ -230,9 +230,19 @@ local succ,err = pcall(function()
         character = localPlayer.Character
     end
 
-    humanoidRP = character:WaitForChild("HumanoidRootPart")
-    humanoid = character:WaitForChild("Humanoid")
+    humanoidRP = character:FindFirstChild("HumanoidRootPart") or nil
+    humanoid = character:FindFirstChild("Humanoid") or nil
     playerGUI = localPlayer:WaitForChild("PlayerGui")
+
+    local ChildAddedConnect
+
+    ChildAddedConnect = character.ChildAdded:Connect(function(child)
+        if child:IsA("Humanoid") then
+            humanoid = child
+        elseif child:IsA("HumanoidRootPart") then
+            humanoidRP = child
+        end
+    end)
 
     loading = false
 
@@ -333,10 +343,19 @@ local succ,err = pcall(function()
     localPlayer.CharacterAdded:Connect(function(char)
         loading = true
 
+        ChildAddedConnect:Disconnect()
+
         character = char
-        humanoidRP = character:WaitForChild("HumanoidRootPart")
-        humanoid = character:WaitForChild("Humanoid")
-        playerGUI = localPlayer:WaitForChild("PlayerGui")
+        humanoidRP = character:FindFirstChild("HumanoidRootPart")
+        humanoid = character:FindFirstChild("Humanoid")
+
+        ChildAddedConnect = character.ChildAdded:Connect(function(child)
+            if child:IsA("Humanoid") then
+                humanoid = child
+            elseif child:IsA("HumanoidRootPart") then
+                humanoidRP = child
+            end
+        end)
 
         loading = false
     end)
