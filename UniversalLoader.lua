@@ -226,13 +226,9 @@ local succ,err = pcall(function()
 
     loading = false
 
-    function DrawLine(target,onreq,Color_1,Thick,prev)
+    function DrawLine(target,onreq,Color_1,Thick)
         assert(type(target) == "vector","no")
         local vector, on = camera:WorldToViewportPoint(target)
-        if prev and lastLine then
-            lastLine:Remove()
-            lastLine = nil
-        end
         if (not (onreq)) or (onreq and on) then
             local Line = Drawing.new("Line")
             Line.Visible = true
@@ -241,10 +237,8 @@ local succ,err = pcall(function()
             Line.Color = Color_1
             Line.Thickness = Thick
             Line.Transparency = 1
-            lastLine = Line
             return Line
         end
-        return nil
     end
 
     function rejoin()
