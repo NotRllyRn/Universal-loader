@@ -75,7 +75,7 @@ local succ,err = pcall(function()
     end
 
     function DrawLine(target,onreq,Color_1,Thick,prev)
-        assert(type(target) == "Vector3","no")
+        assert(type(target) == "vector","no")
         local vector, on = Camera:WorldToViewportPoint(target)
         if prev and lastLine then
             lastLine:Remove()
