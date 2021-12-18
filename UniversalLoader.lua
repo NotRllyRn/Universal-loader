@@ -74,27 +74,6 @@ local succ,err = pcall(function()
         return ("%02i:%02i:%02i:%02i"):format(days,hours,minutes,seconds)
     end
 
-    function DrawLine(target,onreq,Color_1,Thick,prev)
-        assert(type(target) == "vector","no")
-        local vector, on = Camera:WorldToViewportPoint(target)
-        if prev and lastLine then
-            lastLine:Remove()
-            lastLine = nil
-        end
-        if (not (onreq)) or (onreq and on) then
-            local Line = Drawing.new("Line")
-            Line.Visible = true
-            Line.From = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
-            Line.To = Vector2.new(vector.X, vector.Y)
-            Line.Color = Color_1
-            Line.Thickness = Thick
-            Line.Transparency = 1
-            lastLine = Line
-            return Line
-        end
-        return nil
-    end
-
     function loopThrough(...)
         local arg = {...}
 
@@ -233,6 +212,7 @@ local succ,err = pcall(function()
     humanoidRP = character:FindFirstChild("HumanoidRootPart") or nil
     humanoid = character:FindFirstChild("Humanoid") or nil
     playerGUI = localPlayer:WaitForChild("PlayerGui")
+    camera = workspace.CurrentCamera
 
     local ChildAddedConnect
 
@@ -245,6 +225,27 @@ local succ,err = pcall(function()
     end)
 
     loading = false
+
+    function DrawLine(target,onreq,Color_1,Thick,prev)
+        assert(type(target) == "vector","no")
+        local vector, on = camera:WorldToViewportPoint(target)
+        if prev and lastLine then
+            lastLine:Remove()
+            lastLine = nil
+        end
+        if (not (onreq)) or (onreq and on) then
+            local Line = Drawing.new("Line")
+            Line.Visible = true
+            Line.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
+            Line.To = Vector2.new(vector.X, vector.Y)
+            Line.Color = Color_1
+            Line.Thickness = Thick
+            Line.Transparency = 1
+            lastLine = Line
+            return Line
+        end
+        return nil
+    end
 
     function rejoin()
         game:GetService("TeleportService"):Teleport(game.PlaceId, localPlayer)
@@ -348,6 +349,7 @@ local succ,err = pcall(function()
         character = char
         humanoidRP = character:FindFirstChild("HumanoidRootPart")
         humanoid = character:FindFirstChild("Humanoid")
+        camera = workspace.CurrentCamera
 
         ChildAddedConnect = character.ChildAdded:Connect(function(child)
             if child:IsA("Humanoid") then
