@@ -335,6 +335,19 @@ local succ,err = pcall(function()
         end)
     end
 
+    function sendNotification(title,text,time_1,func,bn1,bn2)
+        local pack = {
+            Title = title,
+            Text = text,
+            Icon = "",
+            Duration = time_1 or 5,
+            CallBack = func or function() end,
+            Button1 = bn1 or nil,
+            Button2 = bn2 or nil,
+        }
+        game:GetService("StarterGui"):SetCore("SendNotification",pack)
+    end
+
     localPlayer.CharacterAdded:Connect(function(char)
         loading = true
 
