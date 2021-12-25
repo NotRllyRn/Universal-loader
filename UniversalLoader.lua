@@ -22,7 +22,7 @@ local succ,err = pcall(function()
 
     renderS = game:GetService("RunService").RenderStepped
 
-    function wait(n)
+    function frameWait(n)
         if not n then
             renderS:Wait()
         else
