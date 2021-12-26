@@ -144,6 +144,10 @@ local succ,err = pcall(function()
         end)
     end
 
+    function megaAntiLAG(...)
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BetterAntiLag.lua"))(...)
+    end
+
     function serverHop()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/ServerHop.lua"))()
     end
