@@ -4,7 +4,7 @@ local pf = args[1]
 local Main = {}
 local cmds = {}
 
-function Main:insertCmd(name, func)
+function Main:createCommand(name, func)
 	cmds[string.lower(name)] = func
 end
 
