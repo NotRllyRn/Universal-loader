@@ -8,7 +8,7 @@ function Main:createCommand(name, func)
 	cmds[string.lower(name)] = func
 end
 
-function Main:init()
+function Main:Init()
 	setmetatable(cmds, {
 		__newindex = function() end,
 	})
