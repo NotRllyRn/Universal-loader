@@ -10,13 +10,15 @@ local Toggles = {
     SurfaceGui = true,
 }
 
-for i,v in pairs(args[1]) do
-    if not (Toggles[i] == nil) then
-        Toggles[i] == v
-    else
-        Toggles[i] == v
+pcall(function()
+    for i,v in pairs(args[1]) do
+        if not (Toggles[i] == nil) then
+            Toggles[i] == v
+        else
+            Toggles[i] == v
+        end
     end
-end
+end)
 
 local function ClassCheck(pa,ch)
     local s = false
