@@ -4,10 +4,16 @@ local effect = 0
 local props = 0
 
 local Toggles = {
-    Transparency = true,
-    GUI = true,
+    Transparency = false,
+    GUI = false,
     SurfaceGui = true,
 }
+
+pcall(function()
+    for i,v in pairs(args[1]) do
+        Toggles[i] = v
+    end
+end)
 
 local function ClassCheck(pa,ch)
     local s = false
