@@ -12,11 +12,7 @@ pcall(function()
     local args = ({...})
 
     for i,v in pairs(args[1]) do
-        if not (Toggles[i] == nil) then
-            Toggles[i] = v
-        else
-            Toggles[i] = v
-        end
+        Toggles[i] = v
     end
 end)
 
