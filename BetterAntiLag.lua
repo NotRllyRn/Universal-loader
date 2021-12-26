@@ -1,5 +1,5 @@
 
-local args = ({...})
+local args = {...}
 
 local effect = 0
 local props = 0
