@@ -146,7 +146,7 @@ local succ,err = pcall(function()
 
     function megaAntiLAG(ta)
         local ta = ta or {}
-        return loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BetterAntiLag.lua"))(ta)
+        return {loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BetterAntiLag.lua"))(ta)}
     end
 
     function getCustomCmds(arg1)
