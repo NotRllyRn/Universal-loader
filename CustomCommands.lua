@@ -19,8 +19,8 @@ function Main:Init()
 end
 
 function Main:Fire(string_1)
-    if (string.sub(string_1,1,1) == pf) then
-		local parts = string.split(string.sub(string_1,2,-1)," ")
+    if (string.sub(string_1,1,string.len(pf)) == pf) then
+		local parts = string.split(string.sub(string_1,string.len(pf)+1,-1)," ")
         local cmdName = string.lower(parts[1])
         if Main[cmdName] then
 			table.remove(parts,1)
