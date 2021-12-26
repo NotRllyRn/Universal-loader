@@ -131,7 +131,7 @@ local function RunCheck(v)
 end
 
 for _,v in pairs(game:GetDescendants()) do 
-    if ClassCheck(v.Parent,"PlayerGui") then
+    if ClassCheck(v.Parent,"PlayerGui") and Toggles.GUI then
         ChangeIf(v,"Enabled",false)
         return
     end
