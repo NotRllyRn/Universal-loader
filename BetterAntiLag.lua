@@ -24,7 +24,6 @@ local function ClassCheck(pa,ch)
     local s = false
     pcall(function()
         if not (Toggles[ch] == nil) and not Toggles[ch] then
-            s = false
             return
         end
         if pa:IsA(ch) then
@@ -35,14 +34,18 @@ local function ClassCheck(pa,ch)
     return s
 end
 local function ChangeIf(pa,pr,ch)
-    local s = pcall(function()
+    local s,e = pcall(function()
         if not (Toggles[pr] == nil) and not Toggles[pr] then
             return false
         end
         pa[pr] = ch
         props = props + 1
     end)
-    return s
+    if not (e == nil) and type(e) == "boolean" then
+        return e
+    else
+        return s
+    end
 end
 
 settings().Rendering.QualityLevel = "Level01"
