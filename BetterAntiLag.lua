@@ -4,22 +4,16 @@ local effect = 0
 local props = 0
 
 local Toggles = {
-    Transparency = false,
-    GUI = false,
+    Transparency = true,
+    GUI = true,
     SurfaceGui = true,
 }
-
-pcall(function()
-    for i,v in pairs(args[1]) do
-        Toggles[i] = v
-    end
-end)
 
 local function ClassCheck(pa,ch)
     local s = false
     pcall(function()
         if not (Toggles[ch] == nil) and not Toggles[ch] then
-            return
+            return false
         end
         if pa:IsA(ch) then
             effect = effect + 1
@@ -29,18 +23,16 @@ local function ClassCheck(pa,ch)
     return s
 end
 local function ChangeIf(pa,pr,ch)
-    local s,e = pcall(function()
+    local s = false
+    pcall(function()
         if not (Toggles[pr] == nil) and not Toggles[pr] then
             return false
         end
         pa[pr] = ch
         props = props + 1
+        s = true
     end)
-    if not (e == nil) and type(e) == "boolean" then
-        return e
-    else
-        return s
-    end
+    return s
 end
 
 settings().Rendering.QualityLevel = "Level01"
@@ -129,11 +121,12 @@ local function RunCheck(v)
 end
 
 for _,v in pairs(game:GetDescendants()) do 
+    local s = true
     if ClassCheck(v.Parent,"PlayerGui") and Toggles.GUI then
         ChangeIf(v,"Enabled",false)
-        return
+        s = false
     end
-    if not v:FindFirstAncestorOfClass("CoreGui") then
+    if not v:FindFirstAncestorOfClass("CoreGui") and s then
         RunCheck(v)
     end
 end
