@@ -148,6 +148,10 @@ local succ,err = pcall(function()
         return loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BetterAntiLag.lua"))(...)
     end
 
+    function getCustomCmds()
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/CustomCommands.lua"))()
+    end
+
     function serverHop()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/ServerHop.lua"))()
     end
