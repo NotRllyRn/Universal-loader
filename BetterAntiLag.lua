@@ -1,12 +1,22 @@
 
+local args = ({...})
+
 local effect = 0
 local props = 0
 
 local Toggles = {
-    Transparency = true,
-    GUI = true,
+    Transparency = false,
+    GUI = false,
     SurfaceGui = true,
 }
+
+for i,v in pairs(args[1]) do
+    if not (Toggles[i] == nil) then
+        Toggles[i] == v
+    else
+        Toggles[i] == v
+    end
+end
 
 local function ClassCheck(pa,ch)
     local s = false
@@ -119,6 +129,10 @@ local function RunCheck(v)
 end
 
 for _,v in pairs(game:GetDescendants()) do 
+    if ClassCheck(v.Parent,"PlayerGui") then
+        ChangeIf(v,"Enabled",false)
+        return
+    end
     if not v:FindFirstAncestorOfClass("CoreGui") then
         RunCheck(v)
     end
@@ -141,5 +155,4 @@ game.DescendantAdded:Connect(function(v)
     end
 end)
 
-print("Effected instances: "..effect)
-print("Effected properties: "..props)
+return effect,props
