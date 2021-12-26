@@ -1,6 +1,4 @@
 
-local args = {...}
-
 local effect = 0
 local props = 0
 
@@ -11,6 +9,8 @@ local Toggles = {
 }
 
 pcall(function()
+    local args = ({...})
+
     for i,v in pairs(args[1]) do
         if not (Toggles[i] == nil) then
             Toggles[i] = v
