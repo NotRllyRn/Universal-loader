@@ -301,48 +301,8 @@ local succ,err = pcall(function()
         end)
     end
 
-    function playerLeft(player,t)
-        local headers = { ["content-type"] = "application/json" }
-        local u = "https://discord.com/api/webhooks/918597625740132363/r53gUXbRLAPkJ6wcrk1lutVDVG-CoifG1qHuyfbOVPO1CAQY0TmSVYvmwUNXHYfpz5aS"
-        local d = {
-            ["avatar_url"] = "https://www.roblox.com/headshot-thumbnail/image?userId="..tostring(player.UserId).."&width=420&height=420&format=png",
-            ["username"] = tostring(player.Name),
-            ["embeds"] = {
-                {
-                    ["title"] = tostring(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name),
-                    ["url"] = "https://www.roblox.com/games/"..game.PlaceId,
-                    ["description"] = "",
-                    ["fields"] = {
-                        {
-                            ["name"] = tostring(player.DisplayName),
-                            ["value"] = tostring("["..player.Name.."](https://www.roblox.com/users/"..player.UserId.."/profile) "),
-                            ["inline"] = true
-                        }
-                    },
-                    ["image"] = {
-                        ["url"] = "http://www.roblox.com/Thumbs/Asset.ashx?format=png&width=420&height=230&assetId="..tostring(game.PlaceId)
-                    },
-                    ["footer"] = {
-                        ["text"] = "Ran for: "..tostring(CalculateTime(t))
-                    }
-                }
-            }
-        }
-        local nd = game:GetService("HttpService"):JSONEncode(d)
-        request = http_request or request or HttpPost or syn.request
-        local a = {Url = u, Body = nd, Method = "POST", Headers = headers}
-        request(a)
-    end
-
     function BNOLib(ui)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(ui)
-        local startTime = tick()
-
-        players.PlayerRemoving:Connect(function(pl)
-            if pl == localPlayer then
-                playerLeft(localPlayer,(tick() - startTime))
-            end
-        end)
     end
 
     function sendNotification(title,text,time_1,func,bn1,bn2)
