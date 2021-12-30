@@ -219,8 +219,8 @@ local succ,err = pcall(function()
         character = localPlayer.Character
     end
 
-    humanoidRP = character:FindFirstChild("HumanoidRootPart") or nil
-    humanoid = character:FindFirstChild("Humanoid") or nil
+    humanoidRP = character:FindFirstChild("HumanoidRootPart")
+    humanoid = character:FindFirstChild("Humanoid")
     playerGUI = localPlayer:WaitForChild("PlayerGui")
     camera = workspace.CurrentCamera
 
@@ -361,7 +361,10 @@ local succ,err = pcall(function()
     localPlayer.CharacterAdded:Connect(function(char)
         loading = true
 
-        ChildAddedConnect:Disconnect()
+        if ChildAddedConnect then
+            ChildAddedConnect:Disconnect()
+            ChildAddedConnect = nil
+        end
 
         character = char
         humanoidRP = character:FindFirstChild("HumanoidRootPart")
