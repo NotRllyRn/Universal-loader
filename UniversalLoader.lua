@@ -236,10 +236,18 @@ local succ,err = pcall(function()
 
     loading = false
 
-    function DrawLine(target,onreq,Color_1,Thick)
+    function CheckScreen(target)
         assert(type(target) == "vector","no")
         local vector, on = camera:WorldToViewportPoint(target)
-        if (not (onreq)) or (onreq and on) then
+        if vector and on then
+            return Vector2.new(vector.X, vector.Y)
+        end
+    end
+
+    function DrawToTarget(target,onreq,Color_1,Thick)
+        assert(type(target) == "vector","no")
+        local vector = CheckScreen(target)
+        if vector then
             local Line = Drawing.new("Line")
             Line.Visible = true
             Line.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
@@ -249,6 +257,21 @@ local succ,err = pcall(function()
             Line.Transparency = 1
             return Line
         end
+    end
+
+    function DrawText(Text_1,Point,Color_1,Thick)
+        local Text_1 = assert(Text_1 and tostring(Text_1))
+        local Point = assert(Point and (type(Point) == "vector") and Point)
+        
+        local Text = Drawing.new("Text")
+        Text.Visible = true
+        Text.Text = Text_1
+        Text.Color = Color_1
+        Text.Position = Point
+        Text.Size = 24
+        Text.Outline = true
+
+        return Text
     end
 
     function rejoin()
