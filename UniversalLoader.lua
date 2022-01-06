@@ -236,17 +236,17 @@ local succ,err = pcall(function()
 
     loading = false
 
-    function CheckScreen(target)
+    function CheckPoint(target)
         assert(type(target) == "vector","no")
         local vector, on = camera:WorldToViewportPoint(target)
-        if vector and on then
-            return Vector2.new(vector.X, vector.Y)
+        if on then
+            return (Vector2.new(vector.X, vector.Y))
         end
     end
 
     function DrawToTarget(target,onreq,Color_1,Thick)
         assert(type(target) == "vector","no")
-        local vector = CheckScreen(target)
+        local vector = CheckPoint(target)
         if vector then
             local Line = Drawing.new("Line")
             Line.Visible = true
