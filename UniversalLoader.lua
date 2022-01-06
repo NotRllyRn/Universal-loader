@@ -244,7 +244,7 @@ local succ,err = pcall(function()
         end
     end
 
-    function DrawToTarget(target,onreq,Color_1,Thick)
+    function DrawToTarget(target,Color_1,Thick)
         assert(type(target) == "vector","no")
         local vector = CheckPoint(target)
         if vector then

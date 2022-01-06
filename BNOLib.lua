@@ -1,3 +1,5 @@
+return false
+
 local function CreateWindow(Table)
     local SelectedTab
     
