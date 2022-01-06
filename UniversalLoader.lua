@@ -261,7 +261,7 @@ local succ,err = pcall(function()
 
     function DrawText(Text_1,Point,Color_1,Thick)
         local Text_1 = assert(Text_1 and tostring(Text_1))
-        local Point = assert(Point and (type(Point) == "userdata") and Point)
+        local Point = Point
         
         local Text = Drawing.new("Text")
         Text.Visible = true
