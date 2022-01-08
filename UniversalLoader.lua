@@ -6,27 +6,18 @@
 
 local succ,err = pcall(function()
 
-    do 
-        platForm = "Free Shit"
-        if not (syn == nil) then
-            platForm = "SynapseX"
-        elseif not (Krnl == nil) then
-            platForm = "Krnl"
-        elseif not (PROTOSMASHER_LOADED == nil) then
-            platForm = "ProtoSmasher"
-        end
-    end
-
     mathseed = tick()
     math.randomseed(mathseed)
 
-    renderS = game:GetService("RunService").RenderStepped
+    runService = game:GetService("RunService")
+    renderS = runService.RenderStepped
+    heartS = runService.Heartbeat
 
     function frameWait(n)
         if not n then
             renderS:Wait()
         else
-            assert(type(n) == "number","no")
+            assert(n and (type(n) == "number"),"no")
             for _ = 1,(n*60) do
                 renderS:Wait()
             end
