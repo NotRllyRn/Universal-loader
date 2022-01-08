@@ -131,22 +131,22 @@ local succ,err = pcall(function()
 
     function antiLAG()
         pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/AntiLag.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/AntiLag.lua"))()
         end)
     end
 
     function megaAntiLAG(ta)
         local ta = ta or {}
-        return table.unpack({loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BetterAntiLag.lua"))(ta)})
+        return table.unpack({loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/BetterAntiLag.lua"))(ta)})
     end
 
     function getCustomCmds(arg1)
         assert(type(arg1) == "string","no")
-        return loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/CustomCommands.lua"))(arg1)
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Other/CustomCommands.lua"))(arg1)
     end
 
     function serverHop()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/ServerHop.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Other/ServerHop.lua"))()
     end
 
     function fireTouch(root,target,waitVal)
