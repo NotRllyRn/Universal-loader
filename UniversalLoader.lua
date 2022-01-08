@@ -5,7 +5,7 @@
 ]]
 
 local succ,err = pcall(function()
-a
+
     mathseed = tick()
     math.randomseed(mathseed)
 
