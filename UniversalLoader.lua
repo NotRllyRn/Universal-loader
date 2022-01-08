@@ -15,6 +15,8 @@ local succ,err = pcall(function()
     tweenService = game:GetService("TweenService")
     userInput = game:GetService("UserInputService")
     runService = game:GetService("RunService")
+    cAS = game:GetService("ContextActionService")
+
     renderS = runService.RenderStepped
     heartS = runService.Heartbeat
 
