@@ -5,10 +5,15 @@
 ]]
 
 local succ,err = pcall(function()
-
+a
     mathseed = tick()
     math.randomseed(mathseed)
 
+    repeat wait() until game:IsLoaded() 
+
+    virtualUser = game:GetService("VirtualUser")
+    tweenService = game:GetService("TweenService")
+    userInput = game:GetService("UserInputService")
     runService = game:GetService("RunService")
     renderS = runService.RenderStepped
     heartS = runService.Heartbeat
@@ -23,11 +28,6 @@ local succ,err = pcall(function()
             end
         end
     end
-
-    repeat wait() until game:IsLoaded() 
-    virtualUser = game:GetService("VirtualUser")
-    tweenService = game:GetService("TweenService")
-    userInput = game:GetService("UserInputService")
 
     workspace = game:GetService("Workspace")
 
