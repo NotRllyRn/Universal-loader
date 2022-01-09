@@ -5,7 +5,15 @@ local Main = {}
 local cmds = {}
 
 function Main:createCommand(name, func)
-	cmds[string.lower(name)] = func
+	if name and tostring(name) then
+		cmds[string.lower(tostring(name))] = func
+	elseif name and type(name) == "table" then
+		for _,v in ipairs(name) do
+			if v and tostring(v) then
+				cmds[string.lower(tostring(v))] = func
+			end
+		end
+	end
 end
 
 function Main:Init()
