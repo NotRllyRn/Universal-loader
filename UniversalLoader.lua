@@ -38,7 +38,7 @@ local succ, err = pcall(function()
 		local days = 00
 		local hours = 00
 		local minutes = 00
-		local seconds = t
+		local seconds = assert(t and tonumber(t))
 		if seconds > 59 then
 			minutes = math.floor(seconds / 60)
 			seconds -= (minutes * 60)
@@ -86,7 +86,7 @@ local succ, err = pcall(function()
 		return table.concat(array)
 	end
 
-	function castRay(...)
+	function castRay()
 		local arg = { ... }
 
 		if arg[1] and arg[2] then
