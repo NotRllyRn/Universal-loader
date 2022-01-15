@@ -4,7 +4,7 @@
 
 ]]
 
-local succ, err = pcall(function()
+pcall(function()
 	mathseed = tick()
 	math.randomseed(mathseed)
 
@@ -17,17 +17,18 @@ local succ, err = pcall(function()
 	userInput = game:GetService("UserInputService")
 	runService = game:GetService("RunService")
 	contextAS = game:GetService("ContextActionService")
+    virtualIM = game:GetService("VirtualInputManager")
 
 	renderS = runService.RenderStepped
 	heartS = runService.Heartbeat
 
-	function frameWait()
+	function fastWait(n)
 		if not n then
-			renderS:Wait()
-		elseif n and tonumber(n) then
-			local n = tonumber(n)
+			heartS:Wait()
+        else
+            local n = assert(n and tonumber(n))
 			for _ = 1, (n * 60) do
-				renderS:Wait()
+				heartS:Wait()
 			end
 		end
 	end
@@ -66,45 +67,44 @@ local succ, err = pcall(function()
 		return ("%02i:%02i:%02i:%02i"):format(days, hours, minutes, seconds)
 	end
 
-	function randomNameNumber(min, max)
-        local min = assert(min and tonumber(min))
-        local max = assert(max and tonumber(max))
+	function genName(min, max)
+		local min = (min and tonumber(min)) or 1
+        local max = (max and tonumber(max)) or 10
+
+		local chars = {}
 		local length = math.random(min, max)
 
-        local gen = {}
-		gen[1] = string.char(math.random(97, 122))
-		for i = 2, length do
+		chars[1] = string.char(math.random(97, 122))
+		for i = 2, length - 1 do
 			if math.random(1, 2) == 1 then
-				gen[i] = math.random(0, 9)
+				chars[i] = math.random(0, 9)
 			elseif math.random(1, 2) == 1 then
-				gen[i] = string.char(math.random(97, 122))
+				chars[i] = string.char(math.random(97, 122))
 			else
-                gen[i] = string.upper(string.char(math.random(97, 122)))
+                chars[i] = string.upper(string.char(math.random(97, 122)))
             end
 		end
 
-		return table.concat(array)
+		return (tostring(table.concat(array)))
 	end
 
-	function castRay()
-		local arg = { ... }
+	function castRay(start, direct, distance, list, type)
+		local start = assert(start and (type(start) == "vector") and start, "no")
+		local direct = assert(direct and (type(direct) == "vector") and direct, "no")
+		local distant = (distant and tonumber(distance)) or 100
+		local type = (type and tostring(type))
 
-		if arg[1] and arg[2] then
-			assert(type(arg[1]) == "vector", "no")
-
+		if start and direct then
 			local castprams = RaycastParams.new()
 
-			if arg[4] and arg[5] then
-				castprams.FilterDescendantsInstances = { arg[4]:GetDescendants() }
-				castprams.FilterType = Enum.RaycastFilterType[arg[5]]
+			if list and type then
+				castprams.FilterDescendantsInstances = { list:GetDescendants() }
+				castprams.FilterType = Enum.RaycastFilterType[type]
 			end
 
-			local direct = Vector3.new(arg[2].X * arg[3], arg[2].Y * arg[3], arg[2].Z * arg[3])
-			local cast = workspace:Raycast(arg[1], direct, castprams)
-
+			local cast = workspace:Raycast(start, direct * distance, castprams)
 			return cast
 		end
-
 		return nil
 	end
 
@@ -126,7 +126,7 @@ local succ, err = pcall(function()
 		end)
 	end
 
-	function megaAntiLAG(ta)
+	function opAntiLag(ta)
 		local ta = ta or {}
 		return table.unpack({
 			loadstring(
@@ -136,7 +136,7 @@ local succ, err = pcall(function()
 	end
 
 	function getCustomCmds(arg1)
-		assert(type(arg1) == "string", "no")
+		local arg1 = (arg1 and tostring(arg1)) or ""
 		return loadstring(
 			game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Other/CustomCommands.lua")
 		)(arg1)
@@ -152,7 +152,7 @@ local succ, err = pcall(function()
 		if root and target then
 			firetouchinterest(root, target, 0)
 			if waitVal then
-				wait()
+				fastWait()
 			end
 			firetouchinterest(root, target, 1)
 		end
@@ -168,7 +168,7 @@ local succ, err = pcall(function()
 		local tween = tweenService:Create(
 			root,
 			TweenInfo.new((root.Position - pos).magnitude / speed),
-			{ CFrame = pos }
+			{ CFrame = CFrame.new(pos.X, pos.Y, pos.Z) }
 		)
 		tween:Play()
 		tween.Completed:Wait()
@@ -329,8 +329,8 @@ local succ, err = pcall(function()
 
 	function sendNotification(title, text, time_1, func, bn1, bn2)
 		local pack = {
-			Title = title,
-			Text = text,
+			Title = assert(title and tostring(title)),
+			Text = assert(text and tostring(text)),
 			Icon = "",
 			Duration = time_1 or 5,
 			CallBack = func or function() end,
