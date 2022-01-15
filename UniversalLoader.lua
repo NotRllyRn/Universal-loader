@@ -177,32 +177,8 @@ pcall(function()
 		end
 	end
 
-	function CFrameTP(root, pos, x, y, z)
-		local x = tonumber(x) or 0
-		local y = tonumber(y) or 0
-		local z = tonumber(z) or 0
-		assert(type(pos) == "userdata", "no")
-		root.CFrame = CFrame.new(pos.X + x, pos.Y + y, pos.Z + z)
-	end
-
-	function CFrameBack(root, pos, waiT, functioN, x, y, z)
-		local old = root.CFrame
-
-		local x = tonumber(x) or 0
-		local y = tonumber(y) or 0
-		local z = tonumber(z) or 0
-
-		assert(type(pos) == "userdata", "no")
-		root.CFrame = CFrame.new(pos.X + x, pos.Y + y, pos.Z + z)
-
-		wait(waiT / 2)
-		functioN()
-		wait(waiT / 2)
-
-		root.CFrame = old
-	end
-
 	local loading = true
+	local ChildAddedConnect
 
 	players = game:GetService("Players")
 	localPlayer = players.LocalPlayer
@@ -211,7 +187,7 @@ pcall(function()
 		character = localPlayer.Character
 	else
 		repeat
-			wait()
+			fastWait()
 		until localPlayer:HasAppearanceLoaded()
 		character = localPlayer.Character
 	end
@@ -221,34 +197,33 @@ pcall(function()
 	playerGUI = localPlayer:WaitForChild("PlayerGui")
 	camera = workspace.CurrentCamera
 
-	local ChildAddedConnect
-
 	ChildAddedConnect = character.ChildAdded:Connect(function(child)
 		if child:IsA("Humanoid") then
 			humanoid = child
-		elseif child:IsA("HumanoidRootPart") then
+		elseif (child.Name == "HumanoidRootPart") then
 			humanoidRP = child
 		end
 	end)
 
 	loading = false
 
-	function CheckPoint(target)
+	function getPoint(target)
 		assert(type(target) == "vector", "no")
 		local vector, on = camera:WorldToViewportPoint(target)
 		if on then
 			return (Vector2.new(vector.X, vector.Y))
 		end
+		return nil
 	end
 
 	function DrawToTarget(target, Color_1, Thick)
 		assert(type(target) == "vector", "no")
-		local vector = CheckPoint(target)
+		local vector = getPoint(target)
 		if vector then
 			local Line = Drawing.new("Line")
 			Line.Visible = true
 			Line.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
-			Line.To = Vector2.new(vector.X, vector.Y)
+			Line.To = vector
 			Line.Color = Color_1
 			Line.Thickness = Thick
 			Line.Transparency = 1
@@ -258,7 +233,7 @@ pcall(function()
 
 	function DrawText(Text_1, Point, Color_1, Thick)
 		local Text_1 = assert(Text_1 and tostring(Text_1))
-		local Point = Point
+		local Point = assert(Point and Point.X and Point.Y and Vector2.new(Point.X, point.Y))
 
 		local Text = Drawing.new("Text")
 		Text.Visible = true
@@ -275,29 +250,36 @@ pcall(function()
 		game:GetService("TeleportService"):Teleport(game.PlaceId, localPlayer)
 	end
 
-	function checkGame(id)
-		assert(type(id) == "number", "no")
+	function checkGame(id,leave)
+		local id = assert(id and tonumber(id))
+		local leave = (leave and (type(leave) == "boolean") and leave) or true
 		if not (game.PlaceId == id) then
-			game:GetService("TeleportService"):Teleport(id, localPlayer)
+			if leave then
+				game:GetService("TeleportService"):Teleport(id, localPlayer)
+			else
+				return false
+			end
 		end
+		return true
 	end
 
-	local idleConnection
+	do
+		local idleConnection
 
-	function antiAFK(val)
-		local val = val or true
-		assert(type(val) == "boolean")
-		if val and not idleConnection then
-			idleConnection = localPlayer.Idled:Connect(function()
-				virtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-				wait(1)
-				virtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-			end)
-		elseif not val and idleConnection then
-			pcall(function()
-				idleConnection:Disconnect()
-				idleConnection = nil
-			end)
+		function antiAFK(val)
+			local val = (val and (type(val) == "boolean") and val) or true
+			if val and not idleConnection then
+				idleConnection = localPlayer.Idled:Connect(function()
+					virtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+					wait(1)
+					virtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+				end)
+			elseif not val and idleConnection then
+				pcall(function()
+					idleConnection:Disconnect()
+					idleConnection = nil
+				end)
+			end
 		end
 	end
 
@@ -310,21 +292,16 @@ pcall(function()
 	end
 
 	function onCharacterLoaded(loadWait, functioN)
-		cWrap(function()
+		local functioN = assert(functioN and (type(functioN) == "function") and functioN)
 			localPlayer.CharacterAdded:Connect(function()
 				if loadWait then
 					while loading do
-						wait()
+						fastWait()
 					end
 				end
 
 				functioN()
 			end)
-		end)
-	end
-
-	function BNOLib(ui)
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/BNOLib.lua"))(ui)
 	end
 
 	function sendNotification(title, text, time_1, func, bn1, bn2)
@@ -332,8 +309,8 @@ pcall(function()
 			Title = assert(title and tostring(title)),
 			Text = assert(text and tostring(text)),
 			Icon = "",
-			Duration = time_1 or 5,
-			CallBack = func or function() end,
+			Duration = (time_1 and tonumber(time_1)) or 5,
+			CallBack = (func and (type(func) == "function") and func) or (function() end),
 			Button1 = bn1 or nil,
 			Button2 = bn2 or nil,
 		}
@@ -356,7 +333,7 @@ pcall(function()
 		ChildAddedConnect = character.ChildAdded:Connect(function(child)
 			if child:IsA("Humanoid") then
 				humanoid = child
-			elseif child:IsA("HumanoidRootPart") then
+			elseif (child.Name == "HumanoidRootPart") then
 				humanoidRP = child
 			end
 		end)
