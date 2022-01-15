@@ -168,7 +168,7 @@ local succ, err = pcall(function()
 		local tween = tweenService:Create(
 			root,
 			TweenInfo.new((root.Position - pos).magnitude / speed),
-			{ CFrame = CFrame.new(pos.X, pos.Y, pos.Z) }
+			{ CFrame = pos }
 		)
 		tween:Play()
 		tween.Completed:Wait()
