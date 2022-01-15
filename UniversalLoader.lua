@@ -167,7 +167,7 @@ pcall(function()
 		end
 		local tween = tweenService:Create(
 			root,
-			TweenInfo.new((root.Position - pos).magnitude / speed),
+			TweenInfo.new((root.Position - pos.p).magnitude / speed),
 			{ CFrame = CFrame.new(pos.X, pos.Y, pos.Z) }
 		)
 		tween:Play()
