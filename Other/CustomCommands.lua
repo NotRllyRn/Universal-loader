@@ -10,9 +10,9 @@ function Main:createCommand(name, func)
 	if (tostring(name)) then
 		cmds[string.lower(name)] = func
 	else
-		for _, name in ipairs(name) do
-			if name and (type(name) == "string") then
-				cmds[string.lower(name)] = func
+		for _, name1 in ipairs(name) do
+			if name1 and (type(name1) == "string") then
+				cmds[string.lower(name1)] = func
 			end
 		end
 	end
