@@ -5,12 +5,14 @@ local Main = {}
 local cmds = {}
 
 function Main:createCommand(name, func)
-	if name and tostring(name) then
-		cmds[string.lower(tostring(name))] = func
-	elseif name and type(name) == "table" then
-		for _,v in ipairs(name) do
-			if v and tostring(v) then
-				cmds[string.lower(tostring(v))] = func
+	assert(name and ((type(name) == "string") or (type(name) == "table")) and name)
+	assert(func and (type(func) == "function"))
+	if (tostring(name)) then
+		cmds[name:lower()] = func
+	else
+		for _, name in ipairs(name) do
+			if name and (type(name) == "string") then
+				cmds[name:lower()] = func
 			end
 		end
 	end
