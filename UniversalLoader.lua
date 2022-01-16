@@ -17,7 +17,7 @@ pcall(function()
 	userInput = game:GetService("UserInputService")
 	runService = game:GetService("RunService")
 	contextAS = game:GetService("ContextActionService")
-    virtualIM = game:GetService("VirtualInputManager")
+	virtualIM = game:GetService("VirtualInputManager")
 
 	renderS = runService.RenderStepped
 	heartS = runService.Heartbeat
@@ -25,8 +25,8 @@ pcall(function()
 	function fastWait(n)
 		if not n then
 			heartS:Wait()
-        else
-            local n = assert(n and tonumber(n))
+		else
+			local n = assert(n and tonumber(n))
 			for _ = 1, (n * 60) do
 				heartS:Wait()
 			end
@@ -69,7 +69,7 @@ pcall(function()
 
 	function genName(min, max)
 		local min = (min and tonumber(min)) or 1
-        local max = (max and tonumber(max)) or 10
+		local max = (max and tonumber(max)) or 10
 
 		local chars = {}
 		local length = math.random(min, max)
@@ -81,8 +81,8 @@ pcall(function()
 			elseif math.random(1, 2) == 1 then
 				chars[i] = string.char(math.random(97, 122))
 			else
-                chars[i] = string.upper(string.char(math.random(97, 122)))
-            end
+				chars[i] = string.upper(string.char(math.random(97, 122)))
+			end
 		end
 
 		return (tostring(table.concat(array)))
@@ -159,6 +159,8 @@ pcall(function()
 	end
 
 	function tweenPart(speed, root, pos, anchored)
+		local pos = (pos and pos.p) or (pos and (type(pos) == "vector") and pos) or nil
+		assert(speed and (type(speed) == "number") and root and root.CFrame and pos)
 		local ab
 
 		if anchored then
@@ -167,10 +169,11 @@ pcall(function()
 		end
 		local tween = tweenService:Create(
 			root,
-			TweenInfo.new((root.Position - pos.p).magnitude / speed),
+			TweenInfo.new((root.Position - pos).magnitude / speed),
 			{ CFrame = CFrame.new(pos.X, pos.Y, pos.Z) }
 		)
-		tween:Play() tween.Completed:Wait()
+		tween:Play()
+		tween.Completed:Wait()
 		if not (ab == nil) then
 			root.Anchored = ab
 		end
@@ -199,7 +202,7 @@ pcall(function()
 	ChildAddedConnect = character.ChildAdded:Connect(function(child)
 		if child:IsA("Humanoid") then
 			humanoid = child
-		elseif (child.Name == "HumanoidRootPart") then
+		elseif child.Name == "HumanoidRootPart" then
 			humanoidRP = child
 		end
 	end)
@@ -207,7 +210,9 @@ pcall(function()
 	loading = false
 
 	function getPoint(target)
-		assert(type(target) == "vector", "no")
+		local target = (target and (type(target) == "vector") and target) or (target and target.p) or nil
+		assert(target)
+
 		local vector, on = camera:WorldToViewportPoint(target)
 		if on then
 			return (Vector2.new(vector.X, vector.Y))
@@ -216,7 +221,9 @@ pcall(function()
 	end
 
 	function DrawToTarget(target, Color_1, Thick)
-		assert(type(target) == "vector", "no")
+		local target = (target and (type(target) == "vector") and target) or (target and target.p) or nil
+		assert(target)
+
 		local vector = getPoint(target)
 		if vector then
 			local Line = Drawing.new("Line")
@@ -249,9 +256,9 @@ pcall(function()
 		game:GetService("TeleportService"):Teleport(game.PlaceId, localPlayer)
 	end
 
-	function checkGame(id,leave)
+	function checkGame(id, leave)
 		local id = assert(id and tonumber(id))
-		local leave = ((not (leave == nil)) and (type(leave) == "boolean") and leave) or true
+		local leave = (not (leave == nil) and (type(leave) == "boolean") and leave) or true
 		if not (game.PlaceId == id) then
 			if leave then
 				game:GetService("TeleportService"):Teleport(id, localPlayer)
@@ -291,16 +298,16 @@ pcall(function()
 	end
 
 	function onCharacterLoaded(loadWait, functioN)
-		local functioN = assert(functioN and (type(functioN) == "function") and functioN)
-			localPlayer.CharacterAdded:Connect(function()
-				if loadWait then
-					while loading do
-						fastWait()
-					end
+		assert(functioN and (type(functioN) == "function"))
+		localPlayer.CharacterAdded:Connect(function()
+			if loadWait then
+				while loading do
+					fastWait()
 				end
+			end
 
-				functioN()
-			end)
+			functioN()
+		end)
 	end
 
 	function sendNotification(title, text, time_1, func, bn1, bn2)
@@ -309,7 +316,7 @@ pcall(function()
 			Text = assert(text and tostring(text)),
 			Icon = "",
 			Duration = (time_1 and tonumber(time_1)) or 5,
-			CallBack = (func and (type(func) == "function") and func) or (function() end),
+			CallBack = (func and (type(func) == "function") and func) or function() end,
 			Button1 = bn1 or nil,
 			Button2 = bn2 or nil,
 		}
@@ -332,7 +339,7 @@ pcall(function()
 		ChildAddedConnect = character.ChildAdded:Connect(function(child)
 			if child:IsA("Humanoid") then
 				humanoid = child
-			elseif (child.Name == "HumanoidRootPart") then
+			elseif child.Name == "HumanoidRootPart" then
 				humanoidRP = child
 			end
 		end)
