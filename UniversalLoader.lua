@@ -170,9 +170,8 @@ pcall(function()
 			TweenInfo.new((root.Position - pos.p).magnitude / speed),
 			{ CFrame = CFrame.new(pos.X, pos.Y, pos.Z) }
 		)
-		tween:Play()
-		tween.Completed:Wait()
-		if ab then
+		tween:Play() tween.Completed:Wait()
+		if not (ab == nil) then
 			root.Anchored = ab
 		end
 	end
