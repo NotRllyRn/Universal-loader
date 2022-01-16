@@ -5,7 +5,7 @@ local Main = {}
 local cmds = {}
 
 function Main:createCommand(name, func)
-	assert(name and ((type(name) == "string") or (type(name) == "table")) and name)
+	assert(name and ((type(name) == "string") or (type(name) == "table")))
 	assert(func and (type(func) == "function"))
 	if (tostring(name)) then
 		cmds[string.lower(name)] = func
