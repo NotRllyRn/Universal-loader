@@ -232,7 +232,7 @@ pcall(function()
 
 	function DrawText(Text_1, Point, Color_1, Thick)
 		local Text_1 = assert(Text_1 and tostring(Text_1))
-		local Point = assert(Point and Point.X and Point.Y and Vector2.new(Point.X, point.Y))
+		local Point = Vector2.new(Point.X, point.Y)
 
 		local Text = Drawing.new("Text")
 		Text.Visible = true
