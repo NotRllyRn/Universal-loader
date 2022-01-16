@@ -7,7 +7,7 @@ local cmds = {}
 function Main:createCommand(name, func)
 	assert(name and ((type(name) == "string") or (type(name) == "table")))
 	assert(func and (type(func) == "function"))
-	if (tostring(name)) then
+	if (type(name) == "string") then
 		cmds[string.lower(name)] = func
 	else
 		for _, name1 in ipairs(name) do
