@@ -8,11 +8,11 @@ function Main:createCommand(name, func)
 	assert(name and ((type(name) == "string") or (type(name) == "table")) and name)
 	assert(func and (type(func) == "function"))
 	if (tostring(name)) then
-		cmds[name:lower()] = func
+		cmds[string.lower(name)] = func
 	else
 		for _, name in ipairs(name) do
 			if name and (type(name) == "string") then
-				cmds[name:lower()] = func
+				cmds[string.lower(name)] = func
 			end
 		end
 	end
