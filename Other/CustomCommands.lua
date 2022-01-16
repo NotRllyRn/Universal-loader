@@ -1,18 +1,18 @@
-local args = ({...})
+local args = { ... }
 
-local pf = args[1]
+local pf = string.lower(({ ... })[1])
 local Main = {}
 local cmds = {}
 
 function Main:createCommand(name, func)
 	assert(name and ((type(name) == "string") or (type(name) == "table")))
 	assert(func and (type(func) == "function"))
-	if (type(name) == "string") then
-		cmds[string.lower(name)] = func
+	if type(name) == "string" then
+		cmds[pf .. string.lower(name)] = func
 	else
 		for _, name1 in ipairs(name) do
 			if name1 and (type(name1) == "string") then
-				cmds[string.lower(name1)] = func
+				cmds[pf .. string.lower(name1)] = func
 			end
 		end
 	end
@@ -29,15 +29,13 @@ function Main:Init()
 end
 
 function Main:Fire(string_1)
-    if (string.sub(string_1,1,string.len(pf)) == pf) then
-		local parts = string.split(string.sub(string_1,string.len(pf)+1,-1)," ")
-        local cmdName = string.lower(parts[1])
-        if Main[cmdName] then
-			table.remove(parts,1)
-			Main[cmdName](parts)
-		end
-    end
-    return nil
+	local parts = assert(string_1 and (type(string_1) == "string") and string.split(string_1, " "))
+	local cmdName = (parts and parts[1] and string.lower(parts[1]))
+	if cmdName and Main[cmdName] then
+		table.remove(parts, 1)
+		Main[cmdName](parts)
+	end
+	return nil
 end
 
 return Main
