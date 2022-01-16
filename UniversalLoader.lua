@@ -251,7 +251,7 @@ pcall(function()
 
 	function checkGame(id,leave)
 		local id = assert(id and tonumber(id))
-		local leave = (leave and (type(leave) == "boolean") and leave) or true
+		local leave = ((not (leave == nil)) and (type(leave) == "boolean") and leave) or true
 		if not (game.PlaceId == id) then
 			if leave then
 				game:GetService("TeleportService"):Teleport(id, localPlayer)
