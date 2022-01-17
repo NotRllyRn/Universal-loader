@@ -85,7 +85,7 @@ pcall(function()
 			end
 		end
 
-		return (tostring(table.concat(array)))
+		return (tostring(table.concat(chars)))
 	end
 
 	function castRay(start, direct, distance, list, type)
