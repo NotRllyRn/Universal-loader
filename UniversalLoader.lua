@@ -18,7 +18,11 @@ pcall(function()
 	runService = game:GetService("RunService")
 	contextAS = game:GetService("ContextActionService")
 	virtualIM = game:GetService("VirtualInputManager")
+	httpService = game:GetService('HttpService')
 
+	JSONDecode = httpService.JSONDecode
+	JSONEncode = httpService.JSONEncode
+	
 	renderS = runService.RenderStepped
 	heartS = runService.Heartbeat
 
