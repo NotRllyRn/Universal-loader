@@ -20,8 +20,8 @@ pcall(function()
 	virtualIM = game:GetService("VirtualInputManager")
 	httpService = game:GetService('HttpService')
 
-	JSONDecode = httpService.JSONDecode
-	JSONEncode = httpService.JSONEncode
+	JSONDecode = httpService:JSONDecode
+	JSONEncode = httpService:JSONEncode
 	
 	renderS = runService.RenderStepped
 	heartS = runService.Heartbeat
