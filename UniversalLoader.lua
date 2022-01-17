@@ -22,6 +22,8 @@ pcall(function()
 	renderS = runService.RenderStepped
 	heartS = runService.Heartbeat
 
+	workspace = game:GetService("Workspace")
+
 	function fastWait(n)
 		if not n then
 			heartS:Wait()
@@ -32,8 +34,6 @@ pcall(function()
 			end
 		end
 	end
-
-	workspace = game:GetService("Workspace")
 
 	function CalculateTime(t)
 		local days = 00
