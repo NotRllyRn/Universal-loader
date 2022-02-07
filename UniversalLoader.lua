@@ -5,6 +5,38 @@
 ]]
 
 pcall(function()
+	do
+		local mt = getrawmetatable(workspace)
+		setreadonly(mt, false)
+		local oldnc = mt.__namecall
+
+		local getnamecallfuncs = {
+			HasA = function(self, ...)
+				return self:FindFirstChildOfClass(...)
+			end,
+			GetA = function(self, ...)
+				return self:FindFirstChildOfClass(...)
+			end,
+			Get = function(self, ...)
+				return self:FindFirstChild(...)
+			end,
+			Has = function(self, ...)
+				return self:FindFirstChild(...)
+			end,
+		}
+
+		mt.__namecall = newcclosure(function(self, ...)
+			local gncm = getnamecallmethod()
+			if getnamecallfuncs[gncm] then
+				return getnamecallfuncs[gncm](self, ...)
+			end
+
+			return oldnc(self, ...)
+		end)
+
+		setreadonly(mt, true)
+	end
+
 	mathseed = tick()
 	math.randomseed(mathseed)
 
@@ -18,7 +50,7 @@ pcall(function()
 	runService = game:GetService("RunService")
 	contextAS = game:GetService("ContextActionService")
 	virtualIM = game:GetService("VirtualInputManager")
-	httpService = game:GetService('HttpService')
+	httpService = game:GetService("HttpService")
 
 	JSONDecode = function(...)
 		return (httpService:JSONDecode(...))
@@ -26,7 +58,7 @@ pcall(function()
 	JSONEncode = function(...)
 		return (httpService:JSONEncode(...))
 	end
-	
+
 	renderS = runService.RenderStepped
 	heartS = runService.Heartbeat
 
