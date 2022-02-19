@@ -5,8 +5,13 @@
 ]]
 
 pcall(function()
+	getrawmetatable = getrawmetatable
+	setreadonly = setreadonly
+	getnamecallmethod = getnamecallmethod
+	httpRequest = (syn and syn.request)
+	firetouchinterest = firetouchinterest
 	do
-		local mt = getrawmetatable(workspace)
+		local mt = getrawmetatable(game)
 		setreadonly(mt, false)
 		local oldnc = mt.__namecall
 
