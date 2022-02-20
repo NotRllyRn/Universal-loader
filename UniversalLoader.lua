@@ -133,9 +133,9 @@ pcall(function()
 		return (tostring(table.concat(chars)))
 	end
 
-	function castRay(start, direct, distance, list, type)
-		local start = assert(start and (type(start) == "vector") and start, "no")
-		local direct = assert(direct and (type(direct) == "vector") and direct, "no")
+	function castRay(start1, direct, distance, list, type)
+		local start = assert(start1 and (type(start1) == "vector") and start1)
+		local direct = assert(direct and (type(direct) == "vector") and direct)
 		local distant = (distant and tonumber(distance)) or 100
 		local type = (type and tostring(type))
 
