@@ -143,7 +143,7 @@ pcall(function()
 			local castprams = RaycastParams.new()
 
 			if list and type1 then
-				castprams.FilterDescendantsInstances = { list:GetDescendants() }
+				castprams.FilterDescendantsInstances = list:GetDescendants()
 				castprams.FilterType = Enum.RaycastFilterType[type1]
 			end
 
