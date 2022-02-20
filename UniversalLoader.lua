@@ -133,18 +133,18 @@ pcall(function()
 		return (tostring(table.concat(chars)))
 	end
 
-	function castRay(start, direct, distance, list, type)
+	function castRay(start, direct, distance, list, type1)
 		assert(start and (type(start) == "vector"))
 		assert(direct and (type(direct) == "vector"))
 		local distant = (distant and tonumber(distance)) or 100
-		local type = (type and tostring(type))
+		local type1 = (type1 and tostring(type1))
 
 		if start and direct then
 			local castprams = RaycastParams.new()
 
-			if list and type then
+			if list and type1 then
 				castprams.FilterDescendantsInstances = { list:GetDescendants() }
-				castprams.FilterType = Enum.RaycastFilterType[type]
+				castprams.FilterType = Enum.RaycastFilterType[type1]
 			end
 
 			local cast = workspace:Raycast(start, direct * distance, castprams)
