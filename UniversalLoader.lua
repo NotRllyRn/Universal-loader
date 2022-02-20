@@ -56,6 +56,7 @@ pcall(function()
 	contextAS = game:GetService("ContextActionService")
 	virtualIM = game:GetService("VirtualInputManager")
 	httpService = game:GetService("HttpService")
+	replicatedS = game:GetService("ReplicatedStorage")
 
 	JSONDecode = function(...)
 		return (httpService:JSONDecode(...))
@@ -229,6 +230,7 @@ pcall(function()
 
 	players = game:GetService("Players")
 	localPlayer = players.LocalPlayer
+	mouse = localPlayer:GetMouse()
 
 	if localPlayer:HasAppearanceLoaded() then
 		character = localPlayer.Character
