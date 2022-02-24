@@ -32,6 +32,7 @@ pcall(function()
 	ExploitCheck("delfolder", delfolder)
 	ExploitCheck("delfile", delfile)
 	ExploitCheck("isfolder", isfolder)
+	ExploitCheck("protectgui", syn and syn.protect_gui)
 
 	httpService = game:GetService("HttpService")
 	JSONDecode = function(...)
@@ -49,15 +50,26 @@ pcall(function()
 
 	if not isfolder("Universal") then
 		makefolder("Universal")
-		SaveTable = { table.unpack(defaultTable) }
-		writefile("Universal/Universal.json", JSONEncode(SaveTable))
+		SaveTable = defaultTable
+		local Encoded = JSONEncode(SaveTable)
+		writefile("Universal/Universal.json", Encoded)
 	elseif isfile("Universal/Universal.json") then
 		local s = pcall(function()
 			SaveTable = JSONDecode(readfile("Universal/Universal.json"))
 		end)
 		if not s then
-			SaveTable = { table.unpack(defaultTable) }
-			writefile("Universal/Universal.json", JSONEncode(SaveTable))
+			SaveTable = defaultTable
+			local Encoded = JSONEncode(SaveTable)
+			writefile("Universal/Universal.json", Encoded)
+		else
+			for index, _ in pairs(defaultTable) do
+				if not SaveTable[index] then
+					SaveTable = defaultTable
+					local Encoded = JSONEncode(SaveTable)
+					writefile("Universal/Universal.json", Encoded)
+					break
+				end
+			end
 		end
 	end
 
@@ -239,15 +251,9 @@ pcall(function()
 		local Serverhop = SaveTable.Serverhop
 		local nextPage
 		local Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100"
-		if not (CHour == SaveTable.Date.Hour) then
-			SaveTable.Date.Hour = CHour
+		if not (CHour == SaveTable.Date.hour) then
+			SaveTable.Date.hour = CHour
 			SaveTable.Serverhop = {}
-		end
-		function request()
-			return JSONDecode(httpRequest({
-				Url = Url,
-				Method = "GET",
-			}).Body)
 		end
 		if not table.find(Serverhop, JobID) then
 			table.insert(Serverhop, JobID)
@@ -257,7 +263,10 @@ pcall(function()
 			if nextPage then
 				Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100&cursor=" .. nextPage
 			end
-			local body = request()
+			local body = JSONDecode(httpRequest({
+				Url = Url,
+				Method = "GET",
+			}).Body)
 			if body then
 				local found = false
 				if body.nextPageCursor then
@@ -273,6 +282,7 @@ pcall(function()
 							table.insert(Serverhop, id)
 						end
 						TPService:TeleportToPlaceInstance(GameID, id, localPlayer)
+						break
 					end
 				end
 				if not found and nextPage then
@@ -288,6 +298,7 @@ pcall(function()
 		end
 		local Connection
 		Connection = TPService.TeleportInitFailed:Connect(function()
+			wait(2)
 			Trigger()
 		end)
 		return Trigger()
@@ -487,7 +498,8 @@ pcall(function()
 
 	players.PlayerRemoving:Connect(function(plr)
 		if plr == localPlayer then
-			writefile("Universal/Universal.json", JSONEncode(SaveTable))
+			local Encoded = JSONEncode(SaveTable)
+			writefile("Universal/Universal.json", Encoded)
 		end
 	end)
 end)
