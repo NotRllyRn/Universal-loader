@@ -244,66 +244,6 @@ pcall(function()
 		)(arg1)
 	end
 
-	function serverHop()
-		local GameID = tostring(game.PlaceId)
-		local JobID = tostring(game.JobId)
-		local CHour = os.date("!*t").hour
-		local Serverhop = SaveTable.Serverhop
-		local nextPage
-		local Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100"
-		if not (CHour == SaveTable.Date.hour) then
-			SaveTable.Date.hour = CHour
-			SaveTable.Serverhop = {}
-		end
-		if not table.find(Serverhop, JobID) then
-			table.insert(Serverhop, JobID)
-		end
-		local Trigger
-		Trigger = function()
-			if nextPage then
-				Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100&cursor=" .. nextPage
-			end
-			local body = JSONDecode(httpRequest({
-				Url = Url,
-				Method = "GET",
-			}).Body)
-			if body then
-				local found = false
-				if body.nextPageCursor then
-					nextPage = body.nextPageCursor
-				else
-					nextPage = nil
-				end
-				for _, group in pairs(body.data) do
-					local id = group.id
-					if group.playing < group.maxPlayers and not (JobID == id) then
-						found = true
-						if not table.find(Serverhop, id) then
-							table.insert(Serverhop, id)
-						end
-						TPService:TeleportToPlaceInstance(GameID, id, localPlayer)
-						break
-					end
-				end
-				if not found and nextPage then
-					return Trigger()
-				elseif not nextPage then
-					return false
-				else
-					return true
-				end
-			else
-				return false
-			end
-		end
-		local Connection
-		Connection = TPService.TeleportInitFailed:Connect(function()
-			wait(2)
-			Trigger()
-		end)
-		return Trigger()
-	end
-
 	function fireTouch(root, target, waitVal)
 		if root and target then
 			firetouchinterest(root, target, 0)
@@ -410,7 +350,67 @@ pcall(function()
 	end
 
 	function rejoin()
-		game:GetService("TeleportService"):Teleport(game.PlaceId, localPlayer)
+		TPService:TeleportToPlaceInstance(game.PlaceId, game.JobId, localPlayer)
+	end
+
+	function serverHop()
+		local GameID = tostring(game.PlaceId)
+		local JobID = tostring(game.JobId)
+		local CHour = os.date("!*t").hour
+		local Serverhop = SaveTable.Serverhop
+		local nextPage
+		local Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100"
+		if not (CHour == SaveTable.Date.hour) then
+			SaveTable.Date.hour = CHour
+			SaveTable.Serverhop = {}
+		end
+		if not table.find(Serverhop, JobID) then
+			table.insert(Serverhop, JobID)
+		end
+		local Trigger
+		Trigger = function()
+			if nextPage then
+				Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100&cursor=" .. nextPage
+			end
+			local body = JSONDecode(httpRequest({
+				Url = Url,
+				Method = "GET",
+			}).Body)
+			if body then
+				local found = false
+				if body.nextPageCursor then
+					nextPage = body.nextPageCursor
+				else
+					nextPage = nil
+				end
+				for _, group in pairs(body.data) do
+					local id = group.id
+					if group.playing < group.maxPlayers and not (JobID == id) then
+						found = true
+						if not table.find(Serverhop, id) then
+							table.insert(Serverhop, id)
+						end
+						TPService:TeleportToPlaceInstance(GameID, id, localPlayer)
+						break
+					end
+				end
+				if not found and nextPage then
+					return Trigger()
+				elseif not nextPage then
+					return false
+				else
+					return true
+				end
+			else
+				return false
+			end
+		end
+		local Connection
+		Connection = TPService.TeleportInitFailed:Connect(function()
+			wait(2)
+			Trigger()
+		end)
+		return Trigger()
 	end
 
 	function checkGame(id, leave)
