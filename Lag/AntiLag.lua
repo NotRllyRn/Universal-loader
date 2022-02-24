@@ -1,4 +1,4 @@
-do
+pcall(function()
     local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
     local g = game
     local w = g.Workspace
@@ -30,9 +30,9 @@ do
             e.Enabled = false
         end
     end
-end
+end)
 
-do
+pcall(function()
     local Lighting = game:GetService("Lighting")
     local NetworkSettings = settings():GetService("NetworkSettings")
     local RenderSettings = settings():GetService("RenderSettings")
@@ -72,9 +72,9 @@ do
         SetProperty(workspace, "InterpolationThrottling", Configuration["InterpolationThrottlingMode"])
         if syn then pcall(function() setfpscap(999) end) end
     end))
-end
+end)
 
-do
+pcall(function()
     local sethiddenproperty = sethiddenproperty or  sethiddenprop or set_hidden_prop or set_hidden_property
     sethiddenproperty(game.Lighting, "Technology", "Compatibility")
     sethiddenproperty(workspace.Terrain, "Decoration", true)
@@ -84,15 +84,17 @@ do
             sethiddenproperty(v, "RenderFidelity", "Automatic")
         end
     end
-end
+end)
 
-for i,e in pairs(workspace:GetDescendants()) do
-    if e:IsA("Model") then
-        sethiddenproperty(e, "LevelOfDetail", "Automatic")
+pcall(function()
+    for i,e in pairs(workspace:GetDescendants()) do
+        if e:IsA("Model") then
+            sethiddenproperty(e, "LevelOfDetail", "Automatic")
+        end
     end
-end
+end)
 
-do
+pcall(function()
     settings().Rendering.QualityLevel = "Level01"
     local Terrain = game:GetService("Workspace").Terrain
     local set = sethiddenproperty 
@@ -115,4 +117,4 @@ do
             v:Destroy()
         end
     end
-end
+end)

@@ -5,11 +5,62 @@
 ]]
 
 pcall(function()
-	getrawmetatable = getrawmetatable
-	setreadonly = setreadonly
-	getnamecallmethod = getnamecallmethod
-	httpRequest = (syn and syn.request)
-	firetouchinterest = firetouchinterest
+	function ExploitCheck(name, ...)
+		local found
+		for _, v in pairs({ ... }) do
+			if v then
+				found = v
+				break
+			end
+		end
+		if found then
+			getgenv()[name] = found
+		else
+			error("Unsupported exploit: " .. name, 1)
+		end
+	end
+
+	ExploitCheck("getrawmetatable", getrawmetatable)
+	ExploitCheck("setreadonly", setreadonly)
+	ExploitCheck("getnamecallmethod", getnamecallmethod)
+	ExploitCheck("httpRequest", syn and syn.request)
+	ExploitCheck("firetouchinterest", firetouchinterest)
+	ExploitCheck("writefile", writefile)
+	ExploitCheck("readfile", readfile)
+	ExploitCheck("isfile", isfile)
+	ExploitCheck("makefolder", makefolder)
+	ExploitCheck("delfolder", delfolder)
+	ExploitCheck("delfile", delfile)
+	ExploitCheck("isfolder", isfolder)
+
+	httpService = game:GetService("HttpService")
+	JSONDecode = function(...)
+		return (httpService:JSONDecode(...))
+	end
+	JSONEncode = function(...)
+		return (httpService:JSONEncode(...))
+	end
+
+	local defaultTable = {
+		Date = os.date("!*t"),
+		Serverhop = {},
+	}
+	local SaveTable = {}
+
+	if not isfolder("Universal") then
+		makefolder("Universal")
+		SaveTable = { table.unpack(defaultTable) }
+		writefile("Universal/Universal.json", JSONEncode(SaveTable))
+	elseif isfile("Universal/Universal.json") then
+		local s = pcall(function()
+			SaveTable = JSONDecode(readfile("Universal/Universal.json"))
+		end)
+		if not s then
+			SaveTable = { table.unpack(defaultTable) }
+			writefile("Universal/Universal.json", JSONEncode(SaveTable))
+		end
+	end
+
 	do
 		local mt = getrawmetatable(game)
 		setreadonly(mt, false)
@@ -55,15 +106,8 @@ pcall(function()
 	runService = game:GetService("RunService")
 	contextAS = game:GetService("ContextActionService")
 	virtualIM = game:GetService("VirtualInputManager")
-	httpService = game:GetService("HttpService")
 	replicatedS = game:GetService("ReplicatedStorage")
-
-	JSONDecode = function(...)
-		return (httpService:JSONDecode(...))
-	end
-	JSONEncode = function(...)
-		return (httpService:JSONEncode(...))
-	end
+	TPService = game:GetService("TeleportService")
 
 	renderS = runService.RenderStepped
 	heartS = runService.Heartbeat
@@ -172,7 +216,7 @@ pcall(function()
 		end)
 	end
 
-	function opAntiLag(ta)
+	function noLag(ta)
 		local ta = ta or {}
 		return table.unpack({
 			loadstring(
@@ -189,9 +233,64 @@ pcall(function()
 	end
 
 	function serverHop()
-		loadstring(
-			game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Other/ServerHop.lua")
-		)()
+		local GameID = tostring(game.PlaceId)
+		local JobID = tostring(game.JobId)
+		local CHour = os.date("!*t").hour
+		local Serverhop = SaveTable.Serverhop
+		local nextPage
+		local Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100"
+		if not (CHour == SaveTable.Date.Hour) then
+			SaveTable.Date.Hour = CHour
+			SaveTable.Serverhop = {}
+		end
+		function request()
+			return JSONDecode(httpRequest({
+				Url = Url,
+				Method = "GET",
+			}).Body)
+		end
+		if not table.find(Serverhop, JobID) then
+			table.insert(Serverhop, JobID)
+		end
+		local Trigger
+		Trigger = function()
+			if nextPage then
+				Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100&cursor=" .. nextPage
+			end
+			local body = request()
+			if body then
+				local found = false
+				if body.nextPageCursor then
+					nextPage = body.nextPageCursor
+				else
+					nextPage = nil
+				end
+				for _, group in pairs(body.data) do
+					local id = group.id
+					if group.playing < group.maxPlayers and not (JobID == id) then
+						found = true
+						if not table.find(Serverhop, id) then
+							table.insert(Serverhop, id)
+						end
+						TPService:TeleportToPlaceInstance(GameID, id, localPlayer)
+					end
+				end
+				if not found and nextPage then
+					return Trigger()
+				elseif not nextPage then
+					return false
+				else
+					return true
+				end
+			else
+				return false
+			end
+		end
+		local Connection
+		Connection = TPService.TeleportInitFailed:Connect(function()
+			Trigger()
+		end)
+		return Trigger()
 	end
 
 	function fireTouch(root, target, waitVal)
@@ -205,7 +304,7 @@ pcall(function()
 	end
 
 	function tweenPart(speed, root, pos, anchored)
-		local pos = (pos and pos.p) or (pos and (type(pos) == "vector") and pos) or nil
+		local pos = (pos and pos.Position) or (pos and (type(pos) == "vector") and pos) or nil
 		assert(speed and (type(speed) == "number") and root and root.CFrame and pos)
 		local ab
 
@@ -257,7 +356,7 @@ pcall(function()
 	loading = false
 
 	function getPoint(target)
-		local target = (target and (type(target) == "vector") and target) or (target and target.p) or nil
+		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil
 		assert(target)
 
 		local vector, on = camera:WorldToViewportPoint(target)
@@ -268,7 +367,7 @@ pcall(function()
 	end
 
 	function DrawToTarget(target, Color_1, Thick)
-		local target = (target and (type(target) == "vector") and target) or (target and target.p) or nil
+		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil
 		assert(target)
 
 		local vector = getPoint(target)
@@ -319,7 +418,7 @@ pcall(function()
 	do
 		local idleConnection
 
-		function antiAFK(val)
+		function idleAfk(val)
 			local val = (val and (type(val) == "boolean") and val) or true
 			if val and not idleConnection then
 				idleConnection = localPlayer.Idled:Connect(function()
@@ -333,14 +432,6 @@ pcall(function()
 					idleConnection = nil
 				end)
 			end
-		end
-	end
-
-	function cPlayer(part)
-		if character and localPlayer.Character:FindFirstChild(part) then
-			return true
-		else
-			return false
 		end
 	end
 
@@ -392,5 +483,11 @@ pcall(function()
 		end)
 
 		loading = false
+	end)
+
+	players.PlayerRemoving:Connect(function(plr)
+		if plr == localPlayer then
+			writefile("Universal/Universal.json", JSONEncode(SaveTable))
+		end
 	end)
 end)
