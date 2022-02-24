@@ -5,6 +5,10 @@
 ]]
 
 pcall(function()
+	repeat
+		wait()
+	until game:IsLoaded()
+
 	function ExploitCheck(name, ...)
 		local found
 		for _, v in pairs({ ... }) do
@@ -107,10 +111,6 @@ pcall(function()
 
 	mathseed = tick()
 	math.randomseed(mathseed)
-
-	repeat
-		wait()
-	until game:IsLoaded()
 
 	virtualUser = game:GetService("VirtualUser")
 	tweenService = game:GetService("TweenService")
