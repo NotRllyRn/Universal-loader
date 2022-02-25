@@ -5,6 +5,7 @@
 ]]
 
 pcall(function()
+	local Incoming = {...}
 	repeat
 		wait()
 	until game:IsLoaded()
@@ -19,11 +20,10 @@ pcall(function()
 		end
 		if found then
 			getgenv()[name] = found
-		else
+		elseif Incoming and Incoming[1] and Incoming[1] == true then
 			error("Unsupported exploit: " .. name, 1)
 		end
 	end
-
 	ExploitCheck("getrawmetatable", getrawmetatable)
 	ExploitCheck("setreadonly", setreadonly)
 	ExploitCheck("getnamecallmethod", getnamecallmethod)
