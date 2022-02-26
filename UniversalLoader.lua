@@ -3,9 +3,8 @@
     loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UniversalLoader.lua"))()
 
 ]]
-
+local Incoming = ({...})
 pcall(function()
-	local Incoming = {...}
 	repeat
 		wait()
 	until game:IsLoaded()
