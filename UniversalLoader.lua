@@ -92,7 +92,8 @@ pcall(function()
 			end,
 		}
 
-		local oldnc = hookfunction(getrawmetatable(game).__namecall, function(...)
+		local oldnc;
+		oldnc = hookfunction(getrawmetatable(game).__namecall, function(...)
 			for i,v in pairs({...}) do
 				if not i or not v then
 					return oldnc(...)
@@ -103,8 +104,8 @@ pcall(function()
 				return getnamecallfuncs[gncm](...)
 			end
 
-			return oldnc(self, ...)
-		end))
+			return oldnc(...)
+		end)
 	end
 
 	mathseed = tick()
