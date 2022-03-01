@@ -77,10 +77,6 @@ pcall(function()
 	end
 
 	do
-		local mt = getrawmetatable(game)
-		setreadonly(mt, false)
-		local oldnc = mt.__namecall
-
 		local getnamecallfuncs = {
 			HasA = function(self, ...)
 				return self:FindFirstChildOfClass(...)
@@ -96,16 +92,19 @@ pcall(function()
 			end,
 		}
 
-		mt.__namecall = newcclosure(function(self, ...)
+		local oldnc = hookfunction(getrawmetatable(game).__namecall, function(...)
+			for i,v in pairs({...}) do
+				if not i or not v then
+					return oldnc(...)
+				end
+			end
 			local gncm = getnamecallmethod()
 			if getnamecallfuncs[gncm] then
-				return getnamecallfuncs[gncm](self, ...)
+				return getnamecallfuncs[gncm](...)
 			end
 
 			return oldnc(self, ...)
-		end)
-
-		setreadonly(mt, true)
+		end))
 	end
 
 	mathseed = tick()
