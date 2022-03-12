@@ -305,12 +305,12 @@ pcall(function()
 
 	loading = false
 
-	function getPoint(target)
+	function getPoint(target, pass)
 		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil
 		assert(target)
 
 		local vector, on = camera:WorldToViewportPoint(target)
-		if on then
+		if on and ((not pass) or (pass and (pass == true))) then
 			return (Vector2.new(vector.X, vector.Y))
 		end
 		return nil
