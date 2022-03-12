@@ -310,7 +310,7 @@ pcall(function()
 		assert(target)
 
 		local vector, on = camera:WorldToViewportPoint(target)
-		if on and ((not pass) or (pass and (pass == true))) then
+		if on or pass then
 			return (Vector2.new(vector.X, vector.Y))
 		end
 		return nil
