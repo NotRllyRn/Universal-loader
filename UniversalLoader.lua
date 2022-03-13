@@ -3,7 +3,7 @@
     loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/UniversalLoader.lua"))()
 
 ]]
-local Incoming = ({...})
+local Incoming = { ... }
 pcall(function()
 	repeat
 		wait()
@@ -92,9 +92,9 @@ pcall(function()
 			end,
 		}
 
-		local oldnc;
+		local oldnc
 		oldnc = hookfunction(getrawmetatable(game).__namecall, function(...)
-			for i,v in pairs({...}) do
+			for i, v in pairs({ ... }) do
 				if not i or not v then
 					return oldnc(...)
 				end
@@ -236,6 +236,12 @@ pcall(function()
 		})
 	end
 
+	function getVenyx()
+		return loadstring(
+			game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GUILibs/VenyxLib.lua")
+		)()
+	end
+
 	function getCustomCmds(arg1)
 		local arg1 = (arg1 and tostring(arg1)) or ""
 		return loadstring(
@@ -369,7 +375,10 @@ pcall(function()
 		local Trigger
 		Trigger = function()
 			if nextPage then
-				Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100&cursor=" .. nextPage
+				Url = "https://games.roblox.com/v1/games/"
+					.. GameID
+					.. "/servers/Public?sortOrder=Asc&limit=100&cursor="
+					.. nextPage
 			end
 			local body = JSONDecode(httpRequest({
 				Url = Url,
