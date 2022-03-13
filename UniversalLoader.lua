@@ -504,10 +504,21 @@ pcall(function()
 		loading = false
 	end)
 
+	local on_leave_t = {}
+	function onLeave(func) 
+		table.insert(on_leave_t, func)
+	end
+
 	players.PlayerRemoving:Connect(function(plr)
 		if plr == localPlayer then
 			local Encoded = JSONEncode(SaveTable)
 			writefile("Universal/Universal.json", Encoded)
+
+			for _, func in ipairs(on_leave_t) do
+				cWrap(function()
+					func()
+				end)
+			end
 		end
 	end)
 end)
