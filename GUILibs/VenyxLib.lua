@@ -200,6 +200,16 @@ end
 
 -- classes
 
+do -- quick fix
+	for _, color in pairs(themes) do
+		local s = utility:Create('ImageLabel', {
+			ImageColor3 = color
+		})
+		s:Destroy()
+	end
+end
+
+
 local library = {} -- main
 local page = {}
 local section = {}
