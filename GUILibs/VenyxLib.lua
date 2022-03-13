@@ -200,7 +200,9 @@ end
 
 -- classes
 
-local library = {} -- main
+local library = {
+	utility = utility
+} -- main
 local page = {}
 local section = {}
 
