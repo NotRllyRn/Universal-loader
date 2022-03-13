@@ -316,10 +316,10 @@ pcall(function()
 		if not target then return end
 
 		local vector, on = camera:WorldToViewportPoint(target)
-		local _, onscreen = camera:WorldToScreenPoint(target)
+		local p, onscreen = camera:WorldToScreenPoint(target)
 		if (on or pass) then
 			if screencheck and not onscreen then return nil end
-			return (Vector2.new(vector.X, vector.Y), onscreen)
+			return table.unpack({Vector2.new(vector.X, vector.Y), onscreen})
 		end
 		return nil
 	end
