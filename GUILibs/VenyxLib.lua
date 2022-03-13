@@ -200,9 +200,7 @@ end
 
 -- classes
 
-local library = {
-	utility = utility
-} -- main
+local library = {} -- main
 local page = {}
 local section = {}
 
@@ -2170,4 +2168,4 @@ do
 	end
 end
 
-return library
+return table.unpack({library, utility})
