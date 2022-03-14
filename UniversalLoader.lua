@@ -311,15 +311,13 @@ pcall(function()
 
 	loading = false
 
-	function getPoint(target, pass, screencheck)
+	function getPoint(target, pass)
 		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil
 		if not target then return end
 
 		local vector, on = camera:WorldToViewportPoint(target)
-		local p, onscreen = camera:WorldToScreenPoint(target)
 		if (on or pass) then
-			if screencheck and not onscreen then return nil end
-			return table.unpack({Vector2.new(vector.X, vector.Y), onscreen})
+			return Vector2.new(vector.X, vector.Y)
 		end
 		return nil
 	end
