@@ -119,6 +119,7 @@ pcall(function()
 	virtualIM = game:GetService("VirtualInputManager")
 	replicatedS = game:GetService("ReplicatedStorage")
 	TPService = game:GetService("TeleportService")
+	PhyService = game:GetService("PhysicsService")
 
 	renderS = runService.RenderStepped
 	heartS = runService.Heartbeat
@@ -189,7 +190,7 @@ pcall(function()
 		return (tostring(table.concat(chars)))
 	end
 
-	function castRay(start, direct, distance, list, type1)
+	function castRay(start, direct, distance, list, type1, id)
 		assert(start and (type(start) == "vector"))
 		assert(direct and (type(direct) == "vector"))
 		local distant = (distant and tonumber(distance)) or 100
@@ -201,6 +202,9 @@ pcall(function()
 			if list and type1 then
 				castprams.FilterDescendantsInstances = (type(list) == 'table' and list) or {list}
 				castprams.FilterType = Enum.RaycastFilterType[type1]
+				if id then
+					castprams.CollisionGroup = id
+				end
 			end
 
 			local cast = workspace:Raycast(start, direct * distance, castprams)
