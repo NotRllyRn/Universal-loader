@@ -2147,10 +2147,10 @@ do
 				if callback then
 					callback(value, function(...)
 						self:updateDropdown(dropdown, ...)
-					end)	
+					end)
 				end
 
-				self:updateDropdown(dropdown, value, nil, callback)
+				self:updateDropdown(dropdown, title or value, nil, callback)
 			end)
 			
 			entries = entries + 1
