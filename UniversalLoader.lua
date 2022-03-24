@@ -202,9 +202,10 @@ pcall(function()
 			if list and type1 then
 				castprams.FilterDescendantsInstances = (type(list) == 'table' and list) or {list}
 				castprams.FilterType = Enum.RaycastFilterType[type1]
-				if id then
-					castprams.CollisionGroup = id
-				end
+			end
+
+			if id then
+				castprams.CollisionGroup = id
 			end
 
 			local cast = workspace:Raycast(start, direct * distance, castprams)
