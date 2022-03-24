@@ -908,7 +908,7 @@ do
 			end
 		end)
 		
-		return textbox
+		return textboxd
 	end
 	
 	function section:addKeybind(title, default, callback, changedCallback)
