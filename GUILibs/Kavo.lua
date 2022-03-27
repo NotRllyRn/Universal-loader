@@ -192,6 +192,13 @@ function Kavo.CreateLib(kavName, themeList)
     local blurFrame = Instance.new("Frame")
 
     Kavo:DraggingEnabled(MainHeader, Main)
+    function Kavo:ToggleUI()
+        if ScreenGui.Enabled then
+            ScreenGui.Enabled = false
+        else
+            ScreenGui.Enabled = true
+        end
+    end
 
     blurFrame.Name = "blurFrame"
     blurFrame.Parent = pages
@@ -1136,67 +1143,69 @@ function Kavo.CreateLib(kavName, themeList)
 
 				btn.MouseButton1Click:Connect(function()
 					if not focusing then
-						if toggled == false then
-							game.TweenService
-								:Create(img, TweenInfo.new(0.11, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-									ImageTransparency = 0,
-								})
-								:Play()
-							local c = sample:Clone()
-							c.Parent = btn
-							local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
-							c.Position = UDim2.new(0, x, 0, y)
-							local len, size = 0.35, nil
-							if btn.AbsoluteSize.X >= btn.AbsoluteSize.Y then
-								size = (btn.AbsoluteSize.X * 1.5)
-							else
-								size = (btn.AbsoluteSize.Y * 1.5)
-							end
-							c:TweenSizeAndPosition(
-								UDim2.new(0, size, 0, size),
-								UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)),
-								"Out",
-								"Quad",
-								len,
-								true,
-								nil
-							)
-							for i = 1, 10 do
-								c.ImageTransparency = c.ImageTransparency + 0.05
-								wait(len / 12)
-							end
-							c:Destroy()
-						else
-							game.TweenService
-								:Create(img, TweenInfo.new(0.11, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-									ImageTransparency = 1,
-								})
-								:Play()
-							local c = sample:Clone()
-							c.Parent = btn
-							local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
-							c.Position = UDim2.new(0, x, 0, y)
-							local len, size = 0.35, nil
-							if btn.AbsoluteSize.X >= btn.AbsoluteSize.Y then
-								size = (btn.AbsoluteSize.X * 1.5)
-							else
-								size = (btn.AbsoluteSize.Y * 1.5)
-							end
-							c:TweenSizeAndPosition(
-								UDim2.new(0, size, 0, size),
-								UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)),
-								"Out",
-								"Quad",
-								len,
-								true,
-								nil
-							)
-							for i = 1, 10 do
-								c.ImageTransparency = c.ImageTransparency + 0.05
-								wait(len / 12)
-							end
-							c:Destroy()
-						end
+						coroutine.resume(coroutine.create(function()
+                            if toggled == false then
+                                game.TweenService
+                                    :Create(img, TweenInfo.new(0.11, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                                        ImageTransparency = 0,
+                                    })
+                                    :Play()
+                                local c = sample:Clone()
+                                c.Parent = btn
+                                local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
+                                c.Position = UDim2.new(0, x, 0, y)
+                                local len, size = 0.35, nil
+                                if btn.AbsoluteSize.X >= btn.AbsoluteSize.Y then
+                                    size = (btn.AbsoluteSize.X * 1.5)
+                                else
+                                    size = (btn.AbsoluteSize.Y * 1.5)
+                                end
+                                c:TweenSizeAndPosition(
+                                    UDim2.new(0, size, 0, size),
+                                    UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)),
+                                    "Out",
+                                    "Quad",
+                                    len,
+                                    true,
+                                    nil
+                                )
+                                for i = 1, 10 do
+                                    c.ImageTransparency = c.ImageTransparency + 0.05
+                                    wait(len / 12)
+                                end
+                                c:Destroy()
+                            else
+                                game.TweenService
+                                    :Create(img, TweenInfo.new(0.11, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                                        ImageTransparency = 1,
+                                    })
+                                    :Play()
+                                local c = sample:Clone()
+                                c.Parent = btn
+                                local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
+                                c.Position = UDim2.new(0, x, 0, y)
+                                local len, size = 0.35, nil
+                                if btn.AbsoluteSize.X >= btn.AbsoluteSize.Y then
+                                    size = (btn.AbsoluteSize.X * 1.5)
+                                else
+                                    size = (btn.AbsoluteSize.Y * 1.5)
+                                end
+                                c:TweenSizeAndPosition(
+                                    UDim2.new(0, size, 0, size),
+                                    UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)),
+                                    "Out",
+                                    "Quad",
+                                    len,
+                                    true,
+                                    nil
+                                )
+                                for i = 1, 10 do
+                                    c.ImageTransparency = c.ImageTransparency + 0.05
+                                    wait(len / 12)
+                                end
+                                c:Destroy()
+                            end
+                        end))
 						toggled = not toggled
 						pcall(callback, toggled)
 					else
