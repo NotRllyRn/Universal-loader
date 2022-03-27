@@ -8,124 +8,121 @@ local run = game:GetService("RunService")
 local Utility = {}
 local Objects = {}
 function Kavo:DraggingEnabled(frame, parent)
-	parent = parent or frame
+        
+    parent = parent or frame
+    
+    -- stolen from wally or kiriot, kek
+    local dragging = false
+    local dragInput, mousePos, framePos
 
-	-- stolen from wally or kiriot, kek
-	local dragging = false
-	local dragInput, mousePos, framePos
+    frame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            mousePos = input.Position
+            framePos = parent.Position
+            
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
 
-	frame.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			dragging = true
-			mousePos = input.Position
-			framePos = parent.Position
+    frame.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement then
+            dragInput = input
+        end
+    end)
 
-			input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragging = false
-				end
-			end)
-		end
-	end)
-
-	frame.InputChanged:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			dragInput = input
-		end
-	end)
-
-	input.InputChanged:Connect(function(input)
-		if input == dragInput and dragging then
-			local delta = input.Position - mousePos
-			parent.Position = UDim2.new(
-				framePos.X.Scale,
-				framePos.X.Offset + delta.X,
-				framePos.Y.Scale,
-				framePos.Y.Offset + delta.Y
-			)
-		end
-	end)
+    input.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - mousePos
+            parent.Position  = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale, framePos.Y.Offset + delta.Y)
+        end
+    end)
 end
 
 function Utility:TweenObject(obj, properties, duration, ...)
-	tween:Create(obj, tweeninfo(duration, ...), properties):Play()
+    tween:Create(obj, tweeninfo(duration, ...), properties):Play()
 end
 
+
 local themes = {
-	SchemeColor = Color3.fromRGB(74, 99, 135),
-	Background = Color3.fromRGB(36, 37, 43),
-	Header = Color3.fromRGB(28, 29, 34),
-	TextColor = Color3.fromRGB(255, 255, 255),
-	ElementColor = Color3.fromRGB(32, 32, 38),
+    SchemeColor = Color3.fromRGB(74, 99, 135),
+    Background = Color3.fromRGB(36, 37, 43),
+    Header = Color3.fromRGB(28, 29, 34),
+    TextColor = Color3.fromRGB(255,255,255),
+    ElementColor = Color3.fromRGB(32, 32, 38)
 }
 local themeStyles = {
-	DarkTheme = {
-		SchemeColor = Color3.fromRGB(64, 64, 64),
-		Background = Color3.fromRGB(0, 0, 0),
-		Header = Color3.fromRGB(0, 0, 0),
-		TextColor = Color3.fromRGB(255, 255, 255),
-		ElementColor = Color3.fromRGB(20, 20, 20),
-	},
-	LightTheme = {
-		SchemeColor = Color3.fromRGB(150, 150, 150),
-		Background = Color3.fromRGB(255, 255, 255),
-		Header = Color3.fromRGB(200, 200, 200),
-		TextColor = Color3.fromRGB(0, 0, 0),
-		ElementColor = Color3.fromRGB(224, 224, 224),
-	},
-	BloodTheme = {
-		SchemeColor = Color3.fromRGB(227, 27, 27),
-		Background = Color3.fromRGB(10, 10, 10),
-		Header = Color3.fromRGB(5, 5, 5),
-		TextColor = Color3.fromRGB(255, 255, 255),
-		ElementColor = Color3.fromRGB(20, 20, 20),
-	},
-	GrapeTheme = {
-		SchemeColor = Color3.fromRGB(166, 71, 214),
-		Background = Color3.fromRGB(64, 50, 71),
-		Header = Color3.fromRGB(36, 28, 41),
-		TextColor = Color3.fromRGB(255, 255, 255),
-		ElementColor = Color3.fromRGB(74, 58, 84),
-	},
-	Ocean = {
-		SchemeColor = Color3.fromRGB(86, 76, 251),
-		Background = Color3.fromRGB(26, 32, 58),
-		Header = Color3.fromRGB(38, 45, 71),
-		TextColor = Color3.fromRGB(200, 200, 200),
-		ElementColor = Color3.fromRGB(38, 45, 71),
-	},
-	Midnight = {
-		SchemeColor = Color3.fromRGB(26, 189, 158),
-		Background = Color3.fromRGB(44, 62, 82),
-		Header = Color3.fromRGB(57, 81, 105),
-		TextColor = Color3.fromRGB(255, 255, 255),
-		ElementColor = Color3.fromRGB(52, 74, 95),
-	},
-	Sentinel = {
-		SchemeColor = Color3.fromRGB(230, 35, 69),
-		Background = Color3.fromRGB(32, 32, 32),
-		Header = Color3.fromRGB(24, 24, 24),
-		TextColor = Color3.fromRGB(119, 209, 138),
-		ElementColor = Color3.fromRGB(24, 24, 24),
-	},
-	Synapse = {
-		SchemeColor = Color3.fromRGB(46, 48, 43),
-		Background = Color3.fromRGB(13, 15, 12),
-		Header = Color3.fromRGB(36, 38, 35),
-		TextColor = Color3.fromRGB(152, 99, 53),
-		ElementColor = Color3.fromRGB(24, 24, 24),
-	},
-	Serpent = {
-		SchemeColor = Color3.fromRGB(0, 166, 58),
-		Background = Color3.fromRGB(31, 41, 43),
-		Header = Color3.fromRGB(22, 29, 31),
-		TextColor = Color3.fromRGB(255, 255, 255),
-		ElementColor = Color3.fromRGB(22, 29, 31),
-	},
+    DarkTheme = {
+        SchemeColor = Color3.fromRGB(64, 64, 64),
+        Background = Color3.fromRGB(0, 0, 0),
+        Header = Color3.fromRGB(0, 0, 0),
+        TextColor = Color3.fromRGB(255,255,255),
+        ElementColor = Color3.fromRGB(20, 20, 20)
+    },
+    LightTheme = {
+        SchemeColor = Color3.fromRGB(150, 150, 150),
+        Background = Color3.fromRGB(255,255,255),
+        Header = Color3.fromRGB(200, 200, 200),
+        TextColor = Color3.fromRGB(0,0,0),
+        ElementColor = Color3.fromRGB(224, 224, 224)
+    },
+    BloodTheme = {
+        SchemeColor = Color3.fromRGB(227, 27, 27),
+        Background = Color3.fromRGB(10, 10, 10),
+        Header = Color3.fromRGB(5, 5, 5),
+        TextColor = Color3.fromRGB(255,255,255),
+        ElementColor = Color3.fromRGB(20, 20, 20)
+    },
+    GrapeTheme = {
+        SchemeColor = Color3.fromRGB(166, 71, 214),
+        Background = Color3.fromRGB(64, 50, 71),
+        Header = Color3.fromRGB(36, 28, 41),
+        TextColor = Color3.fromRGB(255,255,255),
+        ElementColor = Color3.fromRGB(74, 58, 84)
+    },
+    Ocean = {
+        SchemeColor = Color3.fromRGB(86, 76, 251),
+        Background = Color3.fromRGB(26, 32, 58),
+        Header = Color3.fromRGB(38, 45, 71),
+        TextColor = Color3.fromRGB(200, 200, 200),
+        ElementColor = Color3.fromRGB(38, 45, 71)
+    },
+    Midnight = {
+        SchemeColor = Color3.fromRGB(26, 189, 158),
+        Background = Color3.fromRGB(44, 62, 82),
+        Header = Color3.fromRGB(57, 81, 105),
+        TextColor = Color3.fromRGB(255, 255, 255),
+        ElementColor = Color3.fromRGB(52, 74, 95)
+    },
+    Sentinel = {
+        SchemeColor = Color3.fromRGB(230, 35, 69),
+        Background = Color3.fromRGB(32, 32, 32),
+        Header = Color3.fromRGB(24, 24, 24),
+        TextColor = Color3.fromRGB(119, 209, 138),
+        ElementColor = Color3.fromRGB(24, 24, 24)
+    },
+    Synapse = {
+        SchemeColor = Color3.fromRGB(46, 48, 43),
+        Background = Color3.fromRGB(13, 15, 12),
+        Header = Color3.fromRGB(36, 38, 35),
+        TextColor = Color3.fromRGB(152, 99, 53),
+        ElementColor = Color3.fromRGB(24, 24, 24)
+    },
+    Serpent = {
+        SchemeColor = Color3.fromRGB(0, 166, 58),
+        Background = Color3.fromRGB(31, 41, 43),
+        Header = Color3.fromRGB(22, 29, 31),
+        TextColor = Color3.fromRGB(255,255,255),
+        ElementColor = Color3.fromRGB(22, 29, 31)
+    }
 }
 local oldTheme = ""
 
-local LibName = tostring(math.random(1, 100)) .. tostring(math.random(1, 50)) .. tostring(math.random(1, 100))
+local LibName = tostring(math.random(1, 100))..tostring(math.random(1,50))..tostring(math.random(1, 100))
 
 function Kavo.CreateLib(kavName, themeList)
     if not themeList then
@@ -191,7 +188,6 @@ function Kavo.CreateLib(kavName, themeList)
 
     local blurFrame = Instance.new("Frame")
 
-    Kavo:DraggingEnabled(MainHeader, Main)
     function Kavo:ToggleUI()
         if ScreenGui.Enabled then
             ScreenGui.Enabled = false
@@ -199,6 +195,7 @@ function Kavo.CreateLib(kavName, themeList)
             ScreenGui.Enabled = true
         end
     end
+    Kavo:DraggingEnabled(MainHeader, Main)
 
     blurFrame.Name = "blurFrame"
     blurFrame.Parent = pages
