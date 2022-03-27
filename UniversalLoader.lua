@@ -14,10 +14,10 @@ pcall(function()
 
 	function ExploitCheck(name, ...) --// checks if the executor has a function
 		local found
-		for _, v in pairs({ ... }) do --// go's trhough list of functions 
+		for _, v in pairs({ ... }) do --// go's trhough list of functions
 			if v then --// checks if function is valid
 				found = v --// if it is valid, sets it to found
-				break 
+				break
 			end
 		end
 		if found then --// if found is valid
@@ -102,12 +102,12 @@ pcall(function()
 			heartS:Wait()
 		else
 			local n = assert(n and tonumber(n))
-			for _ = 1, (n * 60) do
+			for _ = 1, (n * 60) do --// loops n * 60 times using heartS
 				heartS:Wait()
 			end
 		end
 	end
-	
+
 	function formatTime(tick) --// formats a tick to a readable time in the format of days:hours:minutes:seconds
 		local tick = assert(tick and tonumber(tick))
 		local days = math.floor(tick / 86400)
@@ -136,7 +136,7 @@ pcall(function()
 			local castprams = RaycastParams.new() --// makes a new raycast params
 
 			if list and type1 then
-				castprams.FilterDescendantsInstances = (type(list) == 'table' and list) or {list} --// sets the filter to the list if specified
+				castprams.FilterDescendantsInstances = (type(list) == "table" and list) or { list } --// sets the filter to the list if specified
 				castprams.FilterType = Enum.RaycastFilterType[type1] --// sets the filter type to the specified type
 			end
 
@@ -160,7 +160,7 @@ pcall(function()
 		end
 	end
 
-	function antiLAG() --// runs anti lag 
+	function antiLAG() --// runs anti lag
 		pcall(function() --// pcall to prevent errors
 			loadstring(
 				game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/AntiLag.lua") --// gets the anti lag script
@@ -230,10 +230,10 @@ pcall(function()
 	localPlayer = players.LocalPlayer --// gets localplayer
 	mouse = localPlayer:GetMouse() --// gets the mouse
 
-	if localPlayer:HasAppearanceLoaded()  --// checks if player appearence has loaded
+	if localPlayer:HasAppearanceLoaded() then --// checks if player appearence has loaded
 		character = localPlayer.Character --// sets character to player character
 	else
-		repeat 
+		repeat
 			fastWait() --// waits until character appearence is loaded
 		until localPlayer:HasAppearanceLoaded()
 		character = localPlayer.Character
@@ -244,22 +244,26 @@ pcall(function()
 	playerGUI = localPlayer:WaitForChild("PlayerGui") --// gets player's gui
 	camera = workspace.CurrentCamera --// gets current camera
 
-	ChildAddedConnect = character.ChildAdded:Connect(function(child) --// creates a hook that will check for new humanoid or humanoid root parts
-		if child:IsA("Humanoid") then --// checks if child is a humanoid
-			humanoid = child
-		elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
-			humanoidRP = child
+	ChildAddedConnect = character.ChildAdded:Connect(
+		function(child) --// creates a hook that will check for new humanoid or humanoid root parts
+			if child:IsA("Humanoid") then --// checks if child is a humanoid
+				humanoid = child
+			elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
+				humanoidRP = child
+			end
 		end
-	end)
+	)
 
 	loading = false
 
 	function getPoint(target, pass) --// gets the point on the screen of a position in game
 		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil --// sets target to something value
-		if not target then return end --// returns if target is nil
+		if not target then
+			return
+		end --// returns if target is nil
 
 		local vector, on = camera:WorldToViewportPoint(target) --// gets vector of target
-		if (on or pass) then --// checks if target is on screen or pass is true
+		if on or pass then --// checks if target is on screen or pass is true
 			return Vector2.new(vector.X, vector.Y) --// returns vector2 of target position on screen
 		end
 		return nil
@@ -267,7 +271,9 @@ pcall(function()
 
 	function DrawToTarget(target, Color_1, Thick) --// draws a line to a target
 		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil --// tries to set target to something
-		if not target then return end --// returns if target doesn't exist
+		if not target then
+			return
+		end --// returns if target doesn't exist
 
 		local vector = getPoint(target) --// gets vector of target
 		if vector then
@@ -284,7 +290,7 @@ pcall(function()
 
 	function DrawText(Text_1, Point, Color_1, Thick) --// draws a text at point
 		local Text_1 = assert(Text_1 and tostring(Text_1)) --// sets text to something
-		local Point = assert(Point and Point.X and Point.Y and Vector2.new(Point.X, Point.Y))  --// sets point to something
+		local Point = assert(Point and Point.X and Point.Y and Vector2.new(Point.X, Point.Y)) --// sets point to something
 
 		local Text = Drawing.new("Text") --// makes a new text
 		Text.Visible = true --// sets properties of text
@@ -337,7 +343,7 @@ pcall(function()
 				for _, group in pairs(body.data) do --// goes through the data in the returned body
 					local id = group.id --// gets the jobid of the server
 					if group.playing < group.maxPlayers and not (JobID == id) then --// checks if the server is full and current game is not the same as game thats its checking
-						found = true 
+						found = true
 						if not table.find(Serverhop, id) then --// checks if the server is in the serverhop table
 							table.insert(Serverhop, id) --// inserts the server into the serverhop table
 						end
@@ -384,14 +390,14 @@ pcall(function()
 			local val = (val and (type(val) == "boolean") and val) or true --// makes sure val is a boolean
 			if val and not idleConnection then --// checks if val is true and if idle connection does not exist
 				idleConnection = localPlayer.Idled:Connect(function() --// connects to idled event
-					virtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame) 
-					wait(1) 
+					virtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+					wait(1)
 					virtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
 				end) --// clicks virtual button to prevent idle afk
 			elseif not val and idleConnection then --// checks if val is false and if idle connection does exist
-				pcall(function() 
+				pcall(function()
 					idleConnection:Disconnect() --// disconnects idle connection
-					idleConnection = nil 
+					idleConnection = nil
 				end)
 			end
 		end
@@ -401,7 +407,7 @@ pcall(function()
 		assert(functioN and (type(functioN) == "function")) --// makes sure function is a function
 		localPlayer.CharacterAdded:Connect(function() --// connects to character added event
 			if loadWait then --// checks if load wait is true
-				while loading do 
+				while loading do
 					fastWait() --// waits for loading to be done
 				end
 			end
@@ -438,7 +444,7 @@ pcall(function()
 
 		ChildAddedConnect = character.ChildAdded:Connect(function(child) --// connects to child added event
 			if child:IsA("Humanoid") then --// checks if child is a humanoid
-				humanoid = child 
+				humanoid = child
 			elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
 				humanoidRP = child
 			end
@@ -448,13 +454,13 @@ pcall(function()
 	end)
 
 	local on_leave_t = {} --// creates a table to store functions that are called when player leaves a server
-	function onLeave(func) 
+	function onLeave(func)
 		table.insert(on_leave_t, func) --// inserts the function into the table
 	end
 
 	players.PlayerRemoving:Connect(function(plr) --// connects to player removing event
 		if plr == localPlayer then --// checks if player is local player
-			local Encoded = JSONEncode(SaveTable) 
+			local Encoded = JSONEncode(SaveTable)
 			writefile("Universal/Universal.json", Encoded) --// writes the save table to a file
 
 			for _, func in ipairs(on_leave_t) do --// loops through all functions in the table
