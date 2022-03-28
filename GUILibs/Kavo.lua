@@ -122,30 +122,7 @@ local themeStyles = {
 }
 local oldTheme = ""
 
-local SettingsT = {
-
-}
-
-local Name = "KavoConfig.JSON"
-
-pcall(function()
-
-if not pcall(function() readfile(Name) end) then
-writefile(Name, game:service'HttpService':JSONEncode(SettingsT))
-end
-
-Settings = game:service'HttpService':JSONEncode(readfile(Name))
-end)
-
 local LibName = tostring(math.random(1, 100))..tostring(math.random(1,50))..tostring(math.random(1, 100))
-
-function Kavo:ToggleUI()
-    if game.CoreGui[LibName].Enabled then
-        game.CoreGui[LibName].Enabled = false
-    else
-        game.CoreGui[LibName].Enabled = true
-    end
-end
 
 function Kavo.CreateLib(kavName, themeList)
     if not themeList then
@@ -213,6 +190,13 @@ function Kavo.CreateLib(kavName, themeList)
 
     Kavo:DraggingEnabled(MainHeader, Main)
 
+    function Kavo:ToggleUI()
+        if ScreenGui.Enabled then
+            ScreenGui.Enabled = false
+        else
+            ScreenGui.Enabled = true
+        end
+    end
     blurFrame.Name = "blurFrame"
     blurFrame.Parent = pages
     blurFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -2706,6 +2690,10 @@ function Kavo.CreateLib(kavName, themeList)
         end
         return Sections
     end  
-    return Tabs
+    return setmetatable(Tabs, {
+        __index = {
+            container = Main
+        }
+    })
 end
 return Kavo
