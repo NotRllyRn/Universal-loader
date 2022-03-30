@@ -307,8 +307,8 @@ pcall(function()
 		TPService:TeleportToPlaceInstance(game.PlaceId, game.JobId, localPlayer)
 	end
 
-	function serverHop() --// function that serverhops the same game
-		local GameID = tostring(game.PlaceId) --// gets game id of game
+	function serverHop(id) --// function that serverhops the same game
+		local GameID = (id and tonumber(id)) or tostring(game.PlaceId) --// gets game id of game
 		local JobID = tostring(game.JobId) --// gets jobid of game
 		local CHour = os.date("!*t").hour --// get the current our
 		local Serverhop = SaveTable.Serverhop --// gets serverhop table
@@ -340,15 +340,17 @@ pcall(function()
 				else
 					nextPage = nil
 				end
-				for _, group in pairs(body.data) do --// goes through the data in the returned body
-					local id = group.id --// gets the jobid of the server
-					if group.playing < group.maxPlayers and not (JobID == id) then --// checks if the server is full and current game is not the same as game thats its checking
-						found = true
-						if not table.find(Serverhop, id) then --// checks if the server is in the serverhop table
-							table.insert(Serverhop, id) --// inserts the server into the serverhop table
+				if body.data then
+					for _, group in pairs(body.data) do --// goes through the data in the returned body
+						local id = group.id --// gets the jobid of the server
+						if group.playing < group.maxPlayers and not (JobID == id) then --// checks if the server is full and current game is not the same as game thats its checking
+							found = true
+							if not table.find(Serverhop, id) then --// checks if the server is in the serverhop table
+								table.insert(Serverhop, id) --// inserts the server into the serverhop table
+							end
+							TPService:TeleportToPlaceInstance(GameID, id, localPlayer) --// tries to teleport to the server
+							break
 						end
-						TPService:TeleportToPlaceInstance(GameID, id, localPlayer) --// tries to teleport to the server
-						break
 					end
 				end
 				if not found and nextPage then --// checks if there is a next page and if the server was not found
