@@ -308,7 +308,7 @@ pcall(function()
 	end
 
 	function serverHop(id) --// function that serverhops the same game
-		local GameID = (id and tonumber(id)) or tostring(game.PlaceId) --// gets game id of game
+		local GameID = (id and tostring(id)) or tostring(game.PlaceId) --// gets game id of game
 		local JobID = tostring(game.JobId) --// gets jobid of game
 		local CHour = os.date("!*t").hour --// get the current our
 		local Serverhop = SaveTable.Serverhop --// gets serverhop table
