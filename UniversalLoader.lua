@@ -113,6 +113,20 @@ pcall(function()
 		end
 	end
 
+	function copyOver(from, to)
+		if from and to and type(from) == 'table' and type(to) == 'table' then
+			for index, value in pairs(from) do
+				if value and type(value) == 'table' then
+					to[index] = {}
+					copyOver(value, to[index])
+				else
+					to[index] = value
+				end
+			end
+
+		end
+	end
+
 	function formatTime(tick) --// formats a tick to a readable time in the format of days:hours:minutes:seconds
 		local tick = assert(tick and tonumber(tick))
 		local days = math.floor(tick / 86400)
