@@ -303,8 +303,20 @@ pcall(function()
 		return Text
 	end
 
+	function join(id)
+		local id = tonumber(id)
+
+		if id then
+			TPService:Teleport(id)
+		end
+	end
+
 	function rejoin() --// function that rejoins the current game
-		TPService:TeleportToPlaceInstance(game.PlaceId, game.JobId, localPlayer)
+		if #players:GetPlayers() > 1 then --// checks if there is more than 1 player in the current server
+			TPService:TeleportToPlaceInstance(game.PlaceId, game.JobId, localPlayer) --// teleports to the same game with the same job id which is a specific server
+		else
+			join(game.PlaceId) --// rejoins the game without going to a specific serever
+		end
 	end
 
 	function serverHop(id) --// function that serverhops the same game
