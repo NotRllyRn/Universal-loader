@@ -1,3 +1,5 @@
+local Incoming = ({...})
+
 local Kavo = {}
 
 local tween = game:GetService("TweenService")
@@ -186,6 +188,8 @@ function Kavo.CreateLib(kavName, themeList)
     local Pages = Instance.new("Folder") 
     local infoContainer = Instance.new("Frame") 
 
+    protectgui(ScreenGui, game.CoreGui)
+
     local blurFrame = Instance.new("Frame") 
 
     Kavo:DraggingEnabled(MainHeader, Main)
@@ -206,10 +210,13 @@ function Kavo.CreateLib(kavName, themeList)
     blurFrame.Size = UDim2.new(0, 376, 0, 289)
     blurFrame.ZIndex = 999
 
-    ScreenGui.Parent = game.CoreGui
     ScreenGui.Name = LibName
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     ScreenGui.ResetOnSpawn = false
+
+    if Incoming[1] == true then
+        ScreenGui.Enabled = false
+    end
 
     Main.Name = "Main"
     Main.Parent = ScreenGui

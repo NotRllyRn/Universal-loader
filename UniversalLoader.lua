@@ -38,7 +38,12 @@ pcall(function()
 	ExploitCheck("delfolder", delfolder)
 	ExploitCheck("delfile", delfile)
 	ExploitCheck("isfolder", isfolder)
-	ExploitCheck("protectgui", syn and syn.protect_gui)
+	ExploitCheck("protectgui", gethui and function(v) --// for protecting screenguis from being detected 
+		v.Parent = gethui() --// sets the gui to the hui so that no other scripts can access it
+	end, syn and syn.protect_gui and function(v, parent)
+		syn.protect_gui(v) --// protects gui with Synapse's method
+		v.Parent = parent --// sets the parent.
+	end)
 
 	httpService = game:GetService("HttpService") --// gets the http service
 	JSONDecode = function(...) --// decodes json function for easier use
