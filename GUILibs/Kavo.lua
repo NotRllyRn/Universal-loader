@@ -169,24 +169,24 @@ function Kavo.CreateLib(kavName, themeList)
             v:Destroy()
         end
     end
-    local ScreenGui = Instance.new("ScreenGui")
-    local Main = Instance.new("Frame")
-    local MainCorner = Instance.new("UICorner")
-    local MainHeader = Instance.new("Frame")
-    local headerCover = Instance.new("UICorner")
-    local coverup = Instance.new("Frame")
-    local title = Instance.new("TextLabel")
-    local close = Instance.new("ImageButton")
-    local MainSide = Instance.new("Frame")
-    local sideCorner = Instance.new("UICorner")
-    local coverup_2 = Instance.new("Frame")
-    local tabFrames = Instance.new("Frame")
-    local tabListing = Instance.new("UIListLayout")
-    local pages = Instance.new("Frame")
-    local Pages = Instance.new("Folder")
-    local infoContainer = Instance.new("Frame")
+    local ScreenGui = Instance.new("ScreenGui") heartS:Wait()
+    local Main = Instance.new("Frame") heartS:Wait()
+    local MainCorner = Instance.new("UICorner") heartS:Wait()
+    local MainHeader = Instance.new("Frame") heartS:Wait()
+    local headerCover = Instance.new("UICorner") heartS:Wait()
+    local coverup = Instance.new("Frame") heartS:Wait()
+    local title = Instance.new("TextLabel") heartS:Wait()
+    local close = Instance.new("ImageButton") heartS:Wait()
+    local MainSide = Instance.new("Frame") heartS:Wait()
+    local sideCorner = Instance.new("UICorner") heartS:Wait()
+    local coverup_2 = Instance.new("Frame") heartS:Wait()
+    local tabFrames = Instance.new("Frame") heartS:Wait()
+    local tabListing = Instance.new("UIListLayout") heartS:Wait()
+    local pages = Instance.new("Frame") heartS:Wait()
+    local Pages = Instance.new("Folder") heartS:Wait()
+    local infoContainer = Instance.new("Frame") heartS:Wait()
 
-    local blurFrame = Instance.new("Frame")
+    local blurFrame = Instance.new("Frame") heartS:Wait()
 
     Kavo:DraggingEnabled(MainHeader, Main)
 
@@ -355,10 +355,10 @@ function Kavo.CreateLib(kavName, themeList)
 
     function Tabs:NewTab(tabName)
         tabName = tabName or "Tab"
-        local tabButton = Instance.new("TextButton")
-        local UICorner = Instance.new("UICorner")
-        local page = Instance.new("ScrollingFrame")
-        local pageListing = Instance.new("UIListLayout")
+        local tabButton = Instance.new("TextButton") heartS:Wait()
+        local UICorner = Instance.new("UICorner") heartS:Wait()
+        local page = Instance.new("ScrollingFrame") heartS:Wait()
+        local pageListing = Instance.new("UIListLayout") heartS:Wait()
 
         local function UpdateSize()
             local cS = pageListing.AbsoluteContentSize
@@ -458,13 +458,13 @@ function Kavo.CreateLib(kavName, themeList)
             local sectionFunctions = {}
             local modules = {}
 	    hidden = hidden or false
-            local sectionFrame = Instance.new("Frame")
-            local sectionlistoknvm = Instance.new("UIListLayout")
-            local sectionHead = Instance.new("Frame")
-            local sHeadCorner = Instance.new("UICorner")
-            local sectionName = Instance.new("TextLabel")
-            local sectionInners = Instance.new("Frame")
-            local sectionElListing = Instance.new("UIListLayout")
+            local sectionFrame = Instance.new("Frame") heartS:Wait()
+            local sectionlistoknvm = Instance.new("UIListLayout") heartS:Wait()
+            local sectionHead = Instance.new("Frame") heartS:Wait()
+            local sHeadCorner = Instance.new("UICorner") heartS:Wait()
+            local sectionName = Instance.new("TextLabel") heartS:Wait()
+            local sectionInners = Instance.new("Frame") heartS:Wait()
+            local sectionElListing = Instance.new("UIListLayout") heartS:Wait()
 			
 	    if hidden then
 		sectionHead.Visible = false
@@ -564,12 +564,12 @@ function Kavo.CreateLib(kavName, themeList)
                 bname = bname or "Click Me!"
                 callback = callback or function() end
 
-                local buttonElement = Instance.new("TextButton")
-                local UICorner = Instance.new("UICorner")
-                local btnInfo = Instance.new("TextLabel")
-                local viewInfo = Instance.new("ImageButton")
-                local touch = Instance.new("ImageLabel")
-                local Sample = Instance.new("ImageLabel")
+                local buttonElement = Instance.new("TextButton") heartS:Wait()
+                local UICorner = Instance.new("UICorner") heartS:Wait()
+                local btnInfo = Instance.new("TextLabel") heartS:Wait()
+                local viewInfo = Instance.new("ImageButton") heartS:Wait()
+                local touch = Instance.new("ImageLabel") heartS:Wait()
+                local Sample = Instance.new("ImageLabel") heartS:Wait()
 
                 table.insert(modules, bname)
 
@@ -610,8 +610,8 @@ function Kavo.CreateLib(kavName, themeList)
                 Objects[Sample] = "ImageColor3"
                 Sample.ImageTransparency = 0.600
 
-                local moreInfo = Instance.new("TextLabel")
-                local UICorner = Instance.new("UICorner")
+                local moreInfo = Instance.new("TextLabel") heartS:Wait()
+                local UICorner = Instance.new("UICorner") heartS:Wait()
 
                 moreInfo.Name = "TipMore"
                 moreInfo.Parent = infoContainer
@@ -762,13 +762,13 @@ function Kavo.CreateLib(kavName, themeList)
                 tname = tname or "Textbox"
                 tTip = tTip or "Gets a value of Textbox"
                 callback = callback or function() end
-                local textboxElement = Instance.new("TextButton")
-                local UICorner = Instance.new("UICorner")
-                local viewInfo = Instance.new("ImageButton")
-                local write = Instance.new("ImageLabel")
-                local TextBox = Instance.new("TextBox")
-                local UICorner_2 = Instance.new("UICorner")
-                local togName = Instance.new("TextLabel")
+                local textboxElement = Instance.new("TextButton") heartS:Wait()
+                local UICorner = Instance.new("UICorner") heartS:Wait()
+                local viewInfo = Instance.new("ImageButton") heartS:Wait()
+                local write = Instance.new("ImageLabel") heartS:Wait()
+                local TextBox = Instance.new("TextBox") heartS:Wait()
+                local UICorner_2 = Instance.new("UICorner") heartS:Wait()
+                local togName = Instance.new("TextLabel") heartS:Wait()
 
                 textboxElement.Name = "textboxElement"
                 textboxElement.Parent = sectionInners
@@ -839,8 +839,8 @@ function Kavo.CreateLib(kavName, themeList)
                 togName.TextSize = 14.000
                 togName.TextXAlignment = Enum.TextXAlignment.Left
 
-                local moreInfo = Instance.new("TextLabel")
-                local UICorner = Instance.new("UICorner")
+                local moreInfo = Instance.new("TextLabel") heartS:Wait()
+                local UICorner = Instance.new("UICorner") heartS:Wait()
 
                 moreInfo.Name = "TipMore"
                 moreInfo.Parent = infoContainer
@@ -960,13 +960,13 @@ function Kavo.CreateLib(kavName, themeList)
                     nTip = nTip or "Prints Current Toggle State"
                     callback = callback or function() end
 
-                    local toggleElement = Instance.new("TextButton")
-                    local UICorner = Instance.new("UICorner")
-                    local toggleDisabled = Instance.new("ImageLabel")
-                    local toggleEnabled = Instance.new("ImageLabel")
-                    local togName = Instance.new("TextLabel")
-                    local viewInfo = Instance.new("ImageButton")
-                    local Sample = Instance.new("ImageLabel")
+                    local toggleElement = Instance.new("TextButton") heartS:Wait()
+                    local UICorner = Instance.new("UICorner") heartS:Wait()
+                    local toggleDisabled = Instance.new("ImageLabel") heartS:Wait()
+                    local toggleEnabled = Instance.new("ImageLabel") heartS:Wait()
+                    local togName = Instance.new("TextLabel") heartS:Wait()
+                    local viewInfo = Instance.new("ImageButton") heartS:Wait()
+                    local Sample = Instance.new("ImageLabel") heartS:Wait()
 
                     toggleElement.Name = "toggleElement"
                     toggleElement.Parent = sectionInners
@@ -1043,8 +1043,8 @@ function Kavo.CreateLib(kavName, themeList)
                     Sample.ImageColor3 = themeList.SchemeColor
                     Sample.ImageTransparency = 0.600
 
-                    local moreInfo = Instance.new("TextLabel")
-                    local UICorner = Instance.new("UICorner")
+                    local moreInfo = Instance.new("TextLabel") heartS:Wait()
+                    local UICorner = Instance.new("UICorner") heartS:Wait()
     
                     moreInfo.Name = "TipMore"
                     moreInfo.Parent = infoContainer
@@ -1216,17 +1216,17 @@ function Kavo.CreateLib(kavName, themeList)
 				startVal = startVal or 0
 				callback = callback or function() end
 
-				local sliderElement = Instance.new("TextButton")
-				local UICorner = Instance.new("UICorner")
-				local togName = Instance.new("TextLabel")
-				local viewInfo = Instance.new("ImageButton")
-				local sliderBtn = Instance.new("TextButton")
-				local UICorner_2 = Instance.new("UICorner")
-				local UIListLayout = Instance.new("UIListLayout")
-				local sliderDrag = Instance.new("Frame")
-				local UICorner_3 = Instance.new("UICorner")
-				local write = Instance.new("ImageLabel")
-				local val = Instance.new("TextLabel")
+				local sliderElement = Instance.new("TextButton") heartS:Wait()
+				local UICorner = Instance.new("UICorner") heartS:Wait()
+				local togName = Instance.new("TextLabel") heartS:Wait()
+				local viewInfo = Instance.new("ImageButton") heartS:Wait()
+				local sliderBtn = Instance.new("TextButton") heartS:Wait()
+				local UICorner_2 = Instance.new("UICorner") heartS:Wait()
+				local UIListLayout = Instance.new("UIListLayout") heartS:Wait()
+				local sliderDrag = Instance.new("Frame") heartS:Wait()
+				local UICorner_3 = Instance.new("UICorner") heartS:Wait()
+				local write = Instance.new("ImageLabel") heartS:Wait()
+				local val = Instance.new("TextLabel") heartS:Wait()
 
 				sliderElement.Name = "sliderElement"
 				sliderElement.Parent = sectionInners
@@ -1323,8 +1323,8 @@ function Kavo.CreateLib(kavName, themeList)
 				val.TextTransparency = 1
 				val.TextXAlignment = Enum.TextXAlignment.Right
 
-				local moreInfo = Instance.new("TextLabel")
-				local UICorner = Instance.new("UICorner")
+				local moreInfo = Instance.new("TextLabel") heartS:Wait()
+				local UICorner = Instance.new("UICorner") heartS:Wait()
 
 				moreInfo.Name = "TipMore"
 				moreInfo.Parent = infoContainer
@@ -1519,14 +1519,14 @@ function Kavo.CreateLib(kavName, themeList)
                 local DropYSize = 33
 
 
-                local dropFrame = Instance.new("Frame")
-                local dropOpen = Instance.new("TextButton")
-                local listImg = Instance.new("ImageLabel")
-                local itemTextbox = Instance.new("TextLabel")
-                local viewInfo = Instance.new("ImageButton")
-                local UICorner = Instance.new("UICorner")
-                local UIListLayout = Instance.new("UIListLayout")
-                local Sample = Instance.new("ImageLabel")
+                local dropFrame = Instance.new("Frame") heartS:Wait()
+                local dropOpen = Instance.new("TextButton") heartS:Wait()
+                local listImg = Instance.new("ImageLabel") heartS:Wait()
+                local itemTextbox = Instance.new("TextLabel") heartS:Wait()
+                local viewInfo = Instance.new("ImageButton") heartS:Wait()
+                local UICorner = Instance.new("UICorner") heartS:Wait()
+                local UIListLayout = Instance.new("UIListLayout") heartS:Wait()
+                local Sample = Instance.new("ImageLabel") heartS:Wait()
 
                 local ms = game.Players.LocalPlayer:GetMouse()
                 Sample.Name = "Sample"
@@ -1652,7 +1652,7 @@ function Kavo.CreateLib(kavName, themeList)
                 UICorner.CornerRadius = UDim.new(0, 4)
                 UICorner.Parent = dropOpen
 
-                local Sample = Instance.new("ImageLabel")
+                local Sample = Instance.new("ImageLabel") heartS:Wait()
 
                 Sample.Name = "Sample"
                 Sample.Parent = dropOpen
@@ -1673,8 +1673,8 @@ function Kavo.CreateLib(kavName, themeList)
                 local uis = game:GetService("UserInputService")
                 local infBtn = viewInfo
 
-                local moreInfo = Instance.new("TextLabel")
-                local UICorner = Instance.new("UICorner")
+                local moreInfo = Instance.new("TextLabel") heartS:Wait()
+                local UICorner = Instance.new("UICorner") heartS:Wait()
 
                 moreInfo.Name = "TipMore"
                 moreInfo.Parent = infoContainer
@@ -1752,9 +1752,9 @@ function Kavo.CreateLib(kavName, themeList)
                 end)     
 
                 for i,v in next, list do
-                    local optionSelect = Instance.new("TextButton")
-                    local UICorner_2 = Instance.new("UICorner")
-                    local Sample1 = Instance.new("ImageLabel")
+                    local optionSelect = Instance.new("TextButton") heartS:Wait()
+                    local UICorner_2 = Instance.new("UICorner") heartS:Wait()
+                    local Sample1 = Instance.new("ImageLabel") heartS:Wait()
 
                     local ms = game.Players.LocalPlayer:GetMouse()
                     Sample1.Name = "Sample1"
@@ -1852,9 +1852,9 @@ function Kavo.CreateLib(kavName, themeList)
                         end
                     end
                     for i,v in next, newList do
-                        local optionSelect = Instance.new("TextButton")
-                        local UICorner_2 = Instance.new("UICorner")
-                        local Sample11 = Instance.new("ImageLabel")
+                        local optionSelect = Instance.new("TextButton") heartS:Wait()
+                        local UICorner_2 = Instance.new("UICorner") heartS:Wait()
+                        local Sample11 = Instance.new("ImageLabel") heartS:Wait()
                         local ms = game.Players.LocalPlayer:GetMouse()
                         Sample11.Name = "Sample11"
                         Sample11.Parent = optionSelect
@@ -1962,20 +1962,20 @@ function Kavo.CreateLib(kavName, themeList)
                 callback = callback or function() end
 				callback2 = callback2 or function() end
                 local oldKey = first.Name
-                local keybindElement = Instance.new("TextButton")
-                local UICorner = Instance.new("UICorner")
-                local togName = Instance.new("TextLabel")
-                local viewInfo = Instance.new("ImageButton")
-                local touch = Instance.new("ImageLabel")
-                local Sample = Instance.new("ImageLabel")
-                local togName_2 = Instance.new("TextLabel")
+                local keybindElement = Instance.new("TextButton") heartS:Wait()
+                local UICorner = Instance.new("UICorner") heartS:Wait()
+                local togName = Instance.new("TextLabel") heartS:Wait()
+                local viewInfo = Instance.new("ImageButton") heartS:Wait()
+                local touch = Instance.new("ImageLabel") heartS:Wait()
+                local Sample = Instance.new("ImageLabel") heartS:Wait()
+                local togName_2 = Instance.new("TextLabel") heartS:Wait()
 
                 local ms = game.Players.LocalPlayer:GetMouse()
                 local uis = game:GetService("UserInputService")
                 local infBtn = viewInfo
 
-                local moreInfo = Instance.new("TextLabel")
-                local UICorner1 = Instance.new("UICorner")
+                local moreInfo = Instance.new("TextLabel") heartS:Wait()
+                local UICorner1 = Instance.new("UICorner") heartS:Wait()
 
                 local sample = Sample
 
@@ -2180,31 +2180,31 @@ function Kavo.CreateLib(kavName, themeList)
                 local h, s, v = Color3.toHSV(defcolor)
                 local ms = game.Players.LocalPlayer:GetMouse()
                 local colorOpened = false
-                local colorElement = Instance.new("TextButton")
-                local UICorner = Instance.new("UICorner")
-                local colorHeader = Instance.new("Frame")
-                local UICorner_2 = Instance.new("UICorner")
-                local touch = Instance.new("ImageLabel")
-                local togName = Instance.new("TextLabel")
-                local viewInfo = Instance.new("ImageButton")
-                local colorCurrent = Instance.new("Frame")
-                local UICorner_3 = Instance.new("UICorner")
-                local UIListLayout = Instance.new("UIListLayout")
-                local colorInners = Instance.new("Frame")
-                local UICorner_4 = Instance.new("UICorner")
-                local rgb = Instance.new("ImageButton")
-                local UICorner_5 = Instance.new("UICorner")
-                local rbgcircle = Instance.new("ImageLabel")
-                local darkness = Instance.new("ImageButton")
-                local UICorner_6 = Instance.new("UICorner")
-                local darkcircle = Instance.new("ImageLabel")
-                local toggleDisabled = Instance.new("ImageLabel")
-                local toggleEnabled = Instance.new("ImageLabel")
-                local onrainbow = Instance.new("TextButton")
-                local togName_2 = Instance.new("TextLabel")
+                local colorElement = Instance.new("TextButton") heartS:Wait()
+                local UICorner = Instance.new("UICorner") heartS:Wait()
+                local colorHeader = Instance.new("Frame") heartS:Wait()
+                local UICorner_2 = Instance.new("UICorner") heartS:Wait()
+                local touch = Instance.new("ImageLabel") heartS:Wait()
+                local togName = Instance.new("TextLabel") heartS:Wait()
+                local viewInfo = Instance.new("ImageButton") heartS:Wait()
+                local colorCurrent = Instance.new("Frame") heartS:Wait()
+                local UICorner_3 = Instance.new("UICorner") heartS:Wait()
+                local UIListLayout = Instance.new("UIListLayout") heartS:Wait()
+                local colorInners = Instance.new("Frame") heartS:Wait()
+                local UICorner_4 = Instance.new("UICorner") heartS:Wait()
+                local rgb = Instance.new("ImageButton") heartS:Wait()
+                local UICorner_5 = Instance.new("UICorner") heartS:Wait()
+                local rbgcircle = Instance.new("ImageLabel") heartS:Wait()
+                local darkness = Instance.new("ImageButton") heartS:Wait()
+                local UICorner_6 = Instance.new("UICorner") heartS:Wait()
+                local darkcircle = Instance.new("ImageLabel") heartS:Wait()
+                local toggleDisabled = Instance.new("ImageLabel") heartS:Wait()
+                local toggleEnabled = Instance.new("ImageLabel") heartS:Wait()
+                local onrainbow = Instance.new("TextButton") heartS:Wait()
+                local togName_2 = Instance.new("TextLabel") heartS:Wait()
 
                 --Properties:
-                local Sample = Instance.new("ImageLabel")
+                local Sample = Instance.new("ImageLabel") heartS:Wait()
                 Sample.Name = "Sample"
                 Sample.Parent = colorHeader
                 Sample.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -2320,8 +2320,8 @@ function Kavo.CreateLib(kavName, themeList)
                 togName.RichText = true
                 togName.TextXAlignment = Enum.TextXAlignment.Left
 
-                local moreInfo = Instance.new("TextLabel")
-                local UICorner = Instance.new("UICorner")
+                local moreInfo = Instance.new("TextLabel") heartS:Wait()
+                local UICorner = Instance.new("UICorner") heartS:Wait()
 
                 moreInfo.Name = "TipMore"
                 moreInfo.Parent = infoContainer
@@ -2643,8 +2643,8 @@ function Kavo.CreateLib(kavName, themeList)
             
             function Elements:NewLabel(title)
             	local labelFunctions = {}
-            	local label = Instance.new("TextLabel")
-            	local UICorner = Instance.new("UICorner")
+            	local label = Instance.new("TextLabel") heartS:Wait()
+            	local UICorner = Instance.new("UICorner") heartS:Wait()
             	label.Name = "label"
             	label.Parent = sectionInners
             	label.BackgroundColor3 = themeList.SchemeColor
