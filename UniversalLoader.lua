@@ -113,14 +113,14 @@ pcall(function()
 		end
 	end
 
-	function copyOver(from, to)
-		if from and to and type(from) == 'table' and type(to) == 'table' then
-			for index, value in pairs(from) do
-				if value and type(value) == 'table' then
-					to[index] = {}
-					copyOver(value, to[index])
+	function copyOver(from, to) --// function that copies from one table to another
+		if from and to and type(from) == 'table' and type(to) == 'table' then --// checks if the tables are valid
+			for index, value in pairs(from) do --// loops through the table
+				if value and type(value) == 'table' then --// checks if the value is a table
+					to[index] = {} --// makes a new table
+					copyOver(value, to[index]) --// copies the table again
 				else
-					to[index] = value
+					to[index] = value --// sets the value
 				end
 			end
 
@@ -128,12 +128,12 @@ pcall(function()
 	end
 
 	function formatTime(tick) --// formats a tick to a readable time in the format of days:hours:minutes:seconds
-		local tick = assert(tick and tonumber(tick))
-		local days = math.floor(tick / 86400)
-		local hours = math.floor((tick / 3600) % 24)
-		local minutes = math.floor((tick / 60) % 60)
-		local seconds = math.floor(tick % 60)
-		return ("%02i:%02i:%02i:%02i"):format(days, hours, minutes, seconds)
+		local tick = assert(tick and tonumber(tick)) --// makes sure tick is a number
+		local days = math.floor(tick / 86400) --// gets the days
+		local hours = math.floor((tick / 3600) % 24) --// gets the hours
+		local minutes = math.floor((tick / 60) % 60) --// gets the minutes
+		local seconds = math.floor(tick % 60) --// gets the seconds
+		return ("%02i:%02i:%02i:%02i"):format(days, hours, minutes, seconds) --// returns the formatted time
 	end
 
 	function genName(length) --// generates a random string
