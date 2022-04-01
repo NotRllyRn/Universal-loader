@@ -4,7 +4,7 @@ local tween = game:GetService("TweenService")
 local tweeninfo = TweenInfo.new
 local input = game:GetService("UserInputService")
 local run = game:GetService("RunService")
-
+heartS:Wait()
 local Utility = {}
 local Objects = {}
 function Kavo:DraggingEnabled(frame, parent)
@@ -47,7 +47,7 @@ function Utility:TweenObject(obj, properties, duration, ...)
     tween:Create(obj, tweeninfo(duration, ...), properties):Play()
 end
 
-
+heartS:Wait()
 local themes = {
     SchemeColor = Color3.fromRGB(74, 99, 135),
     Background = Color3.fromRGB(36, 37, 43),
@@ -121,9 +121,9 @@ local themeStyles = {
     }
 }
 local oldTheme = ""
-
+heartS:Wait()
 local LibName = tostring(math.random(1, 100))..tostring(math.random(1,50))..tostring(math.random(1, 100))
-
+heartS:Wait()
 function Kavo.CreateLib(kavName, themeList)
     if not themeList then
         themeList = themes
@@ -159,7 +159,7 @@ function Kavo.CreateLib(kavName, themeList)
             themeList.ElementColor = Color3.fromRGB(32, 32, 38)
         end
     end
-
+    heartS:Wait()
     themeList = themeList or {}
     local selectedTab 
     kavName = kavName or "Library"
@@ -325,7 +325,7 @@ function Kavo.CreateLib(kavName, themeList)
     infoContainer.Position = UDim2.new(0.299047619, 0, 0.874213815, 0)
     infoContainer.Size = UDim2.new(0, 368, 0, 33)
 
-    
+    heartS:Wait()
     coroutine.wrap(function()
         while wait() do
             Main.BackgroundColor3 = themeList.Background
@@ -352,7 +352,7 @@ function Kavo.CreateLib(kavName, themeList)
     local Tabs = {}
 
     local first = true
-
+    heartS:Wait()
     function Tabs:NewTab(tabName)
         tabName = tabName or "Tab"
         local tabButton = Instance.new("TextButton") heartS:Wait()
@@ -396,7 +396,7 @@ function Kavo.CreateLib(kavName, themeList)
         Objects[tabButton] = "TextColor3"
         tabButton.TextSize = 14.000
         tabButton.BackgroundTransparency = 1
-
+        heartS:Wait()
         if first then
             first = false
             page.Visible = true
@@ -443,7 +443,7 @@ function Kavo.CreateLib(kavName, themeList)
         local Sections = {}
         local focusing = false
         local viewDe = false
-
+        heartS:Wait()
         coroutine.wrap(function()
             while wait() do
                 page.BackgroundColor3 = themeList.Background
@@ -536,7 +536,7 @@ function Kavo.CreateLib(kavName, themeList)
             sectionElListing.Parent = sectionInners
             sectionElListing.SortOrder = Enum.SortOrder.LayoutOrder
             sectionElListing.Padding = UDim.new(0, 3)
-
+            heartS:Wait()
             
         coroutine.wrap(function()
             while wait() do
@@ -658,7 +658,7 @@ function Kavo.CreateLib(kavName, themeList)
                 Objects[btnInfo] = "TextColor3"
                 btnInfo.TextSize = 14.000
                 btnInfo.TextXAlignment = Enum.TextXAlignment.Left
-
+                heartS:Wait()
                 if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
                     Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
                 end 
@@ -755,6 +755,7 @@ function Kavo.CreateLib(kavName, themeList)
                 function ButtonFunction:UpdateButton(newTitle)
                     btnInfo.Text = newTitle
                 end
+                heartS:Wait()
                 return ButtonFunction
             end
 
@@ -865,7 +866,7 @@ function Kavo.CreateLib(kavName, themeList)
                 UICorner.CornerRadius = UDim.new(0, 4)
                 UICorner.Parent = moreInfo
 
-
+                heartS:Wait()
                 updateSectionFrame()
                                 UpdateSize()
             
@@ -916,7 +917,7 @@ function Kavo.CreateLib(kavName, themeList)
                         TextBox.Text = ""  
                     end
                 end)
-
+                heartS:Wait()
                 viewInfo.MouseButton1Click:Connect(function()
                     if not viewDe then
                         viewDe = true
@@ -1061,7 +1062,7 @@ function Kavo.CreateLib(kavName, themeList)
     
                     UICorner.CornerRadius = UDim.new(0, 4)
                     UICorner.Parent = moreInfo
-
+                    heartS:Wait()
                     local ms = game.Players.LocalPlayer:GetMouse()
 
                     if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
@@ -1205,6 +1206,7 @@ function Kavo.CreateLib(kavName, themeList)
                             pcall(callback, toggled)
                         end
                     end
+                    heartS:Wait()
                     return TogFunction
             end
 
@@ -1345,7 +1347,7 @@ function Kavo.CreateLib(kavName, themeList)
 
 				UICorner.CornerRadius = UDim.new(0, 4)
 				UICorner.Parent = moreInfo
-
+                heartS:Wait()
 				if themeList.SchemeColor == Color3.fromRGB(255, 255, 255) then
 					Utility:TweenObject(moreInfo, { TextColor3 = Color3.fromRGB(0, 0, 0) }, 0.2)
 				end
@@ -1506,8 +1508,9 @@ function Kavo.CreateLib(kavName, themeList)
 						viewDe = false
 					end
 				end)
+                
 			end
-
+            heartS:Wait()
 			function Elements:NewDropdown(dropname, dropinf, list, callback)
                 local DropFunction = {}
                 dropname = dropname or "Dropdown"
@@ -1688,7 +1691,7 @@ function Kavo.CreateLib(kavName, themeList)
                 moreInfo.TextColor3 = themeList.TextColor
                 moreInfo.TextSize = 14.000
                 moreInfo.TextXAlignment = Enum.TextXAlignment.Left
-
+                heartS:Wait()
                 local hovering = false
                 btn.MouseEnter:Connect(function()
                     if not focusing then
@@ -1956,6 +1959,7 @@ function Kavo.CreateLib(kavName, themeList)
                 end
                 return DropFunction
             end
+            heartS:Wait()
             function Elements:NewKeybind(keytext, keyinf, first, callback, callback2)
                 keytext = keytext or "KeybindText"
                 keyinf = keyinf or "KebindInfo"
@@ -2154,7 +2158,7 @@ function Kavo.CreateLib(kavName, themeList)
                 togName_2.TextColor3 = themeList.SchemeColor
                 togName_2.TextSize = 14.000
                 togName_2.TextXAlignment = Enum.TextXAlignment.Right   
-
+                heartS:Wait()
                 coroutine.wrap(function()
                     while wait() do
                         if not oHover then
@@ -2172,7 +2176,7 @@ function Kavo.CreateLib(kavName, themeList)
                     end
                 end)()
             end
-
+            heartS:Wait()
             function Elements:NewColorPicker(colText, colInf, defcolor, callback)
                 colText = colText or "ColorPicker"
                 callback = callback or function() end
@@ -2489,7 +2493,7 @@ function Kavo.CreateLib(kavName, themeList)
                     Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
                 end 
                 local hovering = false
-
+                heartS:Wait()
                 colorElement.MouseEnter:Connect(function()
                     if not focusing then
                         game.TweenService:Create(colorElement, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
@@ -2640,7 +2644,7 @@ function Kavo.CreateLib(kavName, themeList)
                 end)
                 setcolor({h,s,v})
             end
-            
+            heartS:Wait()
             function Elements:NewLabel(title)
             	local labelFunctions = {}
             	local label = Instance.new("TextLabel") heartS:Wait()
@@ -2662,7 +2666,7 @@ function Kavo.CreateLib(kavName, themeList)
 	            
 	           	UICorner.CornerRadius = UDim.new(0, 4)
                 UICorner.Parent = label
-            	
+            	heartS:Wait()
 	            if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
 	                Utility:TweenObject(label, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
 	            end 
@@ -2683,16 +2687,21 @@ function Kavo.CreateLib(kavName, themeList)
                 		label.Text = "  "..newText
                 	end
                 end	
+                heartS:Wait()
                 return labelFunctions
             end	
+            heartS:Wait()
             return Elements
         end
+        heartS:Wait()
         return Sections
     end  
+    heartS:Wait()
     return setmetatable(Tabs, {
         __index = {
             container = Main
         }
     })
 end
+heartS:Wait()
 return Kavo
