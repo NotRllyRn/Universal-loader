@@ -7,7 +7,7 @@
 
 ]]
 local Incoming = { ... } --// for incoming input
-pcall(function()
+return pcall(function()
 	repeat
 		wait()
 	until game:IsLoaded() --// waits until game is loaded
@@ -38,6 +38,7 @@ pcall(function()
 	ExploitCheck("delfolder", delfolder)
 	ExploitCheck("delfile", delfile)
 	ExploitCheck("isfolder", isfolder)
+	ExploitCheck("setclipboard", setclipboard)
 	ExploitCheck("protectgui", gethui and function(v) --// for protecting screenguis from being detected 
 		v.Parent = gethui() --// sets the gui to the hui so that no other scripts can access it
 	end, syn and syn.protect_gui and function(v, parent)
@@ -124,6 +125,22 @@ pcall(function()
 				end
 			end
 
+		end
+	end
+
+	function discordWebSend(URL, data)
+		if data and type(data) == 'table' and URL then
+			local content = JSONEncode(data)
+			if content then
+				return httpRequest({
+					Url = URL,
+					Method = "POST",
+					Body = content,
+					Headers = {
+						["Content-Type"] = "application/json",
+					},
+				})
+			end
 		end
 	end
 
