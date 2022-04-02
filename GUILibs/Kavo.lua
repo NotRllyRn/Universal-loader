@@ -1515,7 +1515,18 @@ function Kavo.CreateLib(kavName, themeList)
 						viewDe = false
 					end
 				end)
-                
+                return {
+                    UpdateSlider = function(newValue)
+                        val.Text = newValue
+                        sliderDrag:TweenSize(
+                            UDim2.new(0, (newValue-minvalue)*(149/(maxvalue-minvalue)), 0, 6),
+                            "InOut",
+                            "Linear",
+                            0.05,
+                            true
+                        )
+                    end,
+                }
 			end
             
 			function Elements:NewDropdown(dropname, dropinf, list, callback)
