@@ -920,8 +920,6 @@ function Kavo.CreateLib(kavName, themeList)
                         return
                     else
                         callback(TextBox.Text)
-                        wait(0.18)
-                        TextBox.Text = ""  
                     end
                 end)
                 
