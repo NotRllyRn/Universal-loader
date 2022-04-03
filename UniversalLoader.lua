@@ -444,6 +444,7 @@ return pcall(function()
 		local idleConnection
 
 		function idleAfk(val) --// function that prevents player from being kicked when idled
+			if ((val == nil) or not (type(val) == 'boolean')) then val = true end --// makes sure val is a boolean
 			if val and not idleConnection then --// checks if val is true and if idle connection does not exist
 				idleConnection = localPlayer.Idled:Connect(function() --// connects to idled event
 					virtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
