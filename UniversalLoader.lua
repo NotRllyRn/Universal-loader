@@ -195,6 +195,12 @@ return pcall(function()
 		for _, v in pairs(getconnections(indeX.MouseButton1Click)) do
 			v:Function()
 		end
+		for _, v in pairs(getconnections(indeX.Activated)) do
+			v:Function()
+		end
+		for _, v in pairs(getconnections(indeX.Button1Down)) do
+			v:Function()
+		end
 	end
 
 	function antiLAG() --// runs anti lag
