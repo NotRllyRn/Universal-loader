@@ -8,9 +8,10 @@
 ]]
 local Incoming = { ... } --// for incoming input
 return pcall(function()
-	repeat
-		wait()
-	until game:IsLoaded() --// waits until game is loaded
+	if not game:IsLoaded() then
+		game.Loaded:Wait() --// waits until game is loaded
+		wait(1)
+	end
 
 	function ExploitCheck(name, ...) --// checks if the executor has a function
 		local found
