@@ -274,7 +274,7 @@ local success, uni_table = pcall(function()
 		end
 	end
 
-	Universal.charLoading = false --// sets char loading to false
+	Universal.charLoading = true --// sets char loading to true to start loading the characters
 
 	players = game:GetService("Players") --// gets players
 	localPlayer = players.LocalPlayer --// gets localplayer
@@ -304,6 +304,50 @@ local success, uni_table = pcall(function()
 				end
 			end
 		)
+	
+		Universal.Tables.onCharacterLoaded_table = {} --// creates a table for onCharacterLoaded
+		Universal.Connections.ChildAddedConnect = localPlayer.CharacterAdded:Connect(function(char) --// connects to character added event
+			Universal.charLoading = true --// sets loading to true while character loading is happening
+	
+			cWrap(function()
+				for i, v in pairs(Universal.Tables.onCharacterLoaded_table) do --// goes through the onCharacterLoaded_table
+					if v.loadWait then --// checks if loadWait is true
+						cWrap(function() --// creates a coroutine to wait for the character to load
+							repeat
+								fastWait() --// waits for the character to load
+							until not Universal.charLoading
+							v.func() --// calls the function
+						end)
+					else --// checks if loadWait is false
+						cWrap(
+							function() --// creates a coroutine to continue the loop without having to wait for the character to load
+								v.func() --// calls the function
+							end
+						)
+					end
+				end
+			end)
+	
+			if Universal.Connections.ChildAddedConnect then --// checks if child added connection exists
+				Universal.Connections.ChildAddedConnect:Disconnect() --// disconnects child added connection
+				Universal.Connections.ChildAddedConnect = nil
+			end
+	
+			character = char --// sets character to the character that was added
+			humanoidRP = character:FindFirstChild("HumanoidRootPart") --// finds humanoid root part
+			humanoid = character:FindFirstChild("Humanoid") --// finds humanoid
+			camera = workspace.CurrentCamera --// finds current camera
+	
+			Universal.Connections.ChildAddedConnect = character.ChildAdded:Connect(function(child) --// connects to child added event
+				if child:IsA("Humanoid") then --// checks if child is a humanoid
+					humanoid = child
+				elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
+					humanoidRP = child
+				end
+			end)
+	
+			Universal.charLoading = false --// sets loading to false
+		end)
 
 		Universal.charLoading = false
 	end)
@@ -479,23 +523,6 @@ local success, uni_table = pcall(function()
 		end
 	end
 
-	Universal.Tables.onCharacterLoaded_table = {} --// table that holds functions that are called when character is loaded
-	function onCharacterLoaded(id, loadWait, functioN) --// function that runs requested funcion when character is loaded
-		if not functioN or not (type(functioN) == "function") then
-			return nil
-		end --// makes sure function is a function
-		local id = (id and tostring(id) and not Universal.Tables.onCharacterLoaded_table[tostring(id)] and tostring(id)) or genName() --// makes sure id is a string
-		if Universal.Tables.onCharacterLoaded_table[id] then
-			return nil
-		end --// checks if id is in the table
-
-		Universal.Tables.onCharacterLoaded_table[id] = { --// creates a table for the function
-			loadWait = loadWait or false, --// makes sure loadWait is a boolean
-			func = functioN, --// sets function to the function that is being called
-		}
-		return id --// returns id
-	end
-
 	function sendNotification(title, text, time_1, func, bn1, bn2) --// function that sends a notification
 		if not title or not tostring(title) or not text or not tostring(text) then
 			return nil
@@ -511,49 +538,6 @@ local success, uni_table = pcall(function()
 		}
 		game:GetService("StarterGui"):SetCore("SendNotification", pack) --// sends the notification
 	end
-
-	localPlayer.CharacterAdded:Connect(function(char) --// connects to character added event
-		Universal.charLoading = true --// sets loading to true while character loading is happening
-
-		cWrap(function()
-			for i, v in pairs(onCharacterLoaded_table) do --// goes through the onCharacterLoaded_table
-				if v.loadWait then --// checks if loadWait is true
-					cWrap(function() --// creates a coroutine to wait for the character to load
-						repeat
-							fastWait() --// waits for the character to load
-						until not Universal.charLoading
-						v.func() --// calls the function
-					end)
-				else --// checks if loadWait is false
-					cWrap(
-						function() --// creates a coroutine to continue the loop without having to wait for the character to load
-							v.func() --// calls the function
-						end
-					)
-				end
-			end
-		end)
-
-		if Universal.Connections.ChildAddedConnect then --// checks if child added connection exists
-			Universal.Connections.ChildAddedConnect:Disconnect() --// disconnects child added connection
-			Universal.Connections.ChildAddedConnect = nil
-		end
-
-		character = char --// sets character to the character that was added
-		humanoidRP = character:FindFirstChild("HumanoidRootPart") --// finds humanoid root part
-		humanoid = character:FindFirstChild("Humanoid") --// finds humanoid
-		camera = workspace.CurrentCamera --// finds current camera
-
-		Universal.Connections.ChildAddedConnect = character.ChildAdded:Connect(function(child) --// connects to child added event
-			if child:IsA("Humanoid") then --// checks if child is a humanoid
-				humanoid = child
-			elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
-				humanoidRP = child
-			end
-		end)
-
-		Universal.charLoading = false --// sets loading to false
-	end)
 
 	Universal.Tables.OnLeave_table = {} --// creates a table to store functions that are called when player leaves a server
 	function onLeave(func)
