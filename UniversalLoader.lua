@@ -87,11 +87,11 @@ local success, uni_table = pcall(function()
 	Universal.Tables = {} --// makes the tables table
 	Universal.Librarys = {} --// makes the librarys table
 	Universal.SaveTable = SaveTable --// sets the save table to the Universal table
-	Universal.Librarys.kavo = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-Loader/master/GUILibs/Kavo.lua")) --// loads the Kavo library
-	Universal.Librarys.notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-Loader/master/GUILibs/Notification.lua")) --// loads the Notification library
-	Universal.Librarys.customcommands = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-Loader/master/Other/CustomCommands.lua")) --// loads the CustomCommands library
-	Universal.Librarys.antilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-Loader/master/Lag/AntiLag.lua")) --// loads the AntiLag script
-	Universal.Librarys.ultraantilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-Loader/master/Lag/BetterAntiLag.lua")) --// loads the UltraAntiLag script
+	Universal.Librarys.kavo = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GUILibs/Kavo.lua")) --// loads the Kavo library
+	Universal.Librarys.notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GUILibs/Notification.lua")) --// loads the Notification library
+	Universal.Librarys.customcommands = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Other/CustomCommands.lua")) --// loads the CustomCommands library
+	Universal.Librarys.antilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/AntiLag.lua")) --// loads the AntiLag script
+	Universal.Librarys.ultraantilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/BetterAntiLag.lua")) --// loads the UltraAntiLag script
 
 	function libraryLoad(name) --// function that loads the a library with the name you pass
 		local name = name and tostring(name) and tostring(name):lower() --// makes sure name is a string
