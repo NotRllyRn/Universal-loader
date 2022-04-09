@@ -84,7 +84,7 @@ local success, uni_table = pcall(function()
 	Universal.Librarys.antilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kavo-Dev/Universal-Loader/master/Lag/AntiLag.lua")) --// loads the AntiLag script
 	Universal.Librarys.ultraantilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kavo-Dev/Universal-Loader/master/Lag/BetterAntiLag.lua")) --// loads the UltraAntiLag script
 
-	function libraryLoad(name)
+	function libraryLoad(name) --// function that loads the a library with the name you pass
 		local name = name and tostring(name) and tostring(name):lower() --// makes sure name is a string
 		if not name then
 			return nil
@@ -223,36 +223,6 @@ local success, uni_table = pcall(function()
 		for _, v in pairs(getconnections(indeX.Button1Down)) do --// gets the connections of Button1Down for the button
 			v:Function() --// fires any connections it finds
 		end
-	end
-
-	function antiLAG() --// runs anti lag
-		pcall(function() --// pcall to prevent errors
-			loadstring(
-				game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/AntiLag.lua") --// gets the anti lag script
-			)()
-		end)
-	end
-
-	function noLag(ta) --// runs no lag which is really good
-		local ta = ta or {} --// sets the table to {} if not specified
-		return table.unpack({
-			loadstring(
-				game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/BetterAntiLag.lua") --// gets the no lag script
-			)(ta),
-		})
-	end
-
-	function getVenyx() --// gets venyx
-		return loadstring(
-			game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GUILibs/VenyxLib.lua")
-		)()
-	end
-
-	function getCustomCmds(arg1) --// gets custom commands module
-		local arg1 = (arg1 and tostring(arg1)) or "" --// sets the argument to "" if not specified for the command prefix
-		return loadstring(
-			game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Other/CustomCommands.lua")
-		)(arg1)
 	end
 
 	function fireTouch(root, target, waitVal) --// function to call firetouchinterest on an object
