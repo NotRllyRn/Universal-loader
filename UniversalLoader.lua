@@ -49,6 +49,22 @@ local success, uni_table = pcall(function()
 	}
 	local SaveTable = {} --// makes the input table for loading the script
 
+	local compare_save
+	function compare_save(t1, t2) 
+		for i, v in pairs(t1) do
+			if v and not t2[i] then
+				if type(v) == 'table' then
+					t2[i] = {}
+					compare_save(v, t2[i])
+				else
+					t2[i] = v
+				end
+			elseif v and type(v) == 'table' and type(t2[i]) == 'table' then
+				compare_save(v, t2[i])
+			end
+		end
+	end
+	
 	if not isfolder("Universal") then --// checks if Universal folder exists
 		makefolder("Universal")
 		SaveTable = defaultTable
@@ -63,14 +79,7 @@ local success, uni_table = pcall(function()
 			local Encoded = JSONEncode(SaveTable)
 			writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
 		else
-			for index, _ in pairs(defaultTable) do --// makes the save table the same size as the default table
-				if not SaveTable[index] then
-					SaveTable = defaultTable
-					local Encoded = JSONEncode(SaveTable)
-					writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
-					break
-				end
-			end
+			compare_save(defaultTable, SaveTable) --// compares the default table with the save table
 		end
 	end
 	
@@ -99,6 +108,7 @@ local success, uni_table = pcall(function()
 	math.randomseed(mathseed) --// sets randomseed to mathseed
 
 	function copyOver(from, to) --// function that copies from one table to another
+		local to = to or {}
 		if from and to and type(from) == "table" and type(to) == "table" then --// checks if the tables are valid
 			for index, value in pairs(from) do --// loops through the table
 				if value and type(value) == "table" then --// checks if the value is a table
@@ -108,6 +118,7 @@ local success, uni_table = pcall(function()
 					to[index] = value --// sets the value
 				end
 			end
+			return to --// returns the table it got copied too
 		end
 	end
 
