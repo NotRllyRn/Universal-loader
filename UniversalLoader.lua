@@ -9,8 +9,6 @@
 local Incoming = {...} --// for incoming input
 local success, uni_table = pcall(function()
 	local Universal = {}
-	Universal.Connections = {}
-	Universal.Tables = {}
 
 	function ExploitCheck(name, ...) --// checks if the executor has a function
 		local found
@@ -76,7 +74,26 @@ local success, uni_table = pcall(function()
 		end
 	end
 	
+	Universal.Connections = {} --// makes the connections table
+	Universal.Tables = {} --// makes the tables table
+	Universal.Librarys = {} --// makes the librarys table
 	Universal.SaveTable = SaveTable --// sets the save table to the Universal table
+	Universal.Librarys.kavo = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kavo-Dev/Universal-Loader/master/GUILibs/Kavo.lua")) --// loads the Kavo library
+	Universal.Librarys.notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kavo-Dev/Universal-Loader/master/GUILibs/Notification.lua")) --// loads the Notification library
+	Universal.Librarys.customcommands = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kavo-Dev/Universal-Loader/master/Other/CustomCommands.lua")) --// loads the CustomCommands library
+	Universal.Librarys.antilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kavo-Dev/Universal-Loader/master/Lag/AntiLag.lua")) --// loads the AntiLag script
+	Universal.Librarys.ultraantilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kavo-Dev/Universal-Loader/master/Lag/BetterAntiLag.lua")) --// loads the UltraAntiLag script
+
+	function libraryLoad(name)
+		local name = name and tostring(name) and tostring(name):lower() --// makes sure name is a string
+		if not name then
+			return nil
+		end --// if name is not a string, return nil
+
+		if Universal.Librarys[name] then --// checks if the library exists
+			return Universal.Librarys[name]() --// runs and returns the library
+		end
+	end
 
 	mathseed = tick() --// sets mathseed
 	math.randomseed(mathseed) --// sets randomseed to mathseed
