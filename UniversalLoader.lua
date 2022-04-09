@@ -6,12 +6,11 @@
 	Made for LUAU roblox exploiting.
 
 ]]
-local Incoming = { ... } --// for incoming input
-return pcall(function()
-	if not game:IsLoaded() then
-		game.Loaded:Wait() --// waits until game is loaded
-		wait(1)
-	end
+local Incoming = {...} --// for incoming input
+local success, uni_table = pcall(function()
+	local Universal = {}
+	Universal.Connections = {}
+	Universal.Tables = {}
 
 	function ExploitCheck(name, ...) --// checks if the executor has a function
 		local found
@@ -28,9 +27,8 @@ return pcall(function()
 		end
 	end
 	ExploitCheck("getrawmetatable", getrawmetatable) --// checks if getrawmetatable is valid
-	ExploitCheck("setreadonly", setreadonly)
 	ExploitCheck("getnamecallmethod", getnamecallmethod)
-	ExploitCheck("httpRequest", syn and syn.request)
+	ExploitCheck("httpRequest", syn and syn.request, request, http_request)
 	ExploitCheck("firetouchinterest", firetouchinterest)
 	ExploitCheck("writefile", writefile)
 	ExploitCheck("readfile", readfile)
@@ -40,20 +38,12 @@ return pcall(function()
 	ExploitCheck("delfile", delfile)
 	ExploitCheck("isfolder", isfolder)
 	ExploitCheck("setclipboard", setclipboard)
-	ExploitCheck("protectgui", gethui and function(v) --// for protecting screenguis from being detected 
+	ExploitCheck("protectgui", gethui and function(v) --// for protecting screenguis from being detected
 		v.Parent = gethui() --// sets the gui to the hui so that no other scripts can access it
 	end, syn and syn.protect_gui and function(v, parent)
 		syn.protect_gui(v) --// protects gui with Synapse's method
 		v.Parent = parent --// sets the parent.
 	end)
-
-	httpService = game:GetService("HttpService") --// gets the http service
-	JSONDecode = function(...) --// decodes json function for easier use
-		return (httpService:JSONDecode(...))
-	end
-	JSONEncode = function(...) --// encodes json function for easier use
-		return (httpService:JSONEncode(...))
-	end
 
 	local defaultTable = { --// the save table for Universal Loader
 		Date = os.date("!*t"), --// makes a date table
@@ -85,52 +75,27 @@ return pcall(function()
 			end
 		end
 	end
+	
+	Universal.SaveTable = SaveTable --// sets the save table to the Universal table
 
 	mathseed = tick() --// sets mathseed
 	math.randomseed(mathseed) --// sets randomseed to mathseed
 
-	virtualUser = game:GetService("VirtualUser") --// gets all the services that are useful
-	tweenService = game:GetService("TweenService")
-	userInput = game:GetService("UserInputService")
-	runService = game:GetService("RunService")
-	contextAS = game:GetService("ContextActionService")
-	virtualIM = game:GetService("VirtualInputManager")
-	replicatedS = game:GetService("ReplicatedStorage")
-	TPService = game:GetService("TeleportService")
-	PhyService = game:GetService("PhysicsService")
-
-	renderS = runService.RenderStepped --// gets the renderstepped event
-	heartS = runService.Heartbeat --// gets the heartbeat event
-
-	workspace = game:GetService("Workspace") --// gets the workspace
-
-	function fastWait(n) --// makes a wait function that waits n seconds or 1 heartbeat
-		if not n then
-			heartS:Wait()
-		else
-			local n = assert(n and tonumber(n))
-			for _ = 1, (n * 60) do --// loops n * 60 times using heartS
-				heartS:Wait()
-			end
-		end
-	end
-
 	function copyOver(from, to) --// function that copies from one table to another
-		if from and to and type(from) == 'table' and type(to) == 'table' then --// checks if the tables are valid
+		if from and to and type(from) == "table" and type(to) == "table" then --// checks if the tables are valid
 			for index, value in pairs(from) do --// loops through the table
-				if value and type(value) == 'table' then --// checks if the value is a table
+				if value and type(value) == "table" then --// checks if the value is a table
 					to[index] = {} --// makes a new table
 					copyOver(value, to[index]) --// copies the table again
 				else
 					to[index] = value --// sets the value
 				end
 			end
-
 		end
 	end
 
 	function discordWebSend(URL, data)
-		if data and type(data) == 'table' and URL then
+		if data and type(data) == "table" and URL then
 			local content = JSONEncode(data)
 			if content then
 				return httpRequest({
@@ -146,7 +111,11 @@ return pcall(function()
 	end
 
 	function formatTime(tick) --// formats a tick to a readable time in the format of days:hours:minutes:seconds
-		local tick = assert(tick and tonumber(tick)) --// makes sure tick is a number
+		local tick = tick and tonumber(tick) --// makes sure tick is a number
+		if not tick then
+			return nil
+		end --// if tick is not a number, return nil
+
 		local days = math.floor(tick / 86400) --// gets the days
 		local hours = math.floor((tick / 3600) % 24) --// gets the hours
 		local minutes = math.floor((tick / 60) % 60) --// gets the minutes
@@ -154,18 +123,54 @@ return pcall(function()
 		return ("%02i:%02i:%02i:%02i"):format(days, hours, minutes, seconds) --// returns the formatted time
 	end
 
-	function genName(length) --// generates a random string
-		local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-		local str = ""
-		for i = 1, length do
-			str = str .. chars:sub(math.random(1, #chars), 1)
+	if not game:IsLoaded() then
+		game.Loaded:Wait() --// waits until game is loaded
+	end
+
+	httpService = game:GetService("HttpService") --// gets the http service
+	virtualUser = game:GetService("VirtualUser") --// gets all the services that are useful
+	tweenService = game:GetService("TweenService")
+	userInput = game:GetService("UserInputService")
+	runService = game:GetService("RunService")
+	contextAS = game:GetService("ContextActionService")
+	virtualIM = game:GetService("VirtualInputManager")
+	replicatedS = game:GetService("ReplicatedStorage")
+	TPService = game:GetService("TeleportService")
+	PhyService = game:GetService("PhysicsService")
+
+	JSONDecode = function(...) --// decodes json function for easier use
+		return (httpService:JSONDecode(...))
+	end
+	JSONEncode = function(...) --// encodes json function for easier use
+		return (httpService:JSONEncode(...))
+	end
+
+	renderS = runService.RenderStepped --// gets the renderstepped event
+	heartS = runService.Heartbeat --// gets the heartbeat event
+
+	workspace = game:GetService("Workspace") --// gets the workspace
+
+	function fastWait(n) --// function that waits for 1 frame render
+		heartS:Wait()
+	end
+
+	function genName(len) --// function that generates a random string of characters and letters and numbers using string.char
+		local len = len and tonumber(len) or math.random(5, 10) --// makes sure len is a number
+		local str = "" --// makes a string
+		for _ = 1, len do --// loops the lenght of requested string
+			local char = string.char(math.random(32, 126)) --// makes a random character
+			str = str .. char --// adds the character to the string
 		end
-		return str
+		return str --// returns the string
 	end
 
 	function castRay(start, direct, distance, list, type1, id) --// casts a ray and returns it
-		assert(start and (type(start) == "vector")) --// checks if start is a vector
-		assert(direct and (type(direct) == "vector")) --// checks if direct is a vector
+		local start = start and type(start) == "vector" and start --// checks if start is a vector
+		local direct = direct and (type(direct) == "vector") and direct --// checks if direct is a vector
+		if not start or not direct then
+			return nil
+		end --// if start or direct is not a vector, return nil
+
 		local distant = (distant and tonumber(distance)) or 100 --// sets the distance to 100 if not specified
 		local type1 = (type1 and tostring(type1)) --// sets the type to nil if not specified
 
@@ -192,14 +197,14 @@ return pcall(function()
 	end
 
 	function cButton(indeX) --// clicks on a gui button
-		for _, v in pairs(getconnections(indeX.MouseButton1Click)) do
-			v:Function()
+		for _, v in pairs(getconnections(indeX.MouseButton1Click)) do --// gets the connections of MouseButton1Click for the button
+			v:Function() --// fires any connections it finds
 		end
-		for _, v in pairs(getconnections(indeX.Activated)) do
-			v:Function()
+		for _, v in pairs(getconnections(indeX.Activated)) do --// gets the connections of Activated for the button
+			v:Function() --// fires any connections it finds
 		end
-		for _, v in pairs(getconnections(indeX.Button1Down)) do
-			v:Function()
+		for _, v in pairs(getconnections(indeX.Button1Down)) do --// gets the connections of Button1Down for the button
+			v:Function() --// fires any connections it finds
 		end
 	end
 
@@ -211,7 +216,7 @@ return pcall(function()
 		end)
 	end
 
-	function noLag(ta) --// runs no lag which is really hood
+	function noLag(ta) --// runs no lag which is really good
 		local ta = ta or {} --// sets the table to {} if not specified
 		return table.unpack({
 			loadstring(
@@ -244,10 +249,13 @@ return pcall(function()
 	end
 
 	function tweenPart(speed, root, pos, anchored) --// tweens a part somewhere
-		local pos = (pos and pos.Position) or (pos and (type(pos) == "vector") and pos) or nil --// tries to set pos to something true
-		assert(speed and (type(speed) == "number") and root and root.CFrame and pos) --// checks if speed, root, and pos are valid
-		local ab
+		local pos = (pos and pos.Position) or (pos and (type(pos) == "vector") and pos) --// tries to set pos to something true
+		local speed = speed and tonumber(speed)
+		if not speed or not root or not root.CFrame or not pos then
+			return nil
+		end --// checks if speed, root, and pos are valid
 
+		local ab
 		if anchored then --// checks if it should anchor part
 			ab = root.Anchored --// sets ab to the anchored value
 			root.Anchored = true
@@ -266,38 +274,40 @@ return pcall(function()
 		end
 	end
 
-	local loading = true
-	local ChildAddedConnect
+	Universal.charLoading = false --// sets char loading to false
 
 	players = game:GetService("Players") --// gets players
 	localPlayer = players.LocalPlayer --// gets localplayer
 	mouse = localPlayer:GetMouse() --// gets the mouse
-
-	if localPlayer:HasAppearanceLoaded() then --// checks if player appearence has loaded
-		character = localPlayer.Character --// sets character to player character
-	else
-		repeat
-			fastWait() --// waits until character appearence is loaded
-		until localPlayer:HasAppearanceLoaded()
-		character = localPlayer.Character
-	end
-
-	humanoidRP = character:FindFirstChild("HumanoidRootPart") --// gets humanoid root part
-	humanoid = character:FindFirstChild("Humanoid") --// gets humanoid of localplayer
 	playerGUI = localPlayer:WaitForChild("PlayerGui") --// gets player's gui
 	camera = workspace.CurrentCamera --// gets current camera
 
-	ChildAddedConnect = character.ChildAdded:Connect(
-		function(child) --// creates a hook that will check for new humanoid or humanoid root parts
-			if child:IsA("Humanoid") then --// checks if child is a humanoid
-				humanoid = child
-			elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
-				humanoidRP = child
-			end
+	cWrap(function() --// encapsulates so that it doesn't hold up the script
+		if localPlayer:HasAppearanceLoaded() then --// checks if player appearence has loaded
+			character = localPlayer.Character --// sets character to player character
+		else
+			repeat
+				fastWait() --// waits until character appearence is loaded
+			until localPlayer:HasAppearanceLoaded()
+			character = localPlayer.Character
 		end
-	)
 
-	loading = false
+		humanoidRP = character:FindFirstChild("HumanoidRootPart") --// gets humanoid root part
+		humanoid = character:FindFirstChild("Humanoid") --// gets humanoid of localplayer
+
+		Universal.Connections.ChildAddedConnect = character.ChildAdded:Connect(
+			function(child) --// creates a hook that will check for new humanoid or humanoid root parts
+				if child:IsA("Humanoid") then --// checks if child is a humanoid
+					humanoid = child
+				elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
+					humanoidRP = child
+				end
+			end
+		)
+
+		Universal.charLoading = false
+	end)
+
 
 	function getPoint(target, pass) --// gets the point on the screen of a position in game
 		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil --// sets target to something value
@@ -332,22 +342,26 @@ return pcall(function()
 	end
 
 	function DrawText(Text_1, Point, Color_1, Thick) --// draws a text at point
-		local Text_1 = assert(Text_1 and tostring(Text_1)) --// sets text to something
-		local Point = assert(Point and Point.X and Point.Y and Vector2.new(Point.X, Point.Y)) --// sets point to something
+		local Text_1 = Text_1 and tostring(Text_1) --// sets text to something
+		local Point = Point and Point.X and Point.Y and Vector2.new(Point.X, Point.Y) --// sets point to something
+		
+		if Text_1 and Point then
+			local Text = Drawing.new("Text") --// makes a new text
+			Text.Visible = true --// sets properties of text
+			Text.Text = Text_1
+			Text.Color = Color_1
+			Text.Position = Point
+			Text.Size = 24
+			Text.Outline = true
 
-		local Text = Drawing.new("Text") --// makes a new text
-		Text.Visible = true --// sets properties of text
-		Text.Text = Text_1
-		Text.Color = Color_1
-		Text.Position = Point
-		Text.Size = 24
-		Text.Outline = true
+			return Text
+		end
 
-		return Text
+		return nil
 	end
 
 	function join(id)
-		local id = tonumber(id)
+		local id = id and tonumber(id)
 
 		if id then
 			TPService:Teleport(id)
@@ -419,8 +433,7 @@ return pcall(function()
 				return false
 			end
 		end
-		local Connection
-		Connection = TPService.TeleportInitFailed:Connect(function() --// connects to teleport init failed event
+		TPService.TeleportInitFailed:Connect(function() --// connects to teleport init failed event
 			wait(2)
 			Trigger() --// calls the function again if teleport init failed
 		end)
@@ -428,8 +441,15 @@ return pcall(function()
 	end
 
 	function checkGame(id, leave) --// function that checks if current game is the same as the game that is being checked
-		local id = assert(id and tonumber(id)) --// makes sure the id is a number
-		local leave = (not (leave == nil) and (type(leave) == "boolean") and leave) or true --// makes sure leave is a boolean
+		local id = id and tonumber(id) --// makes sure the id is a number
+		if not id then
+			return nil
+		end --// checks if id is a number
+		local leave = leave
+		if leave == nil or not (type(leave) == "boolean") then --// checks if leave is a boolean
+			leave = true
+		end
+
 		if not (game.PlaceId == id) then --// checks if current game is not the same as the game that is being checked
 			if leave then --// checks if leave is true
 				game:GetService("TeleportService"):Teleport(id, localPlayer) --// teleports to the game that is being checked
@@ -440,43 +460,49 @@ return pcall(function()
 		return true --// returns true if the game is the same
 	end
 
-	do
-		local idleConnection
-
-		function idleAfk(val) --// function that prevents player from being kicked when idled
-			if ((val == nil) or not (type(val) == 'boolean')) then val = true end --// makes sure val is a boolean
-			if val and not idleConnection then --// checks if val is true and if idle connection does not exist
-				idleConnection = localPlayer.Idled:Connect(function() --// connects to idled event
-					virtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-					wait(1)
-					virtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-				end) --// clicks virtual button to prevent idle afk
-			elseif not val and idleConnection then --// checks if val is false and if idle connection does exist
-				pcall(function()
-					idleConnection:Disconnect() --// disconnects idle connection
-					idleConnection = nil
-				end)
-			end
+	function idleAfk(val) --// function that prevents player from being kicked when idled
+		local val = val
+		if val == nil or not (type(val) == "boolean") then --// checks if val is a boolean
+			val = true
+		end
+		if val and not Universal.Tables.idleConnection then --// checks if val is true and if idle connection does not exist
+			Universal.Tables.idleConnection = localPlayer.Idled:Connect(function() --// connects to idled event
+				virtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+				wait(1)
+				virtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+			end) --// clicks virtual button to prevent idle afk
+		elseif not val and Universal.Tables.idleConnection then --// checks if val is false and if idle connection does exist
+			pcall(function()
+				Universal.Tables.idleConnection:Disconnect() --// disconnects idle connection
+				Universal.Tables.idleConnection = nil
+			end)
 		end
 	end
 
-	function onCharacterLoaded(loadWait, functioN) --// function that runs requested funcion when character is loaded
-		assert(functioN and (type(functioN) == "function")) --// makes sure function is a function
-		localPlayer.CharacterAdded:Connect(function() --// connects to character added event
-			if loadWait then --// checks if load wait is true
-				while loading do
-					fastWait() --// waits for loading to be done
-				end
-			end
+	Universal.Tables.onCharacterLoaded_table = {} --// table that holds functions that are called when character is loaded
+	function onCharacterLoaded(id, loadWait, functioN) --// function that runs requested funcion when character is loaded
+		if not functioN or not (type(functioN) == "function") then
+			return nil
+		end --// makes sure function is a function
+		local id = (id and tostring(id) and not Universal.Tables.onCharacterLoaded_table[tostring(id)] and tostring(id)) or genName() --// makes sure id is a string
+		if Universal.Tables.onCharacterLoaded_table[id] then
+			return nil
+		end --// checks if id is in the table
 
-			functioN() --// runs the function requested
-		end)
+		Universal.Tables.onCharacterLoaded_table[id] = { --// creates a table for the function
+			loadWait = loadWait or false, --// makes sure loadWait is a boolean
+			func = functioN, --// sets function to the function that is being called
+		}
+		return id --// returns id
 	end
 
 	function sendNotification(title, text, time_1, func, bn1, bn2) --// function that sends a notification
+		if not title or not tostring(title) or not text or not tostring(text) then
+			return nil
+		end --// makes sure title and text are not nil
 		local pack = { --// creates a table to store the data
-			Title = assert(title and tostring(title)),
-			Text = assert(text and tostring(text)),
+			Title = title and tostring(title),
+			Text = text and tostring(text),
 			Icon = "",
 			Duration = (time_1 and tonumber(time_1)) or 5,
 			CallBack = (func and (type(func) == "function") and func) or function() end,
@@ -487,11 +513,30 @@ return pcall(function()
 	end
 
 	localPlayer.CharacterAdded:Connect(function(char) --// connects to character added event
-		loading = true --// sets loading to true while character loading is happening
+		Universal.charLoading = true --// sets loading to true while character loading is happening
 
-		if ChildAddedConnect then --// checks if child added connection exists
-			ChildAddedConnect:Disconnect() --// disconnects child added connection
-			ChildAddedConnect = nil
+		cWrap(function()
+			for i, v in pairs(onCharacterLoaded_table) do --// goes through the onCharacterLoaded_table
+				if v.loadWait then --// checks if loadWait is true
+					cWrap(function() --// creates a coroutine to wait for the character to load
+						repeat
+							fastWait() --// waits for the character to load
+						until not Universal.charLoading
+						v.func() --// calls the function
+					end)
+				else --// checks if loadWait is false
+					cWrap(
+						function() --// creates a coroutine to continue the loop without having to wait for the character to load
+							v.func() --// calls the function
+						end
+					)
+				end
+			end
+		end)
+
+		if Universal.Connections.ChildAddedConnect then --// checks if child added connection exists
+			Universal.Connections.ChildAddedConnect:Disconnect() --// disconnects child added connection
+			Universal.Connections.ChildAddedConnect = nil
 		end
 
 		character = char --// sets character to the character that was added
@@ -499,7 +544,7 @@ return pcall(function()
 		humanoid = character:FindFirstChild("Humanoid") --// finds humanoid
 		camera = workspace.CurrentCamera --// finds current camera
 
-		ChildAddedConnect = character.ChildAdded:Connect(function(child) --// connects to child added event
+		Universal.Connections.ChildAddedConnect = character.ChildAdded:Connect(function(child) --// connects to child added event
 			if child:IsA("Humanoid") then --// checks if child is a humanoid
 				humanoid = child
 			elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
@@ -507,24 +552,37 @@ return pcall(function()
 			end
 		end)
 
-		loading = false --// sets loading to false
+		Universal.charLoading = false --// sets loading to false
 	end)
 
-	local on_leave_t = {} --// creates a table to store functions that are called when player leaves a server
+	Universal.Tables.OnLeave_table = {} --// creates a table to store functions that are called when player leaves a server
 	function onLeave(func)
-		table.insert(on_leave_t, func) --// inserts the function into the table
+		if not func or not (type(func) == 'function') then
+			return nil
+		end --// makes sure func is a function
+		table.insert(Universal.Tables.OnLeave_table, func) --// inserts the function into the table
 	end
 
 	players.PlayerRemoving:Connect(function(plr) --// connects to player removing event
 		if plr == localPlayer then --// checks if player is local player
-			local Encoded = JSONEncode(SaveTable)
-			writefile("Universal/Universal.json", Encoded) --// writes the save table to a file
+			cWrap(function()
+				local Encoded = JSONEncode(SaveTable)
+				writefile("Universal/Universal.json", Encoded) --// writes the save table to a file
+			end)
 
-			for _, func in ipairs(on_leave_t) do --// loops through all functions in the table
+			for _, func in ipairs(Universal.Tables.OnLeave_table) do --// loops through all functions in the table
 				cWrap(function() --// wraps function in a coroutine
 					func() --// calls the function
 				end)
 			end
 		end
 	end)
+
+	return Universal --// returns Universal
 end)
+
+if not success then
+	warn("Universal failed to load, error: " .. uni_table)
+end
+
+return uni_table
