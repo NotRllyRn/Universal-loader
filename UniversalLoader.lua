@@ -141,7 +141,7 @@ local success, uni_table = pcall(function()
 		Date = os.date("!*t"), --// makes a date table
 		Serverhop = {}, --// serverhop table
 	}
-	Universal.Universal.SaveTable = {} --// makes the input table for loading the script
+	Universal.SaveTable = {} --// makes the input table for loading the script
 
 	local compare_save
 	function compare_save(t1, t2) 
@@ -161,19 +161,19 @@ local success, uni_table = pcall(function()
 	
 	if not isfolder("Universal") then --// checks if Universal folder exists
 		makefolder("Universal")
-		Universal.Universal.SaveTable = defaultTable
-		local Encoded = JSONEncode(Universal.Universal.SaveTable)
+		Universal.SaveTable = defaultTable
+		local Encoded = JSONEncode(Universal.SaveTable)
 		writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
 	elseif isfile("Universal/Universal.json") then --// checks if Universal.json exists
 		local s = pcall(function() --// tries to load the json file
-			Universal.Universal.SaveTable = JSONDecode(readfile("Universal/Universal.json")) --// decodes the json file and saves it to the save table
+			Universal.SaveTable = JSONDecode(readfile("Universal/Universal.json")) --// decodes the json file and saves it to the save table
 		end)
 		if not s then
-			Universal.Universal.SaveTable = defaultTable
-			local Encoded = JSONEncode(Universal.Universal.SaveTable)
+			Universal.SaveTable = defaultTable
+			local Encoded = JSONEncode(Universal.SaveTable)
 			writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
 		else
-			compare_save(defaultTable, Universal.Universal.SaveTable) --// compares the default table with the save table
+			compare_save(defaultTable, Universal.SaveTable) --// compares the default table with the save table
 		end
 	end
 
