@@ -453,7 +453,7 @@ local success, uni_table = pcall(function()
 				if body.data then
 					for _, group in pairs(body.data) do --// goes through the data in the returned body
 						local id = group.id --// gets the jobid of the server
-						if group.playing < group.maxPlayers and not (JobID == id) then --// checks if the server is full and current game is not the same as game thats its checking
+						if group.playing and group.maxPlayers and group.playing < group.maxPlayers and not (JobID == id) then --// checks if the server is full and current game is not the same as game thats its checking
 							found = true
 							if not table.find(Serverhop, id) then --// checks if the server is in the serverhop table
 								table.insert(Serverhop, id) --// inserts the server into the serverhop table
