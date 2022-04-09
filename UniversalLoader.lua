@@ -141,7 +141,7 @@ local success, uni_table = pcall(function()
 		Date = os.date("!*t"), --// makes a date table
 		Serverhop = {}, --// serverhop table
 	}
-	Universal.SaveTable = {} --// makes the input table for loading the script
+	Universal.Universal.SaveTable = {} --// makes the input table for loading the script
 
 	local compare_save
 	function compare_save(t1, t2) 
@@ -161,19 +161,19 @@ local success, uni_table = pcall(function()
 	
 	if not isfolder("Universal") then --// checks if Universal folder exists
 		makefolder("Universal")
-		Universal.SaveTable = defaultTable
-		local Encoded = JSONEncode(Universal.SaveTable)
+		Universal.Universal.SaveTable = defaultTable
+		local Encoded = JSONEncode(Universal.Universal.SaveTable)
 		writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
 	elseif isfile("Universal/Universal.json") then --// checks if Universal.json exists
 		local s = pcall(function() --// tries to load the json file
-			Universal.SaveTable = JSONDecode(readfile("Universal/Universal.json")) --// decodes the json file and saves it to the save table
+			Universal.Universal.SaveTable = JSONDecode(readfile("Universal/Universal.json")) --// decodes the json file and saves it to the save table
 		end)
 		if not s then
-			Universal.SaveTable = defaultTable
-			local Encoded = JSONEncode(Universal.SaveTable)
+			Universal.Universal.SaveTable = defaultTable
+			local Encoded = JSONEncode(Universal.Universal.SaveTable)
 			writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
 		else
-			compare_save(defaultTable, Universal.SaveTable) --// compares the default table with the save table
+			compare_save(defaultTable, Universal.Universal.SaveTable) --// compares the default table with the save table
 		end
 	end
 
@@ -421,12 +421,12 @@ local success, uni_table = pcall(function()
 		local GameID = (id and tostring(id)) or tostring(game.PlaceId) --// gets game id of game
 		local JobID = tostring(game.JobId) --// gets jobid of game
 		local CHour = os.date("!*t").hour --// get the current our
-		local Serverhop = SaveTable.Serverhop --// gets serverhop table
+		local Serverhop = Universal.SaveTable.Serverhop --// gets serverhop table
 		local nextPage
 		local Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100" --// sets the url to check for endpoint
-		if not (CHour == SaveTable.Date.hour) then --// checks if the current hour is different from saved hour
-			SaveTable.Date.hour = CHour --// sets saved hour to current hour
-			SaveTable.Serverhop = {} --// resets serverhop table
+		if not (CHour == Universal.SaveTable.Date.hour) then --// checks if the current hour is different from saved hour
+			Universal.SaveTable.Date.hour = CHour --// sets saved hour to current hour
+			Universal.SaveTable.Serverhop = {} --// resets serverhop table
 		end
 		if not table.find(Serverhop, JobID) then --// checks if current jobid is in the serverhop table
 			table.insert(Serverhop, JobID) --// inserts game's jobid into serverhop table
@@ -547,7 +547,7 @@ local success, uni_table = pcall(function()
 	players.PlayerRemoving:Connect(function(plr) --// connects to player removing event
 		if plr == localPlayer then --// checks if player is local player
 			cWrap(function()
-				local Encoded = JSONEncode(SaveTable)
+				local Encoded = JSONEncode(Universal.SaveTable)
 				writefile("Universal/Universal.json", Encoded) --// writes the save table to a file
 			end)
 
