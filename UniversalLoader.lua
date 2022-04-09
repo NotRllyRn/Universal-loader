@@ -42,46 +42,6 @@ local success, uni_table = pcall(function()
 		syn.protect_gui(v) --// protects gui with Synapse's method
 		v.Parent = parent --// sets the parent.
 	end)
-
-	local defaultTable = { --// the save table for Universal Loader
-		Date = os.date("!*t"), --// makes a date table
-		Serverhop = {}, --// serverhop table
-	}
-	Universal.SaveTable = {} --// makes the input table for loading the script
-
-	local compare_save
-	function compare_save(t1, t2) 
-		for i, v in pairs(t1) do
-			if v and not t2[i] then
-				if type(v) == 'table' then
-					t2[i] = {}
-					compare_save(v, t2[i])
-				else
-					t2[i] = v
-				end
-			elseif v and type(v) == 'table' and type(t2[i]) == 'table' then
-				compare_save(v, t2[i])
-			end
-		end
-	end
-	
-	if not isfolder("Universal") then --// checks if Universal folder exists
-		makefolder("Universal")
-		Universal.SaveTable = defaultTable
-		local Encoded = JSONEncode(Universal.SaveTable)
-		writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
-	elseif isfile("Universal/Universal.json") then --// checks if Universal.json exists
-		local s = pcall(function() --// tries to load the json file
-			Universal.SaveTable = JSONDecode(readfile("Universal/Universal.json")) --// decodes the json file and saves it to the save table
-		end)
-		if not s then
-			Universal.SaveTable = defaultTable
-			local Encoded = JSONEncode(Universal.SaveTable)
-			writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
-		else
-			compare_save(defaultTable, Universal.SaveTable) --// compares the default table with the save table
-		end
-	end
 	
 	Universal.Connections = {} --// makes the connections table
 	Universal.Tables = {} --// makes the tables table
@@ -176,6 +136,46 @@ local success, uni_table = pcall(function()
 	heartS = runService.Heartbeat --// gets the heartbeat event
 
 	workspace = game:GetService("Workspace") --// gets the workspace
+
+	local defaultTable = { --// the save table for Universal Loader
+		Date = os.date("!*t"), --// makes a date table
+		Serverhop = {}, --// serverhop table
+	}
+	Universal.SaveTable = {} --// makes the input table for loading the script
+
+	local compare_save
+	function compare_save(t1, t2) 
+		for i, v in pairs(t1) do
+			if v and not t2[i] then
+				if type(v) == 'table' then
+					t2[i] = {}
+					compare_save(v, t2[i])
+				else
+					t2[i] = v
+				end
+			elseif v and type(v) == 'table' and type(t2[i]) == 'table' then
+				compare_save(v, t2[i])
+			end
+		end
+	end
+	
+	if not isfolder("Universal") then --// checks if Universal folder exists
+		makefolder("Universal")
+		Universal.SaveTable = defaultTable
+		local Encoded = JSONEncode(Universal.SaveTable)
+		writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
+	elseif isfile("Universal/Universal.json") then --// checks if Universal.json exists
+		local s = pcall(function() --// tries to load the json file
+			Universal.SaveTable = JSONDecode(readfile("Universal/Universal.json")) --// decodes the json file and saves it to the save table
+		end)
+		if not s then
+			Universal.SaveTable = defaultTable
+			local Encoded = JSONEncode(Universal.SaveTable)
+			writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
+		else
+			compare_save(defaultTable, Universal.SaveTable) --// compares the default table with the save table
+		end
+	end
 
 	function fastWait(n) --// function that waits for 1 frame render
 		heartS:Wait()
