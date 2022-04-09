@@ -47,7 +47,7 @@ local success, uni_table = pcall(function()
 		Date = os.date("!*t"), --// makes a date table
 		Serverhop = {}, --// serverhop table
 	}
-	local SaveTable = {} --// makes the input table for loading the script
+	Universal.SaveTable = {} --// makes the input table for loading the script
 
 	local compare_save
 	function compare_save(t1, t2) 
@@ -67,40 +67,39 @@ local success, uni_table = pcall(function()
 	
 	if not isfolder("Universal") then --// checks if Universal folder exists
 		makefolder("Universal")
-		SaveTable = defaultTable
-		local Encoded = JSONEncode(SaveTable)
+		Universal.SaveTable = defaultTable
+		local Encoded = JSONEncode(Universal.SaveTable)
 		writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
 	elseif isfile("Universal/Universal.json") then --// checks if Universal.json exists
 		local s = pcall(function() --// tries to load the json file
-			SaveTable = JSONDecode(readfile("Universal/Universal.json")) --// decodes the json file and saves it to the save table
+			Universal.SaveTable = JSONDecode(readfile("Universal/Universal.json")) --// decodes the json file and saves it to the save table
 		end)
 		if not s then
-			SaveTable = defaultTable
-			local Encoded = JSONEncode(SaveTable)
+			Universal.SaveTable = defaultTable
+			local Encoded = JSONEncode(Universal.SaveTable)
 			writefile("Universal/Universal.json", Encoded) --// encodes the save table to a json file
 		else
-			compare_save(defaultTable, SaveTable) --// compares the default table with the save table
+			compare_save(defaultTable, Universal.SaveTable) --// compares the default table with the save table
 		end
 	end
 	
 	Universal.Connections = {} --// makes the connections table
 	Universal.Tables = {} --// makes the tables table
 	Universal.Librarys = {} --// makes the librarys table
-	Universal.SaveTable = SaveTable --// sets the save table to the Universal table
 	Universal.Librarys.kavo = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GUILibs/Kavo.lua")) --// loads the Kavo library
 	Universal.Librarys.notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GUILibs/Notification.lua")) --// loads the Notification library
 	Universal.Librarys.customcommands = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Other/CustomCommands.lua")) --// loads the CustomCommands library
 	Universal.Librarys.antilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/AntiLag.lua")) --// loads the AntiLag script
 	Universal.Librarys.ultraantilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/BetterAntiLag.lua")) --// loads the UltraAntiLag script
 
-	function libraryLoad(name) --// function that loads the a library with the name you pass
+	function libraryLoad(name, ...) --// function that loads the a library with the name you pass
 		local name = name and tostring(name) and tostring(name):lower() --// makes sure name is a string
 		if not name then
 			return nil
 		end --// if name is not a string, return nil
 
 		if Universal.Librarys[name] then --// checks if the library exists
-			return Universal.Librarys[name]() --// runs and returns the library
+			return Universal.Librarys[name](...) --// runs and returns the library
 		end
 	end
 
