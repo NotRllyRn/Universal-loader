@@ -124,6 +124,7 @@ local success, uni_table = pcall(function()
 	replicatedS = game:GetService("ReplicatedStorage")
 	TPService = game:GetService("TeleportService")
 	PhyService = game:GetService("PhysicsService")
+	httpAPI = game:GetService('HttpRbxApiService')
 
 	JSONDecode = function(...) --// decodes json function for easier use
 		return (httpService:JSONDecode(...))
@@ -205,7 +206,7 @@ local success, uni_table = pcall(function()
 			local castprams = RaycastParams.new() --// makes a new raycast params
 
 			if list and type1 then
-				castprams.FilterDescendantsInstances = (type(list) == "table" and list) or { list } --// sets the filter to the list if specified
+				castprams.FilterDescendantsInstances = (typeof(list) == "table" and list) or { list } --// sets the filter to the list if specified
 				castprams.FilterType = Enum.RaycastFilterType[type1] --// sets the filter type to the specified type
 			end
 
