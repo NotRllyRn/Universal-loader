@@ -38,6 +38,7 @@ local success, uni_table = pcall(function()
 	ExploitCheck("isfolder", isfolder)
 	ExploitCheck("setclipboard", setclipboard)
 	ExploitCheck("fireprompt", fireproximityprompt)
+	ExploitCheck("setclipboard", setclipboard)
 	ExploitCheck("protectgui", gethui and function(v) --// for protecting screenguis from being detected
 		v.Parent = gethui() --// sets the gui to the hui so that no other scripts can access it
 	end, syn and syn.protect_gui and function(v, parent)
@@ -484,7 +485,7 @@ local success, uni_table = pcall(function()
 		return Trigger() --// calls the function to start the serverhop
 	end
 
-	function checkGame(id, leave) --// function that checks if current game is the same as the game that is being checked
+	function checkGame(id, leave, err) --// function that checks if current game is the same as the game that is being checked
 		local id = id and tonumber(id) --// makes sure the id is a number
 		if not id then
 			return nil
@@ -496,10 +497,11 @@ local success, uni_table = pcall(function()
 
 		if not (game.PlaceId == id) then --// checks if current game is not the same as the game that is being checked
 			if leave then --// checks if leave is true
-				game:GetService("TeleportService"):Teleport(id, localPlayer) --// teleports to the game that is being checked
-			else
-				return false
+				TPService:Teleport(id, localPlayer) --// teleports to the game that is being checked
+			elseif err then
+				return error("Script is not on the right game", 2)
 			end
+			return false
 		end
 		return true --// returns true if the game is the same
 	end
