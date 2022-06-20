@@ -306,7 +306,7 @@ local success, uni_table = pcall(function()
 		)
 	
 		Universal.Tables.onCharacterLoaded_table = {} --// creates a table for onCharacterLoaded
-		Universal.Connections.ChildAddedConnect = localPlayer.CharacterAdded:Connect(function(char) --// connects to character added event
+		Universal.Connections.CharacterAdded = localPlayer.CharacterAdded:Connect(function(char) --// connects to character added event
 			Universal.charLoading = true --// sets loading to true while character loading is happening
 	
 			cWrap(function()
