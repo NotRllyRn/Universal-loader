@@ -5,6 +5,7 @@
 	Universal loader,
 	Made for LUAU roblox exploiting.
 
+	by NotRllyRn <3
 ]]
 local Incoming = {...} --// for incoming input
 local success, uni_table = pcall(function()
@@ -24,7 +25,7 @@ local success, uni_table = pcall(function()
 			error("Unsupported exploit: " .. name, 1) --// throw an error
 		end
 	end
-	ExploitCheck("getrawmetatable", getrawmetatable) --// checks if getrawmetatable is valid
+	ExploitCheck("getrawmetatable", getrawmetatable) --// checks if built in functions are valid and sets them to the global enviorment
 	ExploitCheck("getnamecallmethod", getnamecallmethod)
 	ExploitCheck("httpRequest", syn and syn.request, request, http_request)
 	ExploitCheck("firetouchinterest", firetouchinterest)
@@ -81,16 +82,16 @@ local success, uni_table = pcall(function()
 		end
 	end
 
-	function discordWebSend(URL, data)
-		if data and type(data) == "table" and URL then
-			local content = JSONEncode(data)
-			if content then
-				return httpRequest({
-					Url = URL,
-					Method = "POST",
-					Body = content,
-					Headers = {
-						["Content-Type"] = "application/json",
+	function discordWebSend(URL, data) --// send webhook data to a discord webhook
+		if data and type(data) == "table" and URL then -- checks if the data is a table and the URL is a string
+			local content = JSONEncode(data) --// encodes the data into json
+			if content then --// checks if the content was successfully convereted into json
+				return httpRequest({ --// sends the request
+					Url = URL, --// sets the url
+					Method = "POST", --// sets the method to post
+					Body = content, --// sets the body to the content
+					Headers = { 
+						["Content-Type"] = "application/json", --// sets the content type to json to accept json data
 					},
 				})
 			end
