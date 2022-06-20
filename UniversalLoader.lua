@@ -353,6 +353,11 @@ local success, uni_table = pcall(function()
 		Universal.charLoading = false
 	end)
 
+	function waitForCharLoad()
+		while Universal.charLoading do
+			task.wait()
+		end
+	end
 
 	function getPoint(target, pass) --// gets the point on the screen of a position in game
 		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil --// sets target to something value
