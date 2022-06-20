@@ -148,17 +148,17 @@ local success, uni_table = pcall(function()
 	Universal.SaveTable = {} --// makes the input table for loading the script
 
 	local compare_save
-	function compare_save(t1, t2) 
-		for i, v in pairs(t1) do
-			if v and not t2[i] then
-				if type(v) == 'table' then
-					t2[i] = {}
-					compare_save(v, t2[i])
+	function compare_save(t1, t2) --// functions that compare the 2nd table to the 1st table and fills in the missing values
+		for i, v in pairs(t1) do --// loops through the 1st table
+			if v and not t2[i] then --// checks if the value is valid and is not in the 2nd table
+				if type(v) == 'table' then --// checks if the value is a table
+					t2[i] = {} --// makes a new table in the 2nd table1
+					compare_save(v, t2[i]) --// calls the function again to compare the tables
 				else
-					t2[i] = v
+					t2[i] = v --// sets the value if it is not a table
 				end
-			elseif v and type(v) == 'table' and type(t2[i]) == 'table' then
-				compare_save(v, t2[i])
+			elseif v and type(v) == 'table' and type(t2[i]) == 'table' then --// checks if the value is a table and the 2nd table value is a table
+				compare_save(v, t2[i]) --// calls the function again to compare the tables
 			end
 		end
 	end
@@ -353,9 +353,9 @@ local success, uni_table = pcall(function()
 		Universal.charLoading = false
 	end)
 
-	function waitForCharLoad()
-		while Universal.charLoading do
-			task.wait()
+	function waitForCharLoad() --// waits for character to load
+		while Universal.charLoading do --// checks if character is loading
+			task.wait() --// waits for character to load
 		end
 	end
 
@@ -387,6 +387,7 @@ local success, uni_table = pcall(function()
 			Line.Color = Color_1
 			Line.Thickness = Thick
 			Line.Transparency = 1
+
 			return Line
 		end
 	end
@@ -410,11 +411,11 @@ local success, uni_table = pcall(function()
 		return nil
 	end
 
-	function join(id)
-		local id = id and tonumber(id)
+	function join(id) --// joins a game using the gameid
+		local id = id and tonumber(id) --// converts id to a number
 
 		if id then
-			TPService:Teleport(id)
+			TPService:Teleport(id) --// teleports player to game if id is valid
 		end
 	end
 
@@ -572,8 +573,8 @@ local success, uni_table = pcall(function()
 	return Universal --// returns Universal
 end)
 
-if not success then
-	warn("Universal failed to load, error: " .. uni_table)
+if not success then --// checks if the loader ran successfully
+	error("Universal failed to load, error: " .. uni_table, 2) --// errors and halts the script if the loader failed
 end
 
 return uni_table
