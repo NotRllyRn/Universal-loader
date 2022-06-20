@@ -22,7 +22,7 @@ local success, uni_table = pcall(function()
 		if found then --// if found is valid
 			getgenv()[name] = found --// set the name as the global enviorment for the function
 		elseif Incoming and Incoming[1] and Incoming[1] == true then --// if the function is not valid and the input is true
-			error("Unsupported exploit: " .. name, 1) --// throw an error
+			error("Unsupported exploit function: " .. name, 1) --// throw an error
 		end
 	end
 	ExploitCheck("getrawmetatable", getrawmetatable) --// checks if built in functions are valid and sets them to the global enviorment
