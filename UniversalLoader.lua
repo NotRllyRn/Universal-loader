@@ -423,7 +423,7 @@ local success, uni_table = pcall(function()
 	function serverHop(id) --// function that serverhops the same game
 		local GameID = (id and tostring(id)) or tostring(game.PlaceId) --// gets game id of game
 		local JobID = tostring(game.JobId) --// gets jobid of game
-		local CHour = os.date("!*t").hour --// get the current our
+		local CHour = os.date("!*t").hour --// get the current hour
 		local Serverhop = Universal.SaveTable.Serverhop --// gets serverhop table
 		local nextPage
 		local Url = "https://games.roblox.com/v1/games/" .. GameID .. "/servers/Public?sortOrder=Asc&limit=100" --// sets the url to check for endpoint
