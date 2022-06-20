@@ -292,6 +292,10 @@ local success, uni_table = pcall(function()
 			until localPlayer:HasAppearanceLoaded()
 			character = localPlayer.Character
 		end
+		while not character do
+			fastWait()
+			character = localPlayer.Character
+		end
 
 		humanoidRP = character:FindFirstChild("HumanoidRootPart") --// gets humanoid root part
 		humanoid = character:FindFirstChild("Humanoid") --// gets humanoid of localplayer
