@@ -37,6 +37,7 @@ local success, uni_table = pcall(function()
 	ExploitCheck("delfile", delfile)
 	ExploitCheck("isfolder", isfolder)
 	ExploitCheck("setclipboard", setclipboard)
+	ExploitCheck("fireprompt", fireproximityprompt)
 	ExploitCheck("protectgui", gethui and function(v) --// for protecting screenguis from being detected
 		v.Parent = gethui() --// sets the gui to the hui so that no other scripts can access it
 	end, syn and syn.protect_gui and function(v, parent)
