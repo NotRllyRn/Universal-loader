@@ -20,7 +20,7 @@ local Error_Metatable = {
 }
 local Error_Handler = {
     CreateError = function(self, message)
-        local error = setrawmetatable({}, Error_Metatable)
+        local error = setmetatable({}, Error_Metatable)
         error.__ERROR = message
 
         return error
@@ -33,7 +33,7 @@ local Command_Metatable = {
             local success, output = pcall(function(...)
                 local args_out = {self.Function(...)}
                 return args_out
-            end)
+            end, ...)
 
             if not success then
                 return Error_Handler:CreateError(output)
@@ -52,6 +52,8 @@ local Command_Metatable = {
                 else
                     local before = #self.Aliases
                     for _, name in ipairs(list) do
+                        local name = name:lower()
+
                         if name and type(name) == "string" and not self:CheckAlias(name) then
                             table.insert(self.Aliases, name)
                         end
@@ -61,6 +63,7 @@ local Command_Metatable = {
                     end
                 end
             else
+                local list = list:lower()
                 if not self:CheckAlias(list) then
                     table.insert(self.Aliases, list)
                 elseif self:CheckAlias(list) then
@@ -132,6 +135,7 @@ local Handler_Metatable = {
                 end
 
                 table.insert(self.Commands, Command)
+                local command = self:GetCommand("Add")
             else
                 return warn("Command with provided alias(es) already exist.")
             end
@@ -192,7 +196,7 @@ local Handler_Metatable = {
                 return warn("Command not found, check the alias(es).")
             end
         end,
-        Prefix = ";",
+        Prefix = "!",
         AddCommandAlias = function(self, cmdAlias, aliases)
             if not cmdAlias or not aliases or not (type(aliases) == "string" or type(aliases) == "table") or not (type(cmdAlias) == "string" or type(cmdAlias) == "table") then
                 return warn("Valid alias(es) and command alias(es) is needed.")
@@ -242,7 +246,7 @@ local Handler_Metatable = {
                     if output and type(output) == "table" and output.__ERROR then
                         return warn(output.__ERROR)
                     else
-                        return output
+                        return table.unpack(output)
                     end
                 end
             end
