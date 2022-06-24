@@ -51,7 +51,7 @@ local success, uni_table = pcall(function()
 	Universal.Librarys = {} --// makes the librarys table
 	Universal.Librarys.kavo = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GUILibs/Kavo.lua")) --// loads the Kavo library
 	Universal.Librarys.notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GUILibs/Notification.lua")) --// loads the Notification library
-	Universal.Librarys.customcommands = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Other/CustomCommands.lua")) --// loads the CustomCommands library
+	Universal.Librarys.customcommands = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Other/CustomCommandsV2.lua")) --// loads the CustomCommands library
 	Universal.Librarys.antilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/AntiLag.lua")) --// loads the AntiLag script
 	Universal.Librarys.ultraantilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/BetterAntiLag.lua")) --// loads the UltraAntiLag script
 
