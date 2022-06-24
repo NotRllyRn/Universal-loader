@@ -431,7 +431,7 @@ function finity.new(isdark, gprojectName, thinProject)
 				largestListSize = uilistlayout.AbsoluteContentSize.Y
 				
 				if uilistlayout2.AbsoluteContentSize.Y > largestListSize then
-					largestListSize = largestListSize
+					--largestListSize = largestListSize
 				end
 				
 				category.container.CanvasSize = UDim2.new(0, 0, 0, largestListSize + 5)

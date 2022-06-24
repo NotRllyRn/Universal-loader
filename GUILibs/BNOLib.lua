@@ -1,4 +1,6 @@
-return false
+if true then
+    return false
+end
 
 local function CreateWindow(Table)
     local SelectedTab
@@ -127,7 +129,7 @@ local function CreateWindow(Table)
                         Debounce = nil
                         return
                     end
-                    Activated += 1
+                    Activated = Activated + 1
                 elseif Activated then
                     Activated = nil
                 end
