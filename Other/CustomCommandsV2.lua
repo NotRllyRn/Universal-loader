@@ -118,7 +118,7 @@ local Command_Metatable = {
 local Handler_Metatable = {
     __index = {
         Commands = {},
-        AddCommand = function(self, func, alias)
+        AddCommand = function(self, alias, func)
             if not func or not alias or type(func) ~= "function" or not (type(alias) == "string" or type(alias) == "table") then
                 return warn("Valid alias(es) and function is needed.")
             end
@@ -168,7 +168,7 @@ local Handler_Metatable = {
                 end
             end
         end,
-        EditCommand = function(self, cmdAlias, func, alias)
+        EditCommand = function(self, cmdAlias, alias, func)
             local alias = alias and type(alias) == "table" and alias or alias and type(alias) == "string" and alias or nil
             local func = func and type(func) == "function" and func or nil
 
