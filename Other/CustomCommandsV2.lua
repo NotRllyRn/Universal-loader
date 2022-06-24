@@ -224,7 +224,7 @@ local Handler_Metatable = {
             end
         end,
         Input = function(self, str)
-            if not str or type(str) == "string" then
+            if not str or type(str) ~= "string" then
                 return warn("Input has to be a string.")
             elseif string.len(str) <= 1 then
                 return warn("Input has to be atleast 2 characters long.")
