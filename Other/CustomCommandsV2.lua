@@ -246,7 +246,10 @@ local Handler_Metatable = {
                     if output and type(output) == "table" and output.__ERROR then
                         return warn(output.__ERROR)
                     else
-                        return output and type(output) == "table" and table.unpack(output) or output
+                        return table.unpack({
+                            true, 
+                            output and type(output) == "table" and table.unpack(output) or output,
+                        })
                     end
                 end
             end
