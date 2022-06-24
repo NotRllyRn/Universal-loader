@@ -128,6 +128,7 @@ local Handler_Metatable = {
 
             if not self:GetCommand(alias) then
                 local Command = setmetatable({}, Command_Metatable)
+                Command.Aliases = {}
                 Command.Function = func
                 local output = Command:AddAlias(alias)
                 if output and output.__ERROR then
@@ -135,7 +136,6 @@ local Handler_Metatable = {
                 end
 
                 table.insert(self.Commands, Command)
-                local command = self:GetCommand("Add")
             else
                 return warn("Command with provided alias(es) already exist.")
             end
@@ -246,7 +246,7 @@ local Handler_Metatable = {
                     if output and type(output) == "table" and output.__ERROR then
                         return warn(output.__ERROR)
                     else
-                        return table.unpack(output)
+                        return output and type(output) == "table" and table.unpack(output) or output
                     end
                 end
             end
