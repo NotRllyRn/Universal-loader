@@ -248,7 +248,7 @@ local Handler_Metatable = {
                     else
                         return table.unpack({
                             true, 
-                            output and type(output) == "table" and table.unpack(output) or output,
+                            output and table.unpack(output) or nil,
                         })
                     end
                 end
