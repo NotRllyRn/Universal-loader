@@ -243,12 +243,12 @@ local Handler_Metatable = {
 
                 if Command then
                     local output = Command:Fire(table.unpack(parts))
-                    if output and type(output) == "table" and output.__ERROR then
+                    if output.__ERROR then
                         return warn(output.__ERROR)
                     else
                         return table.unpack({
                             true, 
-                            output and table.unpack(output) or nil,
+                            table.unpack(output),
                         })
                     end
                 end
