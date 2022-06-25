@@ -86,7 +86,7 @@ local Command_Metatable = {
                     local before = #self.Aliases
                     for _, name in ipairs(list) do
                         local position = self:CheckAlias(name)
-                        if name and type(name) == "string" and position and type(position) == "number" then
+                        if name and type(name) == "string" and position and type(position) == "number" and #self.Aliases > 1 then
                             table.remove(self.Aliases, position)
                         end
                     end
@@ -196,7 +196,9 @@ local Handler_Metatable = {
                 return warn("Command not found, check the alias(es).")
             end
         end,
-        Prefix = "!",
+        Prefixes = {
+            "!"
+        },
         AddCommandAlias = function(self, cmdAlias, aliases)
             if not cmdAlias or not aliases or not (type(aliases) == "string" or type(aliases) == "table") or not (type(cmdAlias) == "string" or type(cmdAlias) == "table") then
                 return warn("Valid alias(es) and command alias(es) is needed.")
@@ -234,10 +236,8 @@ local Handler_Metatable = {
                 return warn("Input has to be atleast 2 characters long.")
             end
 
-            local startsWith = str:sub(1,1)
             local parts = str:sub(2, -1):split(" ")
-
-            if startsWith == self.Prefix and #parts > 0 then
+            if self:StartsWithPrefix(str) and #parts > 0 then
                 local Alias = table.remove(parts, 1)
                 local Command = self:GetCommand(Alias)
 
@@ -253,14 +253,88 @@ local Handler_Metatable = {
                     end
                 end
             end
-        end
+        end,
+        StartsWithPrefix = function(self, str)
+            if not str or type(str) ~= "string" or string.len(str) <= 1 then
+                return false
+            end
+
+            local startsWith = str:sub(1,1)
+            return table.find(self.Prefixes, startsWith)
+        end,
+        AddPrefix = function(self, prefix)
+            if not prefix or not (type(prefix) == "string" or type(prefix) == "table") then
+                return warn("Valid prefix(es) is needed.")
+            end
+
+            if type(prefix) == "table" then
+                if #prefix == 0 then
+                    return warn("No Prefix(es) found.")
+                else
+                    local before = #self.Prefixes
+                    for _, px in ipairs(prefix) do
+                        if px and type(px) == "string" and not table.find(self.Prefixes, px) then
+                            table.insert(self.Prefixes, px) 
+                        end
+                    end
+                    if #self.Prefixes <= before then
+                        return warn("No Prefix(es) found.")
+                    end
+                end
+            elseif not table.find(self.Prefixes, prefix) then
+                table.insert(self.Prefixes, prefix)
+            else
+                return warn("That prefix already exist.")
+            end
+        end,
+        RemovePrefix = function(self, prefix)
+            if not prefix or not (type(prefix) == "string" or type(prefix) == "table") then
+                return warn("Valid prefix(es) is needed.")
+            end
+            if #self.Prefixes == 1 then
+                return warn("Atleast 1 prefix is needed.")
+            end
+
+            if type(prefix) == "table" then
+                if #prefix == 0 then
+                    return warn("No Prefix(es) found.")
+                else
+                    local before = #self.Prefixes
+                    for _, px in ipairs(prefix) do
+                        local position = table.find(self.Prefixes, px)
+                        if px and type(px) == "string" and position and #self.Prefixes > 1 then
+                            table.remove(self.Prefixes, position) 
+                        end
+                    end
+                    if #self.Prefixes >= before then
+                        return warn("No Prefix(es) found.")
+                    end
+                end
+            else
+                local position = table.find(self.Prefixes, prefix)
+                if position then
+                    table.remove(self.Prefixes, position)
+                else
+                    return warn("That prefix doesn't exist.")
+                end
+            end
+        end,
     }
 }
 
 return {
     CreateCommandHandler = function(self, prefix)
+        local prefix = prefix and type(prefix) == "string" and prefix or prefix and type(prefix) == "table" and prefix or nil
+        if prefix and type(prefix) == "table" then
+            for _, px in ipairs(prefix) do
+                if not px or type(px) ~= "string" then
+                    table.remove(prefix, table.find(prefix, px))
+                end
+            end
+        end
+
         local Handler = setmetatable({}, Handler_Metatable)
-        Handler.Prefix = prefix or Handler.Prefix
+        Handler.Prefixes = prefix and type(prefix) == "string" and { prefix } or prefix or Handler.Prefixes
 
         return Handler
     end,
