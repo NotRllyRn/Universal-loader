@@ -7,9 +7,9 @@
 
 	by NotRllyRn <3
 ]]
-local Incoming = {...} --// for incoming input
-local success, uni_table = pcall(function()
+local success, uni_table = pcall(function(...)
 	local Universal = {}
+	local Incoming = {...} --// for incoming input
 
 	function ExploitCheck(name, ...) --// checks if the executor has a function
 		local found
@@ -582,7 +582,7 @@ local success, uni_table = pcall(function()
 	end)
 
 	return Universal --// returns Universal
-end)
+end, ...)
 
 if not success then --// checks if the loader ran successfully
 	error("Universal failed to load, error: " .. uni_table, 2) --// errors and halts the script if the loader failed
