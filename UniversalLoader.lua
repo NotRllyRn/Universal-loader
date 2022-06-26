@@ -62,9 +62,9 @@ local success, uni_table = pcall(function()
 		end --// if name is not a string, return nil
 
 		if Universal.Librarys[name] then --// checks if the library exists
-			local output = {pcall(function() --// runs function in pcall incase it errors
+			local output = {pcall(function(...) --// runs function in pcall incase it errors
 				return Universal.Librarys[name](...) --// runs and returns the library
-			end)}
+			end, ...)}
 			local success = table.remove(output, 1) --// removes the success variable from the output
 			if success then
 				return table.unpack(output) --// returns then output if the loader ran successfully
@@ -91,6 +91,7 @@ local success, uni_table = pcall(function()
 	end
 
 	function discordWebSend(URL, data) --// send webhook data to a discord webhook
+		local URL = URL and type(URL) == "string" and URL or nil
 		if data and type(data) == "table" and URL then -- checks if the data is a table and the URL is a string
 			local content = JSONEncode(data) --// encodes the data into json
 			if content then --// checks if the content was successfully convereted into json
