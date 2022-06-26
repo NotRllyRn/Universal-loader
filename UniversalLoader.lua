@@ -62,7 +62,13 @@ local success, uni_table = pcall(function()
 		end --// if name is not a string, return nil
 
 		if Universal.Librarys[name] then --// checks if the library exists
-			return Universal.Librarys[name](...) --// runs and returns the library
+			local output = {pcall(function() --// runs function in pcall incase it errors
+				return Universal.Librarys[name](...) --// runs and returns the library
+			end)}
+			local success = table.remove(output, 1) --// removes the success variable from the output
+			if success then
+				return table.unpack(output) --// returns then output if the loader ran successfully
+			end
 		end
 	end
 
