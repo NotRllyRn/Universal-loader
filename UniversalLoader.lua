@@ -135,6 +135,7 @@ local success, uni_table = pcall(function(...)
 	TPService = game:GetService("TeleportService")
 	PhyService = game:GetService("PhysicsService")
 	httpAPI = game:GetService('HttpRbxApiService')
+	starterGui = game:GetService("StarterGui")
 
 	JSONDecode = function(...) --// decodes json function for easier use
 		return (httpService:JSONDecode(...))
@@ -287,7 +288,7 @@ local success, uni_table = pcall(function(...)
 	players = game:GetService("Players") --// gets players
 	localPlayer = players.LocalPlayer --// gets localplayer
 	mouse = localPlayer:GetMouse() --// gets the mouse
-	playerGUI = localPlayer:WaitForChild("PlayerGui") --// gets player's gui
+	playerGui = localPlayer:WaitForChild("PlayerGui") --// gets player's gui
 	camera = workspace.CurrentCamera --// gets current camera
 
 	cWrap(function() --// encapsulates so that it doesn't hold up the script
@@ -555,7 +556,7 @@ local success, uni_table = pcall(function(...)
 			Button1 = bn1 or nil,
 			Button2 = bn2 or nil,
 		}
-		game:GetService("StarterGui"):SetCore("SendNotification", pack) --// sends the notification
+		starterGui:SetCore("SendNotification", pack) --// sends the notification
 	end
 
 	Universal.Tables.OnLeave_table = {} --// creates a table to store functions that are called when player leaves a server
