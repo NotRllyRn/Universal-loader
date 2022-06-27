@@ -116,12 +116,13 @@ local Command_Metatable = {
                 end
             end
         end,
+        SplitBy = " ",
     }
 }
 local Handler_Metatable = {
     __index = {
         Commands = {},
-        AddCommand = function(self, alias, func)
+        AddCommand = function(self, alias, func, splitby)
             if not func or not alias or type(func) ~= "function" or not (type(alias) == "string" or type(alias) == "table") then
                 return warn("Valid alias(es) and function is needed.")
             end
@@ -133,6 +134,8 @@ local Handler_Metatable = {
                 local output = Command:AddAlias(alias)
                 if output and output.__ERROR then
                     return warn(output.__ERROR)
+                elseif splitby and type(splitby) == "string" and string.len(splitby) >= 1 then
+                    Command.SplitBy = splitby
                 end
 
                 table.insert(self.Commands, Command)
@@ -242,6 +245,10 @@ local Handler_Metatable = {
                 local Command = self:GetCommand(Alias)
 
                 if Command then
+                    if Command.SplitBy ~= " " then
+                        parts = table.concat(parts, " "):split(Command.SplitBy)
+                    end
+
                     local output = Command:Fire(table.unpack(parts))
                     if output.__ERROR then
                         return warn(output.__ERROR)
