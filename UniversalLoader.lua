@@ -210,7 +210,7 @@ local success, uni_table = pcall(function(...)
 			return nil
 		end --// if start or direct is not a vector, return nil
 
-		local distant = (distant and tonumber(distance)) or 100 --// sets the distance to 100 if not specified
+		local distance = (distance and tonumber(distance)) or 100 --// sets the distance to 100 if not specified
 		local type1 = (type1 and tostring(type1)) --// sets the type to nil if not specified
 
 		if start and direct then
