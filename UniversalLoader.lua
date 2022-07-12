@@ -10,8 +10,9 @@
 local success, uni_table = pcall(function(...)
 	local Universal = {}
 	local Incoming = {...} --// for incoming input
+	local ggv = getgenv()
 
-	function ExploitCheck(name, ...) --// checks if the executor has a function
+	ggv.ExploitCheck = function(name, ...) --// checks if the executor has a function
 		local found
 		for _, v in pairs({ ... }) do --// go's trhough list of functions
 			if v then --// checks if function is valid
@@ -20,7 +21,7 @@ local success, uni_table = pcall(function(...)
 			end
 		end
 		if found then --// if found is valid
-			getgenv()[name] = found --// set the name as the global enviorment for the function
+			ggv[name] = found --// set the name as the global enviorment for the function
 		elseif Incoming and Incoming[1] and Incoming[1] == true then --// if the function is not valid and the input is true
 			error("Unsupported exploit function: " .. name, 1) --// throw an error
 		end
@@ -49,13 +50,15 @@ local success, uni_table = pcall(function(...)
 	Universal.Connections = {} --// makes the connections table
 	Universal.Tables = {} --// makes the tables table
 	Universal.Librarys = {} --// makes the librarys table
-	Universal.Librarys.kavo = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GUILibs/Kavo.lua")) --// loads the Kavo library
-	Universal.Librarys.notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/GUILibs/Notification.lua")) --// loads the Notification library
-	Universal.Librarys.customcommands = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Other/CustomCommandsV2.lua")) --// loads the CustomCommands library
-	Universal.Librarys.antilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/AntiLag.lua")) --// loads the AntiLag script
-	Universal.Librarys.ultraantilag = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/Lag/BetterAntiLag.lua")) --// loads the UltraAntiLag script
+	local githubMain = "https://raw.githubusercontent.com/NotRllyRn/Universal-loader/main/"
 
-	function libraryLoad(name, ...) --// function that loads the a library with the name you pass
+	Universal.Librarys.kavo = loadstring(game:HttpGet(githubMain .. "GUILibs/Kavo.lua")) --// loads the Kavo library
+	Universal.Librarys.notification = loadstring(game:HttpGet(githubMain .. "GUILibs/Notification.lua")) --// loads the Notification library
+	Universal.Librarys.customcommands = loadstring(game:HttpGet(githubMain .. "Other/CustomCommandsV2.lua")) --// loads the CustomCommands library
+	Universal.Librarys.antilag = loadstring(game:HttpGet(githubMain .. "Lag/AntiLag.lua")) --// loads the AntiLag script
+	Universal.Librarys.ultraantilag = loadstring(game:HttpGet(githubMain .. "Lag/BetterAntiLag.lua")) --// loads the UltraAntiLag script
+
+	ggv.libraryLoad = function(name, ...) --// function that loads the a library with the name you pass
 		local name = name and tostring(name) and tostring(name):lower() --// makes sure name is a string
 		if not name then
 			return nil
@@ -75,7 +78,7 @@ local success, uni_table = pcall(function(...)
 	mathseed = tick() --// sets mathseed
 	math.randomseed(mathseed) --// sets randomseed to mathseed
 
-	function copyOver(from, to) --// function that copies from one table to another
+	ggv.copyOver = function(from, to) --// function that copies from one table to another
 		local to = to or {}
 		if from and to and type(from) == "table" and type(to) == "table" then --// checks if the tables are valid
 			for index, value in pairs(from) do --// loops through the table
@@ -90,7 +93,7 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	function discordWebSend(URL, data) --// send webhook data to a discord webhook
+	ggv.sendWebhook = function(URL, data) --// send webhook data to a discord webhook
 		local URL = URL and type(URL) == "string" and URL or nil
 		if data and type(data) == "table" and URL then -- checks if the data is a table and the URL is a string
 			local content = JSONEncode(data) --// encodes the data into json
@@ -107,7 +110,7 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	function formatTime(tick) --// formats a tick to a readable time in the format of days:hours:minutes:seconds
+	ggv.formatTime = function(tick) --// formats a tick to a readable time in the format of days:hours:minutes:seconds
 		local tick = tick and tonumber(tick) --// makes sure tick is a number
 		if not tick then
 			return nil
@@ -124,30 +127,30 @@ local success, uni_table = pcall(function(...)
 		game.Loaded:Wait() --// waits until game is loaded
 	end
 
-	httpService = game:GetService("HttpService") --// gets all the services that are useful
-	virtualUser = game:GetService("VirtualUser")
-	tweenService = game:GetService("TweenService")
-	userInput = game:GetService("UserInputService")
-	runService = game:GetService("RunService")
-	contextAS = game:GetService("ContextActionService")
-	virtualIM = game:GetService("VirtualInputManager")
-	replicatedS = game:GetService("ReplicatedStorage")
-	TPService = game:GetService("TeleportService")
-	PhyService = game:GetService("PhysicsService")
-	httpAPI = game:GetService('HttpRbxApiService')
-	starterGui = game:GetService("StarterGui")
+	ggv.httpService = game:GetService("HttpService") --// gets all the services that are useful
+	ggv.virtualUser = game:GetService("VirtualUser")
+	ggv.tweenService = game:GetService("TweenService")
+	ggv.userInput = game:GetService("UserInputService")
+	ggv.runService = game:GetService("RunService")
+	ggv.contextAS = game:GetService("ContextActionService")
+	ggv.virtualIM = game:GetService("VirtualInputManager")
+	ggv.replicatedS = game:GetService("ReplicatedStorage")
+	ggv.TPService = game:GetService("TeleportService")
+	ggv.PhyService = game:GetService("PhysicsService")
+	ggv.httpAPI = game:GetService('HttpRbxApiService')
+	ggv.starterGui = game:GetService("StarterGui")
 
-	JSONDecode = function(...) --// decodes json function for easier use
+	ggv.JSONDecode = function(...) --// decodes json function for easier use
 		return (httpService:JSONDecode(...))
 	end
-	JSONEncode = function(...) --// encodes json function for easier use
+	ggv.JSONEncode = function(...) --// encodes json function for easier use
 		return (httpService:JSONEncode(...))
 	end
 
-	renderS = runService.RenderStepped --// gets the renderstepped event
-	heartS = runService.Heartbeat --// gets the heartbeat event
+	ggv.renderS = runService.RenderStepped --// gets the renderstepped event
+	ggv.heartS = runService.Heartbeat --// gets the heartbeat event
 
-	workspace = game:GetService("Workspace") --// gets the workspace
+	ggv.workspace = game:GetService("Workspace") --// gets the workspace
 
 	local defaultTable = { --// the save table for Universal Loader
 		Date = os.date("!*t"), --// makes a date table
@@ -156,7 +159,7 @@ local success, uni_table = pcall(function(...)
 	Universal.SaveTable = {} --// makes the input table for loading the script
 
 	local compare_save
-	function compare_save(t1, t2) --// functions that compare the 2nd table to the 1st table and fills in the missing values
+	compare_save = function(t1, t2) --// functions that compare the 2nd table to the 1st table and fills in the missing values
 		for i, v in pairs(t1) do --// loops through the 1st table
 			if v and not t2[i] then --// checks if the value is valid and is not in the 2nd table
 				if type(v) == 'table' then --// checks if the value is a table
@@ -189,11 +192,11 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	function fastWait(n) --// function that waits for 1 frame render
+	ggv.fastWait = function(n) --// function that waits for 1 frame render
 		heartS:Wait()
 	end
 
-	function genName(len) --// function that generates a random string of characters and letters and numbers using string.char
+	ggv.randomString = function(len) --// function that generates a random string of characters and letters and numbers using string.char
 		local len = len and tonumber(len) or math.random(5, 10) --// makes sure len is a number
 		local str = "" --// makes a string
 		for _ = 1, len do --// loops the lenght of requested string
@@ -203,7 +206,7 @@ local success, uni_table = pcall(function(...)
 		return str --// returns the string
 	end
 
-	function castRay(start, direct, distance, list, type1, id) --// casts a ray and returns it
+	ggv.castRay = function(start, direct, distance, list, type1, id) --// casts a ray and returns it
 		local start = start and type(start) == "vector" and start --// checks if start is a vector
 		local direct = direct and (type(direct) == "vector") and direct --// checks if direct is a vector
 		if not start or not direct then
@@ -231,11 +234,11 @@ local success, uni_table = pcall(function(...)
 		return nil
 	end
 
-	function cWrap(functioN) --// wraps a function in a coroutine
+	ggv.cWrap = function(functioN) --// wraps a function in a coroutine
 		return coroutine.resume(coroutine.create(functioN))
 	end
 
-	function cButton(indeX) --// clicks on a gui button
+	ggv.cButton = function(indeX) --// clicks on a gui button
 		for _, v in pairs(getconnections(indeX.MouseButton1Click)) do --// gets the connections of MouseButton1Click for the button
 			v:Function() --// fires any connections it finds
 		end
@@ -247,7 +250,7 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	function fireTouch(root, target, waitVal) --// function to call firetouchinterest on an object
+	ggv.fireTouch = function(root, target, waitVal) --// function to call firetouchinterest on an object
 		if root and target then --// checks if root and target exist
 			firetouchinterest(root, target, 0) --// touches target
 			if waitVal then --// checks if the function needs to wait
@@ -257,7 +260,7 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	function tweenPart(speed, root, pos, anchored) --// tweens a part somewhere
+	ggv.tweenPart = function(speed, root, pos, anchored) --// tweens a part somewhere
 		local pos = (pos and pos.Position) or (pos and (type(pos) == "vector") and pos) --// tries to set pos to something true
 		local speed = speed and tonumber(speed)
 		if not speed or not root or not root.CFrame or not pos then
@@ -285,11 +288,11 @@ local success, uni_table = pcall(function(...)
 
 	Universal.charLoading = true --// sets char loading to true to start loading the characters
 
-	players = game:GetService("Players") --// gets players
-	localPlayer = players.LocalPlayer --// gets localplayer
-	mouse = localPlayer:GetMouse() --// gets the mouse
-	playerGui = localPlayer:WaitForChild("PlayerGui") --// gets player's gui
-	camera = workspace.CurrentCamera --// gets current camera
+	ggv.players = game:GetService("Players") --// gets players
+	ggv.localPlayer = players.LocalPlayer --// gets localplayer
+	ggv.mouse = localPlayer:GetMouse() --// gets the mouse
+	ggv.playerGui = localPlayer:WaitForChild("PlayerGui") --// gets player's gui
+	ggv.camera = workspace.CurrentCamera --// gets current camera
 
 	cWrap(function() --// encapsulates so that it doesn't hold up the script
 		if localPlayer:HasAppearanceLoaded() then --// checks if player appearence has loaded
@@ -305,18 +308,16 @@ local success, uni_table = pcall(function(...)
 			character = localPlayer.Character
 		end
 
-		humanoidRP = character:FindFirstChild("HumanoidRootPart") --// gets humanoid root part
-		humanoid = character:FindFirstChild("Humanoid") --// gets humanoid of localplayer
+		ggv.humanoidRP = character:FindFirstChild("HumanoidRootPart") --// gets humanoid root part
+		ggv.humanoid = character:FindFirstChild("Humanoid") --// gets humanoid of localplayer
 
-		Universal.Connections.ChildAddedConnect = character.ChildAdded:Connect(
-			function(child) --// creates a hook that will check for new humanoid or humanoid root parts
-				if child:IsA("Humanoid") then --// checks if child is a humanoid
-					humanoid = child
-				elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
-					humanoidRP = child
-				end
+		Universal.Connections.ChildAddedConnect = character.ChildAdded:Connect(function(child) --// creates a hook that will check for new humanoid or humanoid root parts
+			if child:IsA("Humanoid") then --// checks if child is a humanoid
+				ggv.humanoid = child
+			elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
+				ggv.humanoidRP = child
 			end
-		)
+		end)
 	
 		Universal.Tables.onCharacterLoaded_table = {} --// creates a table for onCharacterLoaded
 		Universal.Connections.CharacterAdded = localPlayer.CharacterAdded:Connect(function(char) --// connects to character added event
@@ -346,16 +347,16 @@ local success, uni_table = pcall(function(...)
 				Universal.Connections.ChildAddedConnect = nil
 			end
 	
-			character = char --// sets character to the character that was added
-			humanoidRP = character:FindFirstChild("HumanoidRootPart") --// finds humanoid root part
-			humanoid = character:FindFirstChild("Humanoid") --// finds humanoid
-			camera = workspace.CurrentCamera --// finds current camera
+			ggv.character = char --// sets character to the character that was added
+			ggv.humanoidRP = character:FindFirstChild("HumanoidRootPart") --// finds humanoid root part
+			ggv.humanoid = character:FindFirstChild("Humanoid") --// finds humanoid
+			ggv.camera = workspace.CurrentCamera --// finds current camera
 	
 			Universal.Connections.ChildAddedConnect = character.ChildAdded:Connect(function(child) --// connects to child added event
 				if child:IsA("Humanoid") then --// checks if child is a humanoid
-					humanoid = child
+					ggv.humanoid = child
 				elseif child.Name == "HumanoidRootPart" then --// checks if child is humanoid root part
-					humanoidRP = child
+					ggv.humanoidRP = child
 				end
 			end)
 	
@@ -365,7 +366,7 @@ local success, uni_table = pcall(function(...)
 		Universal.charLoading = false
 	end)
 
-	function waitForCharLoad() --// waits for character to load
+	ggv.waitForCharLoad = function() --// waits for character to load
 		while Universal.charLoading do --// checks if character is loading
 			task.wait() --// waits for character to load
 		end
@@ -423,7 +424,7 @@ local success, uni_table = pcall(function(...)
 		return nil
 	end
 
-	function join(id) --// joins a game using the gameid
+	ggv.join = function(id) --// joins a game using the gameid
 		local id = id and tonumber(id) --// converts id to a number
 
 		if id then
@@ -431,7 +432,7 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	function rejoin() --// function that rejoins the current game
+	ggv.rejoin = function() --// function that rejoins the current game
 		if #players:GetPlayers() > 1 then --// checks if there is more than 1 player in the current server
 			TPService:TeleportToPlaceInstance(game.PlaceId, game.JobId, localPlayer) --// teleports to the same game with the same job id which is a specific server
 		else
@@ -439,7 +440,7 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	function serverHop(id) --// function that serverhops the same game
+	ggv.serverHop = function(id) --// function that serverhops the same game
 		local GameID = (id and tostring(id)) or tostring(game.PlaceId) --// gets game id of game
 		local JobID = tostring(game.JobId) --// gets jobid of game
 		local CHour = os.date("!*t").hour --// get the current hour
@@ -503,7 +504,7 @@ local success, uni_table = pcall(function(...)
 		return Trigger() --// calls the function to start the serverhop
 	end
 
-	function checkGame(id, leave, err) --// function that checks if current game is the same as the game that is being checked
+	ggv.checkGame = function(id, leave, err) --// function that checks if current game is the same as the game that is being checked
 		local id = id and tonumber(id) --// makes sure the id is a number
 		if not id then
 			return nil
@@ -524,7 +525,7 @@ local success, uni_table = pcall(function(...)
 		return true --// returns true if the game is the same
 	end
 
-	function idleAfk(val) --// function that prevents player from being kicked when idled
+	ggv.idleAfk = function(val) --// function that prevents player from being kicked when idled
 		local val = val
 		if val == nil or not (type(val) == "boolean") then --// checks if val is a boolean
 			val = true
@@ -543,7 +544,7 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	function sendNotification(title, text, time_1, func, bn1, bn2) --// function that sends a notification
+	ggv.sendNotification = function(title, text, time_1, func, bn1, bn2) --// function that sends a notification
 		if not title or not tostring(title) or not text or not tostring(text) then
 			return nil
 		end --// makes sure title and text are not nil
@@ -560,7 +561,7 @@ local success, uni_table = pcall(function(...)
 	end
 
 	Universal.Tables.OnLeave_table = {} --// creates a table to store functions that are called when player leaves a server
-	function onLeave(func)
+	ggv.onLeave = function(func)
 		if not func or not (type(func) == 'function') then
 			return nil
 		end --// makes sure func is a function
