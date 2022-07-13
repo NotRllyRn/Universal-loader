@@ -2,7 +2,7 @@
 
     Mediorce ESP library
 
-    By NotRllyRn <3
+    By NotRllyRn <3>
 
 ]]
 
