@@ -274,7 +274,7 @@ local success, uni_table = pcall(function(...)
 		end
 		local tween = tweenService:Create( --// creates the tween
 			root,
-			TweenInfo.new((root.Position - pos).magnitude / speed), --// calculates the time to tween
+			TweenInfo.new((root.Position - pos).magnitude / speed, Enum.EasingStyle.Linear), --// calculates the time to tween
 			{
 				Position = pos, --// sets the position to the specified position
 			}
