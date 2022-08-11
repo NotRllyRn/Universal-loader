@@ -574,7 +574,9 @@ local success, uni_table = pcall(function(...)
 			return 
 		end
 
-		table.insert(Universal.Tables.OnSpecificLeave, {plr = plr, func = func})
+		local data = {plr = plr, func = func}
+		table.insert(Universal.Tables.OnSpecificLeave, data)
+		return data
 	end
 
 	players.PlayerRemoving:Connect(function(plr) --// connects to player removing event
