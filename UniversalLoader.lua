@@ -568,7 +568,28 @@ local success, uni_table = pcall(function(...)
 		table.insert(Universal.Tables.OnLeave_table, func) --// inserts the function into the table
 	end
 
+	Universal.Tables.OnSpecificLeave = {} -- // creates a table to store the functions
+	ggv.onSpecificLeave = function(plr, func) -- // a function that will take in another func that will fire if the plr provided leaves the game
+		if not plr or not func or typeof(plr) ~= "Instance" or not plr:IsA("Player") or type(func) ~= "function" then -- // makes sure it wont error if you enter in random things
+			return 
+		end
+
+		table.insert(Universal.Tables.OnSpecificLeave, {plr = plr, func = func})
+	end
+
 	players.PlayerRemoving:Connect(function(plr) --// connects to player removing event
+		cWrap(function()
+			for _, data in ipairs(Universal.Tables.OnSpecificLeave) do -- // loops through the table
+				if plr == data.plr then
+					pcall(function() -- // pcall so it won't error and also the line above checks if its the valid data
+						cWrap(function()
+							data.func() -- // runs the function in a seperate thread
+						end)
+					end)
+				end
+			end
+		end)
+
 		if plr == localPlayer then --// checks if player is local player
 			cWrap(function()
 				local Encoded = JSONEncode(Universal.SaveTable)
@@ -576,8 +597,10 @@ local success, uni_table = pcall(function(...)
 			end)
 
 			for _, func in ipairs(Universal.Tables.OnLeave_table) do --// loops through all functions in the table
-				cWrap(function() --// wraps function in a coroutine
-					func() --// calls the function
+				pcall(function() -- // wraps it in a pcall incase it errors
+					cWrap(function() --// wraps function in a coroutine
+						func() --// calls the function
+					end)
 				end)
 			end
 		end
