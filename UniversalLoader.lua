@@ -11,7 +11,8 @@ local success, uni_table = pcall(function(...)
 	local Universal = {}
 	local Incoming = {...} --// for incoming input
 	local ggv = getgenv()
- 
+
+	if ggv.ExploitCheck then return end -- // quick check to see if universal is already loaded
 	ggv.ExploitCheck = function(name, ...) --// checks if the executor has a function
 		local found
 		for _, v in pairs({ ... }) do --// go's trhough list of functions
