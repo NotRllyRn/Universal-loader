@@ -96,6 +96,19 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
+	ggv.clearConnections = function(t) -- // loops through a provided table and removes and disconnects connections
+		if t and type(t) == "table" then --// checks if the table is valid
+			for index, connection in pairs(t) do --// loops through the table
+				if typeof(connection) == "RBXScriptSignal" then --// checks if the connection is a valid signal and checks if its still connected
+					if connection.Connected then -- // if the connection is connected
+						connection:Disconnect() --// disconnects the connection
+					end
+					t[index] = nil --// removes the connection from the table
+				end
+			end
+		end
+	end
+
 	ggv.sendWebhook = function(URL, data) --// send webhook data to a discord webhook
 		local URL = URL and type(URL) == "string" and URL or nil
 		if data and type(data) == "table" and URL then -- checks if the data is a table and the URL is a string
