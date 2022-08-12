@@ -296,6 +296,8 @@ local success, uni_table = pcall(function(...)
 	ggv.camera = workspace.CurrentCamera --// gets current camera
 
 	cWrap(function() --// encapsulates so that it doesn't hold up the script
+		ggv.character = localPlayer.Character --// gets the character
+
 		if localPlayer:HasAppearanceLoaded() then --// checks if player appearence has loaded
 			character = localPlayer.Character --// sets character to player character
 		else
