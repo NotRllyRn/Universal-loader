@@ -12,7 +12,6 @@ local success, uni_table = pcall(function(...)
 	local Incoming = {...} --// for incoming input
 	local ggv = getgenv()
 
-	if ggv.ExploitCheck then return end -- // quick check to see if universal is already loaded
 	ggv.ExploitCheck = function(name, ...) --// checks if the executor has a function
 		local found
 		for _, v in pairs({ ... }) do --// go's trhough list of functions
@@ -297,19 +296,21 @@ local success, uni_table = pcall(function(...)
 
 	cWrap(function() --// encapsulates so that it doesn't hold up the script
 		ggv.character = localPlayer.Character --// gets the character
+		ggv.localCharacterReady = function()
+			character = localPlayer.Character
+			return character and character:FindFirstChild("HumanoidRootPart") and character:FindFirstChild("Head") and character:FindFirstChild("Humanoid")
+		end
 
-		if localPlayer:HasAppearanceLoaded() then --// checks if player appearence has loaded
-			character = localPlayer.Character --// sets character to player character
-		else
+		if not localCharacterReady then
 			repeat
 				fastWait() --// waits until character appearence is loaded
-			until localPlayer:HasAppearanceLoaded()
-			character = localPlayer.Character
+			until localCharacterReady()
 		end
 		while not character do
 			fastWait()
 			character = localPlayer.Character
 		end
+
 
 		ggv.humanoidRP = character:FindFirstChild("HumanoidRootPart") --// gets humanoid root part
 		ggv.humanoid = character:FindFirstChild("Humanoid") --// gets humanoid of localplayer
@@ -321,7 +322,7 @@ local success, uni_table = pcall(function(...)
 				ggv.humanoidRP = child
 			end
 		end)
-	
+
 		Universal.Tables.onCharacterLoaded_table = {} --// creates a table for onCharacterLoaded
 		Universal.Connections.CharacterAdded = localPlayer.CharacterAdded:Connect(function(char) --// connects to character added event
 			Universal.charLoading = true --// sets loading to true while character loading is happening
@@ -362,7 +363,7 @@ local success, uni_table = pcall(function(...)
 					ggv.humanoidRP = child
 				end
 			end)
-	
+
 			Universal.charLoading = false --// sets loading to false
 		end)
 
