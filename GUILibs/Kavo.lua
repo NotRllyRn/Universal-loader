@@ -1193,7 +1193,7 @@ function Kavo.CreateLib(kavName, themeList)
                         end
                     end)
                     function TogFunction:UpdateToggle(newText, isTogOn)
-                        isTogOn = isTogOn or toggle
+                        print("Updating toggle")
                         if newText ~= nil then 
                             togName.Text = newText
                         end
@@ -1203,7 +1203,7 @@ function Kavo.CreateLib(kavName, themeList)
                                 ImageTransparency = 0
                             }):Play()
                             pcall(callback, toggled)
-                        else
+                        elseif isTogOn ~= nil then
                             toggled = false
                             game.TweenService:Create(img, TweenInfo.new(0.11, Enum.EasingStyle.Linear,Enum.EasingDirection.In), {
                                 ImageTransparency = 1
