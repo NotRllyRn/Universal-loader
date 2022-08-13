@@ -155,6 +155,7 @@ local success, uni_table = pcall(function(...)
 	ggv.PhyService = game:GetService("PhysicsService")
 	ggv.httpAPI = game:GetService('HttpRbxApiService')
 	ggv.starterGui = game:GetService("StarterGui")
+	ggv.lightingService = game:GetService("Lighting")
 
 	ggv.JSONDecode = function(...) --// decodes json function for easier use
 		return (httpService:JSONDecode(...))
