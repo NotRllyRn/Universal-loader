@@ -1193,7 +1193,6 @@ function Kavo.CreateLib(kavName, themeList)
                         end
                     end)
                     function TogFunction:UpdateToggle(newText, isTogOn)
-                        print("Updating toggle")
                         if newText ~= nil then 
                             togName.Text = newText
                         end
