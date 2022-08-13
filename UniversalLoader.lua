@@ -98,12 +98,17 @@ local success, uni_table = pcall(function(...)
 
 	ggv.clearConnections = function(t) -- // loops through a provided table and removes and disconnects connections
 		if t and type(t) == "table" then --// checks if the table is valid
+			print("starting")
 			for index, connection in pairs(t) do --// loops through the table
+				print(typeof(connection))
 				if typeof(connection) == "RBXScriptSignal" then --// checks if the connection is a valid signal and checks if its still connected
+					print("is a connection")
 					if connection.Connected then -- // if the connection is connected
 						connection:Disconnect() --// disconnects the connection
+						print('disconnected')
 					end
 					t[index] = nil --// removes the connection from the table
+					print("REMOVED")
 				end
 			end
 		end
