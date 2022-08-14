@@ -393,7 +393,7 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	function getPoint(target, pass) --// gets the point on the screen of a position in game
+	ggv.getPoint = function(target, pass) --// gets the point on the screen of a position in game
 		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil --// sets target to something value
 		if not target then
 			return
@@ -406,7 +406,7 @@ local success, uni_table = pcall(function(...)
 		return nil
 	end
 
-	function DrawToTarget(target, Color_1, Thick) --// draws a line to a target
+	ggv.DrawToTarget = function(target, Color_1, Thick) --// draws a line to a target
 		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil --// tries to set target to something
 		if not target then
 			return
@@ -426,7 +426,7 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	function DrawText(Text_1, Point, Color_1, Thick) --// draws a text at point
+	ggv.DrawText = function(Text_1, Point, Color_1, Thick) --// draws a text at point
 		local Text_1 = Text_1 and tostring(Text_1) --// sets text to something
 		local Point = Point and Point.X and Point.Y and Vector2.new(Point.X, Point.Y) --// sets point to something
 		
