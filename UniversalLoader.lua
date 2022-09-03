@@ -78,9 +78,6 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
-	mathseed = tick() --// sets mathseed
-	math.randomseed(mathseed) --// sets randomseed to mathseed
-
 	ggv.copyOver = function(from, to) --// function that copies from one table to another
 		local to = to or {}
 		if from and to and type(from) == "table" and type(to) == "table" then --// checks if the tables are valid
@@ -105,23 +102,6 @@ local success, uni_table = pcall(function(...)
 					end
 					t[index] = nil --// removes the connection from the table
 				end
-			end
-		end
-	end
-
-	ggv.sendWebhook = function(URL, data) --// send webhook data to a discord webhook
-		local URL = URL and type(URL) == "string" and URL or nil
-		if data and type(data) == "table" and URL then -- checks if the data is a table and the URL is a string
-			local content = JSONEncode(data) --// encodes the data into json
-			if content then --// checks if the content was successfully convereted into json
-				return httpRequest({ --// sends the request
-					Url = URL, --// sets the url
-					Method = "POST", --// sets the method to post
-					Body = content, --// sets the body to the content
-					Headers = { 
-						["Content-Type"] = "application/json", --// sets the content type to json to accept json data
-					},
-				})
 			end
 		end
 	end
@@ -162,6 +142,23 @@ local success, uni_table = pcall(function(...)
 	end
 	ggv.JSONEncode = function(...) --// encodes json function for easier use
 		return (httpService:JSONEncode(...))
+	end
+
+	ggv.sendWebhook = function(URL, data) --// send webhook data to a discord webhook
+		local URL = URL and type(URL) == "string" and URL or nil
+		if data and type(data) == "table" and URL then -- checks if the data is a table and the URL is a string
+			local content = JSONEncode(data) --// encodes the data into json
+			if content then --// checks if the content was successfully convereted into json
+				return httpRequest({ --// sends the request
+					Url = URL, --// sets the url
+					Method = "POST", --// sets the method to post
+					Body = content, --// sets the body to the content
+					Headers = { 
+						["Content-Type"] = "application/json", --// sets the content type to json to accept json data
+					},
+				})
+			end
+		end
 	end
 
 	ggv.renderS = runService.RenderStepped --// gets the renderstepped event

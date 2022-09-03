@@ -1,0 +1,27 @@
+{
+    "robloxLsp.diagnostics.globals": [
+        "ExploitCheck",
+        "getrawmetatable",
+        "getnamecallmethod",
+        "request",
+        "http_request",
+        "firetouchinterest",
+        "writefile",
+        "syn",
+        "isfile",
+        "readfile",
+        "makefolder",
+        "delfolder",
+        "delfile",
+        "isfolder",
+        "setclipboard",
+        "fireproximityprompt",
+        "gethui",
+        "getgenv",
+        "copyOver",
+        "httpRequest",
+        "httpService",
+        "runService",
+        "JSONEncode"
+    ]
+}
