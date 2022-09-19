@@ -23,6 +23,8 @@
         "httpService",
         "runService",
         "JSONEncode",
-        "camera"
+        "camera",
+        "getPoint",
+        "Drawing"
     ]
 }
