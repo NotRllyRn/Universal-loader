@@ -25,6 +25,19 @@
         "JSONEncode",
         "camera",
         "getPoint",
-        "Drawing"
+        "Drawing",
+        "getconnections",
+        "fastWait",
+        "JSONDecode",
+        "heartS",
+        "tweenService",
+        "players",
+        "localPlayer",
+        "localCharacterReady",
+        "cWrap",
+        "TPService",
+        "join",
+        "virtualUser",
+        "starterGui"
     ]
 }

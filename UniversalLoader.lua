@@ -516,7 +516,7 @@ local success, uni_table = pcall(function(...)
 			end
 		end
 		TPService.TeleportInitFailed:Connect(function() --// connects to teleport init failed event
-			wait(2)
+			task.wait(2)
 			Trigger() --// calls the function again if teleport init failed
 		end)
 		return Trigger() --// calls the function to start the serverhop
@@ -551,7 +551,7 @@ local success, uni_table = pcall(function(...)
 		if val and not Universal.Tables.idleConnection then --// checks if val is true and if idle connection does not exist
 			Universal.Tables.idleConnection = localPlayer.Idled:Connect(function() --// connects to idled event
 				virtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-				wait(1)
+				task.wait(1)
 				virtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
 			end) --// clicks virtual button to prevent idle afk
 		elseif not val and Universal.Tables.idleConnection then --// checks if val is false and if idle connection does exist
