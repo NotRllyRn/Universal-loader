@@ -22,6 +22,7 @@
         "httpRequest",
         "httpService",
         "runService",
-        "JSONEncode"
+        "JSONEncode",
+        "camera"
     ]
 }

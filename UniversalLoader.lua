@@ -391,7 +391,7 @@ local success, uni_table = pcall(function(...)
 	end
 
 	ggv.getPoint = function(target, pass) --// gets the point on the screen of a position in game
-		local target = (target and (type(target) == "vector") and target) or (target and target.Position) or nil --// sets target to something value
+		target = (target and (typeof(target) == "Vector3") and target) or (target and target.Position) or nil --// sets target to something value
 		if not target then
 			return
 		end --// returns if target is nil
