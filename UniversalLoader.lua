@@ -390,6 +390,13 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
+	ggv.leftMouseClick = function(times) --// clicks the left mouse button a specified amount of times
+		for i = 1, times or 1 do
+			virtualIM:SendMouseButtonEvent(mouse.X, mouse.Y, 0, true, game, i)
+			virtualIM:SendMouseButtonEvent(mouse.X, mouse.Y, 0, false, game, i)
+		end
+	end
+
 	ggv.getPoint = function(target, pass) --// gets the point on the screen of a position in game
 		target = (target and (typeof(target) == "Vector3") and target) or (target and target.Position) or nil --// sets target to something value
 		if not target then

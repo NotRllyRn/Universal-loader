@@ -38,6 +38,8 @@
         "TPService",
         "join",
         "virtualUser",
-        "starterGui"
+        "starterGui",
+        "virtualIM",
+        "mouse"
     ]
 }
