@@ -296,7 +296,7 @@ local success, uni_table = pcall(function(...)
 		)
 		tween:Play() --// plays the tween
 		tween.Completed:Wait() --// waits for the tween to complete
-		if not (ab == nil) then --// checks if we need to reset anchor
+		if ab ~= nil then --// checks if we need to reset anchor
 			root.Anchored = ab
 		end
 	end
