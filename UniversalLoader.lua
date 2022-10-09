@@ -49,6 +49,7 @@ local success, uni_table = pcall(function(...)
 		syn.protect_gui(v) --// protects gui with Synapse's method
 		v.Parent = parent --// sets the parent.
 	end)
+	ExploitCheck("getprops", getprops)
 	
 	Universal.Connections = {} --// makes the connections table
 	Universal.Tables = {} --// makes the tables table
@@ -300,6 +301,30 @@ local success, uni_table = pcall(function(...)
 		end
 	end
 
+	ggv.newInstance = function(classname, properties, parent) --// creates a new instance with classname and also lets you define a list of properties to set
+		--// creates a new instance with pcall to prevent errors
+		local instance = pcall(function()
+			return Instance.new(classname)
+		end)
+		--// checks if the instance was created
+		if instance then
+			--// gets the properties of the instance
+			local props = getprops(instance)
+			for i, v in pairs(properties) do
+				--// check if each requested property change is valid
+				if props[i] ~= nil then
+					instance[i] = v
+				end
+			end
+
+			--// sets the parent of the instance
+			if parent then
+				instance.Parent = parent
+			end
+			return instance
+		end
+	end
+
 	Universal.charLoading = true --// sets char loading to true to start loading the characters
 
 	ggv.players = game:GetService("Players") --// gets players
@@ -392,6 +417,7 @@ local success, uni_table = pcall(function(...)
 
 	ggv.leftMouseClick = function(times) --// clicks the left mouse button a specified amount of times
 		for i = 1, times or 1 do
+			--// uses the virtual input manager to send a fake mouse click event
 			virtualIM:SendMouseButtonEvent(mouse.X, mouse.Y, 0, true, game, i)
 			virtualIM:SendMouseButtonEvent(mouse.X, mouse.Y, 0, false, game, i)
 		end

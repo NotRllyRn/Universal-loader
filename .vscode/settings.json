@@ -40,6 +40,7 @@
         "virtualUser",
         "starterGui",
         "virtualIM",
-        "mouse"
+        "mouse",
+        "getprops"
     ]
 }
