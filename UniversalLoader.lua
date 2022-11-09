@@ -61,6 +61,7 @@ local success, uni_table = pcall(function(...)
 	Universal.Librarys.customcommands = loadstring(game:HttpGet(githubMain .. "Other/CustomCommandsV2.lua")) --// loads the CustomCommands library
 	Universal.Librarys.antilag = loadstring(game:HttpGet(githubMain .. "Lag/AntiLag.lua")) --// loads the AntiLag script
 	Universal.Librarys.ultraantilag = loadstring(game:HttpGet(githubMain .. "Lag/BetterAntiLag.lua")) --// loads the UltraAntiLag script
+	Universal.Librarys.Rodux = loadstring(game:HttpGet(githubMain .. "Helpful/Rodux.lua")) --// loads the Rodux library (for state management)
 
 	ggv.libraryLoad = function(name, ...) --// function that loads the a library with the name you pass
 		local name = name and tostring(name) and tostring(name):lower() --// makes sure name is a string
